@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway:400,500');
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,500");
 * {
   margin: 0;
   padding: 0;
@@ -11,42 +11,30 @@ div {
   z-index: 2;
 }
 
-
 body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: 400;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
+
 .footer {
   text-align: center;
   display: block;
-  width: 550px;
   margin: 15px auto 30px auto;
   font-size: 0.8em;
   color: #fff;
-  a {
-    font-weight: 500;
-    text-decoration: none;
-    color: #fff;
-  }
 }
-
-h1 {
-  top-margin: 40px;
-  text-align: center;
-  width: 600px;
-  height: auto;
-  clear: both;
+.footer a {
   font-weight: 500;
-  font-size: 2.00em;
-  -webkit-text-stroke: 0.75px black;
+  text-decoration: none;
+  color: #fff;
 }
 
 #quote-box {
@@ -56,61 +44,60 @@ h1 {
   padding: 40px 50px;
   display: table;
   background-color: rgba(255, 255, 255, 0.4);
-  .quote-text {
-    i {
-      font-size: 1em;
-      margin-right: 0.4em;
-    }
-    text-align: center;
-    width: 450px;
-    height: auto;
-    clear: both;
-    font-weight: 500;
-    font-size: 2.00em;
-    -webkit-text-stroke: 0.75px black;
-  }
-  .quote-author {
-    -webkit-text-stroke: 0.5px black;
-    width: 450px;
-    height: auto;
-    clear: both;
-    padding-top: 20px;
-    font-size: 1.25em;
-    text-align: right;
-  }
-  .buttons {
-    width: 450px;
-    margin: auto;
-    display: block;
-    .button {
-      height: 38px;
-      border: none;
-      border-radius: 3px;
-      color: #fff;
-      background-color: #333;
-      outline: none;
-      font-size: 0.85em;
-      padding: 8px 18px 6px 18px;
-      margin-top: 30px;
-      opacity: 1;
-      cursor: pointer;
-      &:hover {
-        opacity: 0.9;
-      }
-      &#tweet-quote,
-      &#tumblr-quote {
-        float: left;
-        padding: 0px;
-        padding-top: 8px;
-        text-align: center;
-        font-size: 1.2em;
-        margin-right: 5px;
-        height: 30px;
-        width: 40px;
-      }
-      &#new-quote {
-        float: right;
-      }
-    }
-  }
+}
+#quote-box .quote-text {
+  text-align: center;
+  width: 450px;
+  height: auto;
+  clear: both;
+  font-weight: 500;
+  font-size: 2em;
+  -webkit-text-stroke: 0.75px black;
+}
+#quote-box .quote-text i {
+  font-size: 1em;
+  margin-right: 0.4em;
+}
+#quote-box .quote-author {
+  -webkit-text-stroke: 0.5px black;
+  width: 450px;
+  height: auto;
+  clear: both;
+  padding-top: 20px;
+  font-size: 1.25em;
+  text-align: right;
+}
+#quote-box .buttons {
+  width: 450px;
+  margin: auto;
+  display: block;
+}
+#quote-box .buttons .button {
+  height: 38px;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  background-color: #333;
+  outline: none;
+  font-size: 0.85em;
+  padding: 8px 18px 6px 18px;
+  margin-top: 30px;
+  opacity: 1;
+  cursor: pointer;
+}
+#quote-box .buttons .button:hover {
+  opacity: 0.9;
+}
+#quote-box .buttons .button#tweet-quote, #quote-box .buttons .button#tumblr-quote {
+  float: left;
+  padding: 0px;
+  padding-top: 8px;
+  text-align: center;
+  font-size: 1.2em;
+  margin-right: 5px;
+  height: 30px;
+  width: 40px;
+}
+#quote-box .buttons .button#new-quote {
+  float: right;
 }
