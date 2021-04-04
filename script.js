@@ -1,4 +1,4 @@
-const projectName = 'random-quote-machine';
+﻿const projectName = 'random-quote-machine';
 let quotesData;
 
 
@@ -25,7 +25,7 @@ function getQuotes() {
     headers: {
       Accept: 'application/json' },
 
-    url: 'https://gist.githubusercontent.com/vladana-perlic/a580c0528d60136a3cfa3fe0ed2c7f0e/raw/e2727e184e216df7deaca658a3b8e573d95a4a4f/quotes.json',
+    url: 'https://gist.githubusercontent.com/vladana-perlic/a580c0528d60136a3cfa3fe0ed2c7f0e/raw/f8136895c5a1283bb1beb2dc9d7ea758027c182b/quotes.json',
     success: function (jsonQuotes) {
       if (typeof jsonQuotes === 'string') {
         quotesData = JSON.parse(jsonQuotes);
