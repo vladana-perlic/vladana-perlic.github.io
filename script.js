@@ -1,4 +1,4 @@
-﻿const projectName = 'random-quote-machine';
+const projectName = 'random-quote-machine';
 let quotesData;
 
 
