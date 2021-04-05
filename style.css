@@ -27,10 +27,8 @@ body {
 .footer {
   text-align: center;
   display: block;
-  width: 550px;
   margin: 15px auto 30px auto;
   font-size: 0.8em;
-  color: #fff;
 }
 .footer a {
   font-weight: 500;
@@ -38,8 +36,13 @@ body {
   color: #fff;
 }
 
+p {
+  color: white;
+}
+
 h1 {
-  top-margin: 40px;
+  padding: 11% 0 0 0;
+  top-margin: 30%;
   text-align: center;
   width: 600px;
   height: auto;

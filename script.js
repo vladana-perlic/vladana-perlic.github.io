@@ -18,29 +18,56 @@ var colors = [
 
 
 var currentQuote = '',
-currentAuthor = '';
+currentAuthor = '',
+indexList = [];
+//lastIndex = -1; //početna vrijednost je -1 zbog prvog prolaska kroz petlju
 
 function getQuotes() {
   return $.ajax({
     headers: {
       Accept: 'application/json' },
 
-    url: 'https://gist.githubusercontent.com/vladana-perlic/a580c0528d60136a3cfa3fe0ed2c7f0e/raw/f8136895c5a1283bb1beb2dc9d7ea758027c182b/quotes.json',
+    url: 'https://gist.githubusercontent.com/vladana-perlic/a580c0528d60136a3cfa3fe0ed2c7f0e/raw/4114ffe59777e6869e5b85a720edea2af7dfeafb/quotes.json',
     success: function (jsonQuotes) {
       if (typeof jsonQuotes === 'string') {
         quotesData = JSON.parse(jsonQuotes);
-        console.log('quotesData');
-        console.log(quotesData);
+        //  console.log('quotesData');
+        //  console.log(quotesData);
       }
     } });
 
 }
 
+/*
 function getRandomQuote() {
-  return quotesData.quotes[
-  Math.floor(Math.random() * quotesData.quotes.length)];
-
+  let currentIndex;
+  do {
+    currentIndex = Math.floor(Math.random() * quotesData.quotes.length);
+  } while (currentIndex === lastIndex); //do while petlja generiše novi currentIndex sve dok je currentIndex jednak lastIndexu. Kad naidje na razlicit izlazi iz petlje i koristi ga.
+  
+  let newNum = quotesData.quotes[currentIndex];
+  lastIndex = currentIndex;
+  
+  return newNum;
 }
+*/
+
+function getRandomQuote() {
+  let currentIndex;
+  do {
+    currentIndex = Math.floor(Math.random() * quotesData.quotes.length);
+  } while (indexList.includes(currentIndex) && quotesData.quotes.length != indexList.length);
+
+  if (indexList.length === quotesData.quotes.length) {
+    indexList = [];
+  }
+
+  let newNum = quotesData.quotes[currentIndex];
+  indexList.push(currentIndex);
+  console.log(indexList);
+  return newNum;
+}
+
 
 function getQuote() {
   let randomQuote = getRandomQuote();
