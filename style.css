@@ -29,6 +29,7 @@ body {
   display: block;
   margin: 15px auto 30px auto;
   font-size: 0.8em;
+  width: 550px;
 }
 .footer a {
   font-weight: 500;
@@ -103,7 +104,7 @@ h1 {
 #quote-box .buttons .button:hover {
   opacity: 0.9;
 }
-#quote-box .buttons .button#tweet-quote, #quote-box .buttons .button#tumblr-quote {
+#quote-box .buttons .button#tweet-quote, #quote-box .buttons .button#facebook-quote, #quote-box .buttons .button#tumblr-quote {
   float: left;
   padding: 0px;
   padding-top: 8px;

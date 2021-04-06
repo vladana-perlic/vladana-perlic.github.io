@@ -76,6 +76,11 @@ function getQuote() {
   currentQuote = randomQuote.quote;
   currentAuthor = randomQuote.author;
 
+  $('#facebook-quote').attr(
+  'href',
+  'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fvladana-perlic.github.io%2F&amp;src=sdkpreparse' +
+  encodeURIComponent('"' + currentQuote + '" ' + currentAuthor));
+
 
   $('#tweet-quote').attr(
   'href',
