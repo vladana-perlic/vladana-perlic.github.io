@@ -1,7 +1,3 @@
-const inputStyle = {};
-
-
-
 class MagicEightBall extends React.Component {
   constructor(props) {
     super(props);
