@@ -1,9 +1,1103 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>My Website</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Vladana Perlić is an Industrial PhD researcher in Generative AI and NLP, and a poet and writer working between English, Serbian, and French.">
+    <title>Vladana Perlić | AI Research, Poetry & Public Science</title>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+    <style>
+        :root {
+            --paper: #fbfbf7;
+            --surface: #ffffff;
+            --ink: #20231f;
+            --muted: #5f6861;
+            --line: #d9dfd8;
+            --teal: #167a7f;
+            --teal-soft: #e8f4f3;
+            --wine: #98324f;
+            --wine-soft: #f8edf1;
+            --moss: #586b2f;
+            --amber: #b77d22;
+            --shadow: 0 20px 60px rgba(31, 36, 33, 0.08);
+            color-scheme: light;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            line-height: 1.6;
+            letter-spacing: 0;
+        }
+
+        a {
+            color: inherit;
+            text-decoration-color: rgba(22, 122, 127, 0.35);
+            text-decoration-thickness: 0.1em;
+            text-underline-offset: 0.2em;
+        }
+
+        a:hover,
+        a:focus-visible {
+            color: var(--teal);
+            text-decoration-color: currentColor;
+        }
+
+        button,
+        input,
+        textarea {
+            font: inherit;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: 1rem;
+            top: -4rem;
+            z-index: 20;
+            padding: 0.75rem 1rem;
+            background: var(--ink);
+            color: var(--surface);
+            border-radius: 6px;
+            transition: top 0.2s ease;
+        }
+
+        .skip-link:focus {
+            top: 1rem;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid rgba(217, 223, 216, 0.9);
+            background: rgba(251, 251, 247, 0.92);
+            backdrop-filter: blur(18px);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            width: min(1120px, calc(100% - 2rem));
+            min-height: 4.25rem;
+            margin: 0 auto;
+        }
+
+        .brand {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 0.05rem;
+            min-width: 9rem;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .brand span:last-child {
+            color: var(--muted);
+            font-size: 0.78rem;
+            font-weight: 650;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.35rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .nav-links a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 2.5rem;
+            padding: 0.35rem 0.7rem;
+            border-radius: 6px;
+            color: var(--muted);
+            font-size: 0.94rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            background: var(--teal-soft);
+            color: var(--teal);
+        }
+
+        .hero {
+            position: relative;
+            display: grid;
+            align-items: center;
+            min-height: 82vh;
+            overflow: hidden;
+            border-bottom: 1px solid var(--line);
+            background: #f7faf6;
+        }
+
+        .hero-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.9;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(251, 251, 247, 0.72);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: min(1120px, calc(100% - 2rem));
+            margin: 0 auto;
+            padding: 5.5rem 0 4.25rem;
+        }
+
+        .eyebrow {
+            margin: 0 0 0.85rem;
+            color: var(--wine);
+            font-size: 0.8rem;
+            font-weight: 850;
+            text-transform: uppercase;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin-top: 0;
+        }
+
+        h1 {
+            max-width: 11ch;
+            margin-bottom: 1rem;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 5.8rem;
+            line-height: 0.94;
+            letter-spacing: 0;
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 2.4rem;
+            line-height: 1.1;
+            letter-spacing: 0;
+        }
+
+        h3 {
+            margin-bottom: 0.55rem;
+            font-size: 1.1rem;
+            line-height: 1.28;
+        }
+
+        .lede {
+            max-width: 46rem;
+            margin-bottom: 1.55rem;
+            color: #343a35;
+            font-size: 1.25rem;
+        }
+
+        .hero-actions,
+        .contact-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            min-height: 2.8rem;
+            padding: 0.68rem 1rem;
+            border: 1px solid var(--ink);
+            border-radius: 6px;
+            background: transparent;
+            color: var(--ink);
+            cursor: pointer;
+            font-weight: 800;
+            line-height: 1.1;
+            text-decoration: none;
+            transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .button:hover,
+        .button:focus-visible {
+            transform: translateY(-1px);
+            color: var(--surface);
+            background: var(--ink);
+            text-decoration: none;
+        }
+
+        .button.primary {
+            border-color: var(--teal);
+            background: var(--teal);
+            color: var(--surface);
+        }
+
+        .button.primary:hover,
+        .button.primary:focus-visible {
+            border-color: #0f575b;
+            background: #0f575b;
+        }
+
+        .button svg {
+            width: 1rem;
+            height: 1rem;
+            flex: 0 0 auto;
+        }
+
+        .signal-list {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1px;
+            width: min(100%, 58rem);
+            margin: 3.25rem 0 0;
+            padding: 0;
+            list-style: none;
+            border: 1px solid var(--line);
+            background: var(--line);
+        }
+
+        .signal-list li {
+            min-height: 6rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.78);
+        }
+
+        .signal-list strong {
+            display: block;
+            color: var(--ink);
+            font-size: 1.8rem;
+            line-height: 1;
+        }
+
+        .signal-list span {
+            display: block;
+            margin-top: 0.45rem;
+            color: var(--muted);
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-inner {
+            width: min(1120px, calc(100% - 2rem));
+            margin: 0 auto;
+        }
+
+        .section-heading {
+            display: grid;
+            grid-template-columns: minmax(0, 0.82fr) minmax(16rem, 0.58fr);
+            gap: 2rem;
+            align-items: end;
+            margin-bottom: 2rem;
+        }
+
+        .section-heading p,
+        .split p,
+        .feature-text p,
+        .contact p {
+            color: var(--muted);
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        .bio-copy {
+            max-width: 42rem;
+            font-size: 1.06rem;
+        }
+
+        .bio-panel {
+            display: grid;
+            grid-template-columns: minmax(12rem, 0.42fr) minmax(0, 1fr);
+            gap: 1.35rem;
+            align-items: start;
+        }
+
+        .portrait {
+            margin: 0;
+        }
+
+        .portrait img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .highlight-list {
+            display: grid;
+            gap: 0.8rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .highlight-list li {
+            padding: 1rem;
+            border: 1px solid var(--line);
+            border-left: 0.35rem solid var(--teal);
+            border-radius: 8px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+        }
+
+        .highlight-list strong {
+            display: block;
+            margin-bottom: 0.18rem;
+        }
+
+        .highlight-list span {
+            color: var(--muted);
+        }
+
+        .band-teal {
+            background: var(--teal-soft);
+            border-block: 1px solid #cce5e2;
+        }
+
+        .band-wine {
+            background: var(--wine-soft);
+            border-block: 1px solid #edd3dc;
+        }
+
+        .feature {
+            display: grid;
+            grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .feature-text {
+            max-width: 38rem;
+        }
+
+        .chapter-grid,
+        .card-grid,
+        .library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+            gap: 1rem;
+        }
+
+        .card,
+        .work-card,
+        .chapter-card {
+            min-height: 100%;
+            padding: 1.15rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+        }
+
+        .card p,
+        .work-card p,
+        .chapter-card p {
+            color: var(--muted);
+        }
+
+        .meta,
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            min-height: 1.75rem;
+            margin-bottom: 0.8rem;
+            padding: 0.15rem 0.5rem;
+            border: 1px solid rgba(22, 122, 127, 0.25);
+            border-radius: 999px;
+            color: var(--teal);
+            font-size: 0.77rem;
+            font-weight: 850;
+            text-transform: uppercase;
+        }
+
+        .tag.poetry,
+        .tag.short-prose {
+            border-color: rgba(152, 50, 79, 0.24);
+            color: var(--wine);
+        }
+
+        .tag.public-science {
+            border-color: rgba(183, 125, 34, 0.3);
+            color: #855914;
+        }
+
+        .tag.translation {
+            border-color: rgba(88, 107, 47, 0.28);
+            color: var(--moss);
+        }
+
+        .timeline {
+            display: grid;
+            gap: 1rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .timeline li {
+            display: grid;
+            grid-template-columns: 7rem minmax(0, 1fr);
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .timeline time {
+            color: var(--moss);
+            font-weight: 850;
+        }
+
+        .timeline p {
+            margin-bottom: 0;
+            color: var(--muted);
+        }
+
+        .award-list {
+            display: grid;
+            gap: 0.65rem;
+            margin: 1rem 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .award-list li {
+            padding-left: 1rem;
+            border-left: 0.25rem solid var(--wine);
+            color: #3c423d;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            margin-bottom: 1.4rem;
+        }
+
+        .filter-button {
+            min-height: 2.35rem;
+            padding: 0.45rem 0.75rem;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: var(--surface);
+            color: var(--muted);
+            cursor: pointer;
+            font-weight: 800;
+        }
+
+        .filter-button:hover,
+        .filter-button:focus-visible,
+        .filter-button.is-active {
+            border-color: var(--teal);
+            background: var(--teal);
+            color: var(--surface);
+        }
+
+        .work-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .work-card[hidden] {
+            display: none;
+        }
+
+        .work-card footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: auto;
+            padding-top: 1rem;
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 750;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            min-height: 1.9rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 999px;
+            background: #f4f5ef;
+            color: #5a5f55;
+            font-size: 0.8rem;
+            font-weight: 850;
+        }
+
+        .contact {
+            background: #f5f6f1;
+            border-top: 1px solid var(--line);
+        }
+
+        .contact-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 0.85fr) minmax(18rem, 0.55fr);
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .email-result {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .email-link {
+            font-weight: 850;
+            word-break: break-word;
+        }
+
+        .small-note {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .site-footer {
+            padding: 1.2rem 0;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.75rem;
+            width: min(1120px, calc(100% - 2rem));
+            margin: 0 auto;
+        }
+
+        @media (max-width: 880px) {
+            .nav {
+                align-items: flex-start;
+                flex-direction: column;
+                padding: 0.85rem 0;
+            }
+
+            .nav-links {
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .hero {
+                min-height: auto;
+            }
+
+            .hero-content {
+                padding: 4rem 0 3.25rem;
+            }
+
+            h1 {
+                font-size: 4.1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .lede {
+                font-size: 1.1rem;
+            }
+
+            .signal-list,
+            .section-heading,
+            .split,
+            .feature,
+            .bio-panel,
+            .contact-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .signal-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 560px) {
+            .nav-links a {
+                padding-inline: 0.5rem;
+            }
+
+            .hero-content,
+            .section-inner,
+            .nav,
+            .footer-inner {
+                width: min(calc(100% - 1rem), 1120px);
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+
+            .section {
+                padding: 3.6rem 0;
+            }
+
+            .signal-list {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline li {
+                grid-template-columns: 1fr;
+                gap: 0.2rem;
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello, World! Welcome to my website.</h1>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <nav class="nav" aria-label="Main navigation">
+            <a class="brand" href="#top" aria-label="Vladana Perlić home">
+                <span>Vladana Perlić</span>
+                <span>AI research · poetry · public science</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#writing">Writing</a></li>
+                <li><a href="#ai-book">AI book</a></li>
+                <li><a href="#reading-room">Read</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section class="hero" id="top" aria-labelledby="hero-title">
+            <canvas class="hero-canvas" id="language-map" aria-hidden="true"></canvas>
+            <div class="hero-content">
+                <p class="eyebrow">Industrial PhD researcher in AI · poet · translator</p>
+                <h1 id="hero-title">Vladana Perlić</h1>
+                <p class="lede">I work where language meets machines: building agentic RAG systems for complex technical documents, writing poems and prose across languages, and turning AI misconceptions into clear stories for curious non-specialists.</p>
+                <div class="hero-actions" aria-label="Featured links">
+                    <a class="button primary" href="#ai-book"><i data-lucide="book-open" aria-hidden="true"></i>AI book project</a>
+                    <a class="button" href="#reading-room"><i data-lucide="library" aria-hidden="true"></i>Reading room</a>
+                    <button class="button" type="button" data-email-reveal><i data-lucide="mail" aria-hidden="true"></i>Email me</button>
+                </div>
+
+                <ul class="signal-list" aria-label="Profile highlights">
+                    <li><strong>PhD</strong><span>Generative AI, NLP, multimodal documents</span></li>
+                    <li><strong>2</strong><span>published poetry books in Serbian</span></li>
+                    <li><strong>7</strong><span>languages connected through work and translation</span></li>
+                    <li><strong>2026</strong><span>AI papers published, accepted, or in progress</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section" id="about" aria-labelledby="about-title">
+            <div class="section-inner split">
+                <div>
+                    <p class="eyebrow">About</p>
+                    <h2 id="about-title">A linguist turned AI researcher, without leaving literature behind.</h2>
+                </div>
+                <div class="bio-panel">
+                    <figure class="portrait">
+                        <img src="data/profile_photo.jpg" alt="Portrait of Vladana Perlić" loading="lazy">
+                    </figure>
+                    <div class="bio-copy">
+                        <p>I am an Industrial PhD researcher at STMicroelectronics and Télécom Paris, working on LLMs, retrieval-augmented generation, agentic workflows, and multimodal technical documentation. Before AI, I studied languages and literature; that background still shapes how I think about models, evidence, meaning, and audience.</p>
+                        <p>My creative work moves mostly through Serbian, with poems translated into English, French, German, Polish, Hungarian, Italian, and Hindi. The same curiosity now drives a public-facing AI book: a clear, literary, non-hysterical guide to what AI systems are, what they are not, and why the difference matters.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section band-teal" id="research" aria-labelledby="research-title">
+            <div class="section-inner">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Research</p>
+                        <h2 id="research-title">Generative AI for documents that resist easy answers.</h2>
+                    </div>
+                    <p>My PhD focuses on augmenting agentic RAG for complex, multimodal documents, with applied work in semiconductor technical documentation and broader research across LLM evaluation, memory, and natural-language interfaces.</p>
+                </div>
+
+                <div class="card-grid">
+                    <article class="card">
+                        <span class="meta">Current PhD</span>
+                        <h3>Augmenting Agentic RAG for Complex, Multimodal Documents</h3>
+                        <p>Industrial PhD researcher, STMicroelectronics and Télécom Paris, LTCI. Grenoble and Paris, 2025-2028.</p>
+                    </article>
+                    <article class="card">
+                        <span class="meta">Published / accepted</span>
+                        <h3>LLM-as-a-qualitative-judge</h3>
+                        <p>Automating error analysis in natural language generation. 1st MME Workshop, 2026.</p>
+                    </article>
+                    <article class="card">
+                        <span class="meta">Published / accepted</span>
+                        <h3>Memory Design in LLM-based Multi-Agent Agenda Assistants</h3>
+                        <p>A comparative study of memory design for LLM-based multi-agent assistants. WOA, 2026.</p>
+                    </article>
+                    <article class="card">
+                        <span class="meta">Under review</span>
+                        <h3>MMA-RAG</h3>
+                        <p>A survey on multimodal agentic retrieval-augmented generation, currently under review.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="writing" aria-labelledby="writing-title">
+            <div class="section-inner feature">
+                <div class="feature-text">
+                    <p class="eyebrow">Writing</p>
+                    <h2 id="writing-title">Poetry, translation, and a literary life in several languages.</h2>
+                    <p>My literary work has appeared through books, festivals, translations, awards, and residencies across the ex-Yugoslav region and Europe. The Serbian original matters; so does the travel of a poem into another language, another mouth, another room.</p>
+                </div>
+                <div class="card-grid">
+                    <article class="card">
+                        <span class="tag poetry">Book</span>
+                        <h3><em>Kucanje na vrata kule</em></h3>
+                        <p><em>Knocking on the Tower Door</em>, Zaprokul, Belgrade, 2020. Winner of the “Novica Tadić” Award.</p>
+                    </article>
+                    <article class="card">
+                        <span class="tag poetry">Book</span>
+                        <h3><em>Isus među dojkama</em></h3>
+                        <p><em>Jesus Among Breasts</em>, LOM, Belgrade, 2020.</p>
+                    </article>
+                    <article class="card">
+                        <span class="tag translation">Translation</span>
+                        <h3><em>L'hypoténuse</em></h3>
+                        <p>Poems by Jasmina Holbus, translated by Vladana Perlić. Al Manar, France, 2016.</p>
+                    </article>
+                    <article class="card">
+                        <span class="tag short-prose">Residency</span>
+                        <h3>MQ Artist-in-Residence</h3>
+                        <p>Q21, Vienna, 2022.</p>
+                    </article>
+                </div>
+            </div>
+
+            <div class="section-inner" style="margin-top: 2.5rem;">
+                <h3>Selected awards and appearances</h3>
+                <ul class="award-list">
+                    <li>“Aladin Lukač” Award for young poets from the ex-Yugoslav region, Serbia, 2021.</li>
+                    <li>“Anka Topić” Award for best debut by a Bosnian-Herzegovinian female poet, BiH, 2021.</li>
+                    <li>1st Prize, “Ulaznica” Poetry Competition, Serbia, 2021.</li>
+                    <li>1st Prize, “Ratkovićeve večeri poezije”, Montenegro, 2020.</li>
+                    <li>Festival of European Poetry in Belgrade “Trgni se! Poezija!”, Serbia, 2024.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section band-wine" id="ai-book" aria-labelledby="book-title">
+            <div class="section-inner feature">
+                <div class="feature-text">
+                    <p class="eyebrow">Public science</p>
+                    <h2 id="book-title">An AI book for people who do not want to be dazzled into confusion.</h2>
+                    <p>I am developing a general-audience book about misconceptions in AI: not a hype pamphlet, not a panic pamphlet, but a lucid guide to what these systems can do, where language misleads us, and how ordinary people can ask better questions about them.</p>
+                    <p>The website is set up to host draft excerpts for readers, editors, researchers, educators, and publishing people interested in an English-language home for the project.</p>
+                </div>
+                <div class="chapter-grid" aria-label="Forthcoming AI book chapter excerpts">
+                    <article class="chapter-card">
+                        <span class="tag public-science">Excerpt space</span>
+                        <h3>Chapter excerpt 1</h3>
+                        <p>A public draft from the AI misconceptions manuscript can live here as soon as the text is ready to publish.</p>
+                        <span class="status-pill">Prepared for text</span>
+                    </article>
+                    <article class="chapter-card">
+                        <span class="tag public-science">Excerpt space</span>
+                        <h3>Chapter excerpt 2</h3>
+                        <p>A second excerpt can target a different misconception, creating a clearer path for editors and new readers.</p>
+                        <span class="status-pill">Prepared for text</span>
+                    </article>
+                    <article class="chapter-card">
+                        <span class="tag public-science">Essay space</span>
+                        <h3>Notes from the border of AI and poetry</h3>
+                        <p>A shorter non-fiction format for talks, newsletters, interviews, or reflections that connect research to culture.</p>
+                        <span class="status-pill">Ready to expand</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="reading-room" aria-labelledby="reading-title">
+            <div class="section-inner">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Reading room</p>
+                        <h2 id="reading-title">Papers, poems, prose, and public science in one place.</h2>
+                    </div>
+                    <p>This library is organized for the site’s next stage: published papers, poetry in original and translation, short stories, interviews, and public AI essays can be added without changing the structure.</p>
+                </div>
+
+                <div class="filters" aria-label="Filter reading room">
+                    <button class="filter-button is-active" type="button" data-filter="all">All</button>
+                    <button class="filter-button" type="button" data-filter="paper">AI papers</button>
+                    <button class="filter-button" type="button" data-filter="poetry">Poetry</button>
+                    <button class="filter-button" type="button" data-filter="short-prose">Short prose</button>
+                    <button class="filter-button" type="button" data-filter="public-science">Public science</button>
+                </div>
+
+                <div class="library-grid" aria-live="polite">
+                    <article class="work-card" data-kind="paper">
+                        <span class="tag">AI paper</span>
+                        <h3>LLM-as-a-qualitative-judge</h3>
+                        <p>Automating error analysis in natural language generation. 1st MME Workshop, 2026.</p>
+                        <footer><span>English</span><span class="status-pill">Link pending</span></footer>
+                    </article>
+                    <article class="work-card" data-kind="paper">
+                        <span class="tag">AI paper</span>
+                        <h3>Memory Design in LLM-based Multi-Agent Agenda Assistants</h3>
+                        <p>A comparative study presented at WOA, 2026.</p>
+                        <footer><span>English</span><span class="status-pill">Link pending</span></footer>
+                    </article>
+                    <article class="work-card" data-kind="poetry">
+                        <span class="tag poetry">Poetry</span>
+                        <h3><em>Kucanje na vrata kule</em></h3>
+                        <p>Selected poems from the award-winning debut collection can be excerpted here in Serbian and translation.</p>
+                        <footer><span>Serbian</span><span class="status-pill">Text pending</span></footer>
+                    </article>
+                    <article class="work-card" data-kind="poetry">
+                        <span class="tag poetry">Poetry</span>
+                        <h3><em>Isus među dojkama</em></h3>
+                        <p>A future home for selected poems, notes, and translations from the 2020 collection published by LOM.</p>
+                        <footer><span>Serbian</span><span class="status-pill">Text pending</span></footer>
+                    </article>
+                    <article class="work-card" data-kind="short-prose">
+                        <span class="tag short-prose">Short prose</span>
+                        <h3>Stories and fragments</h3>
+                        <p>A dedicated shelf for short stories, hybrid prose, interviews, and literary fragments.</p>
+                        <footer><span>Multilingual</span><span class="status-pill">Ready</span></footer>
+                    </article>
+                    <article class="work-card" data-kind="public-science">
+                        <span class="tag public-science">Public science</span>
+                        <h3>AI misconceptions</h3>
+                        <p>Draft chapters and shorter essays for readers who want clarity without surrendering imagination.</p>
+                        <footer><span>English</span><span class="status-pill">Prepared</span></footer>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section contact" id="contact" aria-labelledby="contact-title">
+            <div class="section-inner contact-panel">
+                <div>
+                    <p class="eyebrow">Contact</p>
+                    <h2 id="contact-title">For research, readings, interviews, translation, and publishing conversations.</h2>
+                    <p>Reach out about AI and NLP collaborations, public science work, poetry events, interviews, or the AI misconceptions manuscript.</p>
+                    <div class="contact-actions">
+                        <button class="button primary" type="button" data-email-reveal><i data-lucide="mail" aria-hidden="true"></i>Reveal email</button>
+                        <a class="button" href="https://www.linkedin.com/in/vladana-perlic/" rel="me noopener noreferrer" target="_blank"><i data-lucide="linkedin" aria-hidden="true"></i>LinkedIn</a>
+                    </div>
+                    <div class="email-result" id="email-result" hidden>
+                        <a class="email-link" id="email-link" href="#"></a>
+                        <button class="button" type="button" id="copy-email"><i data-lucide="copy" aria-hidden="true"></i>Copy</button>
+                    </div>
+                    <p class="small-note" id="email-status" aria-live="polite"></p>
+                </div>
+                <ol class="timeline" aria-label="Background timeline">
+                    <li>
+                        <time>2025-2028</time>
+                        <div><strong>Industrial PhD in Artificial Intelligence</strong><p>Télécom Paris, Institut Polytechnique de Paris, and STMicroelectronics.</p></div>
+                    </li>
+                    <li>
+                        <time>2023-2024</time>
+                        <div><strong>Master 2 in NLP</strong><p>Université Grenoble Alpes, Industries de la langue.</p></div>
+                    </li>
+                    <li>
+                        <time>2020</time>
+                        <div><strong>Two poetry books published</strong><p>Belgrade publishers Zaprokul and LOM.</p></div>
+                    </li>
+                </ol>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <span>© <span id="year"></span> Vladana Perlić</span>
+            <span>Based in France · working across English, Serbian, and French</span>
+        </div>
+    </footer>
+
+    <script>
+        const protectedEmailCodes = [118, 108, 97, 100, 97, 110, 97, 46, 112, 101, 114, 108, 105, 99, 64, 103, 109, 97, 105, 108, 46, 99, 111, 109];
+        let revealedEmail = "";
+
+        function getProtectedEmail() {
+            if (!revealedEmail) {
+                revealedEmail = protectedEmailCodes.map((code) => String.fromCharCode(code)).join("");
+            }
+            return revealedEmail;
+        }
+
+        function revealEmail(event) {
+            const email = getProtectedEmail();
+            const result = document.getElementById("email-result");
+            const link = document.getElementById("email-link");
+            const status = document.getElementById("email-status");
+            const trigger = event.currentTarget;
+            link.href = `mailto:${email}`;
+            link.textContent = email;
+            result.hidden = false;
+            status.textContent = "";
+            if (!trigger.closest("#contact")) {
+                document.getElementById("contact").scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+            link.focus();
+        }
+
+        function setupReadingRoomFilters() {
+            const buttons = document.querySelectorAll("[data-filter]");
+            const cards = document.querySelectorAll(".work-card[data-kind]");
+
+            buttons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    const filter = button.dataset.filter;
+                    buttons.forEach((item) => item.classList.toggle("is-active", item === button));
+                    cards.forEach((card) => {
+                        card.hidden = filter !== "all" && card.dataset.kind !== filter;
+                    });
+                });
+            });
+        }
+
+        function setupCanvas() {
+            const canvas = document.getElementById("language-map");
+            const context = canvas.getContext("2d");
+            const labels = ["LLMs", "RAG", "poetry", "Serbian", "English", "French", "semiconductors", "misconceptions", "translation", "agents"];
+            let width = 0;
+            let height = 0;
+            let nodes = [];
+            let frame = 0;
+
+            function resize() {
+                const ratio = Math.min(window.devicePixelRatio || 1, 2);
+                width = canvas.offsetWidth;
+                height = canvas.offsetHeight;
+                canvas.width = Math.floor(width * ratio);
+                canvas.height = Math.floor(height * ratio);
+                context.setTransform(ratio, 0, 0, ratio, 0, 0);
+                nodes = labels.map((label, index) => ({
+                    label,
+                    x: (width * (0.16 + ((index * 0.17) % 0.72))),
+                    y: (height * (0.14 + ((index * 0.23) % 0.68))),
+                    speed: 0.35 + (index % 4) * 0.08,
+                    phase: index * 1.7
+                }));
+            }
+
+            function draw() {
+                frame += 0.006;
+                context.clearRect(0, 0, width, height);
+                context.lineWidth = 1;
+                context.font = "700 13px Inter, system-ui, sans-serif";
+
+                const points = nodes.map((node) => ({
+                    ...node,
+                    px: node.x + Math.sin(frame * node.speed + node.phase) * 22,
+                    py: node.y + Math.cos(frame * node.speed + node.phase) * 18
+                }));
+
+                for (let outerIndex = 0; outerIndex < points.length; outerIndex += 1) {
+                    for (let innerIndex = outerIndex + 1; innerIndex < points.length; innerIndex += 1) {
+                        const a = points[outerIndex];
+                        const b = points[innerIndex];
+                        const distance = Math.hypot(a.px - b.px, a.py - b.py);
+                        if (distance < 310) {
+                            context.strokeStyle = `rgba(22, 122, 127, ${Math.max(0.04, 0.16 - distance / 2400)})`;
+                            context.beginPath();
+                            context.moveTo(a.px, a.py);
+                            context.lineTo(b.px, b.py);
+                            context.stroke();
+                        }
+                    }
+                }
+
+                points.forEach((point, index) => {
+                    const color = index % 3 === 0 ? "152, 50, 79" : index % 3 === 1 ? "22, 122, 127" : "88, 107, 47";
+                    context.fillStyle = `rgba(${color}, 0.18)`;
+                    context.fillRect(point.px - 4, point.py - 4, 8, 8);
+                    context.fillStyle = `rgba(${color}, 0.46)`;
+                    context.fillText(point.label, point.px + 10, point.py + 5);
+                });
+
+                if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                    requestAnimationFrame(draw);
+                }
+            }
+
+            resize();
+            draw();
+            window.addEventListener("resize", resize);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("year").textContent = new Date().getFullYear();
+            document.querySelectorAll("[data-email-reveal]").forEach((button) => button.addEventListener("click", revealEmail));
+            document.getElementById("copy-email").addEventListener("click", async () => {
+                const status = document.getElementById("email-status");
+                const email = getProtectedEmail();
+                try {
+                    await navigator.clipboard.writeText(email);
+                    status.textContent = "Email copied.";
+                } catch (error) {
+                    status.textContent = "Email revealed above.";
+                }
+            });
+            setupReadingRoomFilters();
+            setupCanvas();
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+        });
+    </script>
 </body>
 </html>
