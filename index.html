@@ -4,22 +4,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Vladana Perlić is an Industrial PhD researcher in Generative AI and NLP, and a poet and writer working between English, Serbian, and French.">
-    <title>Vladana Perlić | AI Research, Poetry & Public Science</title>
+    <title>Vladana Perlić | AI, Poetry, Popular Science</title>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+    <script src="https://unpkg.com/mammoth/mammoth.browser.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
     <style>
         :root {
-            --paper: #fbfbf7;
-            --surface: #ffffff;
-            --ink: #20231f;
-            --muted: #5f6861;
-            --line: #d9dfd8;
-            --teal: #167a7f;
-            --teal-soft: #e8f4f3;
-            --wine: #98324f;
-            --wine-soft: #f8edf1;
-            --moss: #586b2f;
-            --amber: #b77d22;
-            --shadow: 0 20px 60px rgba(31, 36, 33, 0.08);
+            --paper: #e7dac0;
+            --page: #fff5df;
+            --page-warm: #f8eacb;
+            --ink: #241915;
+            --soft-ink: #59463a;
+            --faint: #826f5b;
+            --rule: rgba(86, 62, 42, 0.18);
+            --rule-strong: rgba(86, 62, 42, 0.34);
+            --red: #8e342d;
+            --green: #3f604a;
+            --blue: #344d66;
+            --gold: #a66d2d;
+            --shadow: 0 30px 90px rgba(38, 25, 16, 0.18);
+            --reader-shadow: 0 32px 90px rgba(38, 25, 16, 0.24);
+            --type: "Courier New", Courier, "Liberation Mono", monospace;
             color-scheme: light;
         }
 
@@ -33,29 +38,44 @@
 
         body {
             margin: 0;
-            background: var(--paper);
+            background-color: var(--paper);
+            background-image:
+                linear-gradient(90deg, rgba(142, 52, 45, 0.12) 0 1px, transparent 1px),
+                repeating-linear-gradient(0deg, transparent 0 31px, rgba(72, 51, 32, 0.1) 32px, transparent 33px),
+                linear-gradient(180deg, rgba(255, 247, 229, 0.42), rgba(172, 130, 82, 0.16));
+            background-size: 100% 100%, 100% 33px, 100% 100%;
             color: var(--ink);
-            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            line-height: 1.6;
+            font-family: var(--type);
+            line-height: 1.65;
             letter-spacing: 0;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                repeating-radial-gradient(circle at 10% 20%, rgba(58, 37, 22, 0.06) 0 1px, transparent 1px 5px),
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px 7px);
+            mix-blend-mode: multiply;
+            opacity: 0.55;
         }
 
         a {
             color: inherit;
-            text-decoration-color: rgba(22, 122, 127, 0.35);
-            text-decoration-thickness: 0.1em;
-            text-underline-offset: 0.2em;
+            text-decoration-color: rgba(142, 52, 45, 0.45);
+            text-decoration-thickness: 0.08em;
+            text-underline-offset: 0.24em;
         }
 
         a:hover,
         a:focus-visible {
-            color: var(--teal);
+            color: var(--red);
             text-decoration-color: currentColor;
         }
 
-        button,
-        input,
-        textarea {
+        button {
             font: inherit;
         }
 
@@ -63,11 +83,12 @@
             position: absolute;
             left: 1rem;
             top: -4rem;
-            z-index: 20;
-            padding: 0.75rem 1rem;
+            z-index: 30;
+            padding: 0.7rem 0.9rem;
+            border: 1px solid var(--ink);
+            border-radius: 4px;
             background: var(--ink);
-            color: var(--surface);
-            border-radius: 6px;
+            color: var(--page);
             transition: top 0.2s ease;
         }
 
@@ -75,13 +96,44 @@
             top: 1rem;
         }
 
+        .page-shell {
+            position: relative;
+            width: min(1360px, calc(100% - 2rem));
+            margin: 1rem auto 2rem;
+            border: 1px solid var(--rule-strong);
+            border-radius: 8px;
+            background:
+                linear-gradient(90deg, transparent 0 5.5rem, rgba(142, 52, 45, 0.24) 5.55rem, transparent 5.65rem),
+                repeating-linear-gradient(0deg, transparent 0 32px, var(--rule) 33px, transparent 34px),
+                var(--page);
+            box-shadow: var(--shadow);
+            overflow: clip;
+        }
+
+        .page-shell::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(90deg, rgba(86, 62, 42, 0.09), transparent 10%, transparent 88%, rgba(86, 62, 42, 0.11)),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent 18%, rgba(120, 78, 42, 0.08));
+        }
+
+        .site-header,
+        main,
+        .site-footer {
+            position: relative;
+            z-index: 1;
+        }
+
         .site-header {
             position: sticky;
             top: 0;
-            z-index: 10;
-            border-bottom: 1px solid rgba(217, 223, 216, 0.9);
-            background: rgba(251, 251, 247, 0.92);
-            backdrop-filter: blur(18px);
+            z-index: 20;
+            border-bottom: 1px dashed var(--rule-strong);
+            background: rgba(255, 245, 223, 0.92);
+            backdrop-filter: blur(14px);
         }
 
         .nav {
@@ -89,29 +141,28 @@
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
-            width: min(1120px, calc(100% - 2rem));
-            min-height: 4.25rem;
-            margin: 0 auto;
+            min-height: 4.5rem;
+            padding: 0.75rem 2rem 0.75rem 6.75rem;
         }
 
         .brand {
             display: inline-flex;
             flex-direction: column;
-            gap: 0.05rem;
-            min-width: 9rem;
-            font-weight: 800;
+            gap: 0.1rem;
+            color: var(--ink);
+            font-weight: 700;
             text-decoration: none;
         }
 
         .brand span:last-child {
-            color: var(--muted);
-            font-size: 0.78rem;
-            font-weight: 650;
+            color: var(--faint);
+            font-size: 0.8rem;
+            font-weight: 400;
         }
 
         .nav-links {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             justify-content: flex-end;
             gap: 0.35rem;
             margin: 0;
@@ -122,59 +173,83 @@
         .nav-links a {
             display: inline-flex;
             align-items: center;
-            min-height: 2.5rem;
-            padding: 0.35rem 0.7rem;
-            border-radius: 6px;
-            color: var(--muted);
-            font-size: 0.94rem;
-            font-weight: 700;
+            min-height: 2.25rem;
+            padding: 0.25rem 0.6rem;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            color: var(--soft-ink);
+            font-size: 0.86rem;
             text-decoration: none;
         }
 
         .nav-links a:hover,
         .nav-links a:focus-visible {
-            background: var(--teal-soft);
-            color: var(--teal);
+            border-color: var(--rule-strong);
+            background: rgba(255, 255, 255, 0.32);
+            color: var(--red);
+        }
+
+        .section {
+            --section-pad-left: 6.75rem;
+            --section-pad-right: 2rem;
+            padding: 4.5rem 2rem 4.5rem 6.75rem;
+        }
+
+        .section + .section {
+            border-top: 1px dashed var(--rule-strong);
+        }
+
+        .section-inner {
+            width: min(1160px, 100%);
+            margin: 0 auto;
         }
 
         .hero {
-            position: relative;
+            min-height: calc(100vh - 6rem);
             display: grid;
+            align-content: center;
             align-items: center;
-            min-height: 82vh;
-            overflow: hidden;
-            border-bottom: 1px solid var(--line);
-            background: #f7faf6;
+            gap: 1.4rem;
+            padding-top: 5.25rem;
+            padding-bottom: 4rem;
         }
 
-        .hero-canvas {
-            position: absolute;
-            inset: 0;
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(15rem, 0.55fr);
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .alps-banner {
+            width: calc(100% + var(--section-pad-left) + var(--section-pad-right));
+            margin: -2rem calc(-1 * var(--section-pad-right)) 0.2rem calc(-1 * var(--section-pad-left));
+            background: transparent;
+            color: var(--red);
+        }
+
+        .alps-banner img {
+            display: block;
             width: 100%;
-            height: 100%;
-            opacity: 0.9;
+            height: auto;
+            background: transparent;
+            opacity: 0.72;
+            filter: sepia(0.72) contrast(1.08) saturate(0.82);
+            mix-blend-mode: normal;
         }
 
-        .hero::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(251, 251, 247, 0.72);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            width: min(1120px, calc(100% - 2rem));
-            margin: 0 auto;
-            padding: 5.5rem 0 4.25rem;
+        .location-line {
+            margin: 0 0 0.8rem;
+            color: var(--red);
+            font-size: 0.86rem;
+            font-weight: 700;
         }
 
         .eyebrow {
-            margin: 0 0 0.85rem;
-            color: var(--wine);
-            font-size: 0.8rem;
-            font-weight: 850;
+            margin: 0 0 0.8rem;
+            color: var(--red);
+            font-size: 0.78rem;
+            font-weight: 700;
             text-transform: uppercase;
         }
 
@@ -186,40 +261,39 @@
         }
 
         h1 {
-            max-width: 11ch;
-            margin-bottom: 1rem;
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 5.8rem;
-            line-height: 0.94;
+            max-width: 12ch;
+            margin-bottom: 1.1rem;
+            font-size: 4.8rem;
+            line-height: 0.92;
             letter-spacing: 0;
         }
 
         h2 {
             margin-bottom: 1rem;
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 2.4rem;
-            line-height: 1.1;
+            font-size: 2rem;
+            line-height: 1.18;
             letter-spacing: 0;
         }
 
         h3 {
-            margin-bottom: 0.55rem;
-            font-size: 1.1rem;
-            line-height: 1.28;
+            margin-bottom: 0.45rem;
+            font-size: 1.03rem;
+            line-height: 1.32;
         }
 
         .lede {
-            max-width: 46rem;
-            margin-bottom: 1.55rem;
-            color: #343a35;
-            font-size: 1.25rem;
+            max-width: 43rem;
+            min-height: 0;
+            margin-bottom: 1.4rem;
+            color: var(--soft-ink);
+            font-size: 1.14rem;
         }
 
-        .hero-actions,
-        .contact-actions {
+        .contact-actions,
+        .card-actions {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.75rem;
+            gap: 0.65rem;
             align-items: center;
         }
 
@@ -227,38 +301,33 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.45rem;
-            min-height: 2.8rem;
-            padding: 0.68rem 1rem;
+            gap: 0.42rem;
+            min-height: 2.5rem;
+            padding: 0.52rem 0.78rem;
             border: 1px solid var(--ink);
-            border-radius: 6px;
-            background: transparent;
+            border-radius: 4px;
+            background: rgba(255, 245, 223, 0.58);
             color: var(--ink);
             cursor: pointer;
-            font-weight: 800;
+            font-weight: 700;
             line-height: 1.1;
             text-decoration: none;
-            transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+            transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
         }
 
         .button:hover,
         .button:focus-visible {
-            transform: translateY(-1px);
-            color: var(--surface);
+            transform: translate(-2px, -2px);
             background: var(--ink);
+            color: var(--page);
+            box-shadow: 4px 4px 0 rgba(142, 52, 45, 0.35);
             text-decoration: none;
         }
 
         .button.primary {
-            border-color: var(--teal);
-            background: var(--teal);
-            color: var(--surface);
-        }
-
-        .button.primary:hover,
-        .button.primary:focus-visible {
-            border-color: #0f575b;
-            background: #0f575b;
+            border-color: var(--red);
+            background: var(--red);
+            color: var(--page);
         }
 
         .button svg {
@@ -267,202 +336,952 @@
             flex: 0 0 auto;
         }
 
-        .signal-list {
+        .portrait-slip {
+            transform: rotate(1.2deg);
+        }
+
+        .portrait-slip figure {
+            margin: 0;
+            padding: 0.65rem 0.65rem 1.2rem;
+            border: 1px solid var(--rule-strong);
+            border-radius: 4px;
+            background: #fff9eb;
+            box-shadow: 10px 14px 0 rgba(89, 70, 58, 0.12);
+        }
+
+        .portrait-slip img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            border: 1px solid var(--rule);
+            filter: sepia(0.34) contrast(0.96) saturate(0.9);
+        }
+
+        .portrait-slip figcaption {
+            margin-top: 0.65rem;
+            color: var(--faint);
+            font-size: 0.78rem;
+            text-align: center;
+        }
+
+        .toc-grid,
+        .note-grid,
+        .book-grid,
+        .press-grid,
+        .chapter-grid {
             display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 1px;
-            width: min(100%, 58rem);
-            margin: 3.25rem 0 0;
-            padding: 0;
-            list-style: none;
-            border: 1px solid var(--line);
-            background: var(--line);
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+            gap: 1rem;
         }
 
-        .signal-list li {
-            min-height: 6rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.78);
+        .toc-grid {
+            margin-top: 2rem;
         }
 
-        .signal-list strong {
+        a.note-card {
             display: block;
-            color: var(--ink);
-            font-size: 1.8rem;
-            line-height: 1;
+            color: inherit;
+            text-decoration: none;
         }
 
-        .signal-list span {
-            display: block;
-            margin-top: 0.45rem;
-            color: var(--muted);
-            font-size: 0.88rem;
+        .note-card,
+        .book-card,
+        .press-card,
+        .chapter-card,
+        .marginalia {
+            position: relative;
+            border: 1px solid var(--rule-strong);
+            border-radius: 6px;
+            background: rgba(255, 248, 232, 0.78);
+            box-shadow: 0 16px 40px rgba(38, 25, 16, 0.08);
+        }
+
+        .note-card,
+        .book-card,
+        .press-card,
+        .chapter-card {
+            min-height: 100%;
+            padding: 1.05rem;
+            transform: translateY(0) rotate(0deg);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+        }
+
+        .note-card::after,
+        .book-card::after,
+        .press-card::after,
+        .chapter-card::after {
+            content: attr(data-stamp);
+            position: absolute;
+            right: 0.75rem;
+            bottom: 0.65rem;
+            color: rgba(142, 52, 45, 0.22);
+            font-size: 0.72rem;
             font-weight: 700;
+            text-transform: uppercase;
+            transform: rotate(-4deg);
+            opacity: 0;
+            transition: opacity 0.18s ease;
         }
 
-        .section {
-            padding: 5rem 0;
+        .note-card:hover,
+        .note-card:focus-within,
+        .book-card:hover,
+        .book-card:focus-within,
+        .press-card:hover,
+        .press-card:focus-within,
+        .chapter-card:hover,
+        .chapter-card:focus-within {
+            transform: translateY(-4px) rotate(-0.5deg);
+            border-color: rgba(142, 52, 45, 0.48);
+            background: rgba(255, 252, 241, 0.95);
+            box-shadow: 0 20px 44px rgba(38, 25, 16, 0.14);
         }
 
-        .section-inner {
-            width: min(1120px, calc(100% - 2rem));
-            margin: 0 auto;
+        .note-card:hover::after,
+        .note-card:focus-within::after,
+        .book-card:hover::after,
+        .book-card:focus-within::after,
+        .press-card:hover::after,
+        .press-card:focus-within::after,
+        .chapter-card:hover::after,
+        .chapter-card:focus-within::after {
+            opacity: 1;
+        }
+
+        .note-card p,
+        .book-card p,
+        .press-card p,
+        .chapter-card p,
+        .section-copy,
+        .small-note {
+            color: var(--soft-ink);
+        }
+
+        .archive-label,
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            min-height: 1.55rem;
+            margin-bottom: 0.7rem;
+            color: var(--red);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .archive-label::before,
+        .tag::before {
+            content: "";
+            width: 0.55rem;
+            height: 0.55rem;
+            margin-right: 0.38rem;
+            border: 1px solid currentColor;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0.24;
+        }
+
+        .tag.research {
+            color: var(--blue);
+        }
+
+        .tag.poetry,
+        .tag.press {
+            color: var(--red);
+        }
+
+        .tag.public-science {
+            color: var(--gold);
+        }
+
+        .tag.translation {
+            color: var(--green);
         }
 
         .section-heading {
             display: grid;
-            grid-template-columns: minmax(0, 0.82fr) minmax(16rem, 0.58fr);
+            grid-template-columns: minmax(0, 0.86fr) minmax(15rem, 0.54fr);
             gap: 2rem;
             align-items: end;
             margin-bottom: 2rem;
         }
 
-        .section-heading p,
-        .split p,
-        .feature-text p,
-        .contact p {
-            color: var(--muted);
+        .section-heading.simple-heading {
+            grid-template-columns: 1fr;
+            max-width: 48rem;
         }
 
-        .split {
+        .marginal-layout {
             display: grid;
-            grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-            gap: 2.5rem;
+            grid-template-columns: minmax(0, 1fr) minmax(13rem, 0.34fr);
+            gap: 1.25rem;
             align-items: start;
         }
 
-        .bio-copy {
-            max-width: 42rem;
-            font-size: 1.06rem;
+        .marginalia {
+            position: sticky;
+            top: 6rem;
+            padding: 1rem;
+            border-style: dashed;
+            color: var(--soft-ink);
+            font-size: 0.9rem;
+            transform: rotate(0.7deg);
         }
 
-        .bio-panel {
-            display: grid;
-            grid-template-columns: minmax(12rem, 0.42fr) minmax(0, 1fr);
-            gap: 1.35rem;
-            align-items: start;
-        }
-
-        .portrait {
-            margin: 0;
-        }
-
-        .portrait img {
+        .marginalia span {
             display: block;
-            width: 100%;
-            aspect-ratio: 4 / 5;
-            object-fit: cover;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            box-shadow: var(--shadow);
+            margin-bottom: 0.5rem;
+            color: var(--red);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
-        .highlight-list {
+        .marginalia p {
+            margin-bottom: 0;
+        }
+
+        .research-list,
+        .award-list,
+        .link-list {
             display: grid;
-            gap: 0.8rem;
+            gap: 0.85rem;
             margin: 0;
             padding: 0;
             list-style: none;
         }
 
-        .highlight-list li {
-            padding: 1rem;
-            border: 1px solid var(--line);
-            border-left: 0.35rem solid var(--teal);
-            border-radius: 8px;
-            background: var(--surface);
-            box-shadow: var(--shadow);
+        .research-list li,
+        .award-list li,
+        .link-list li {
+            padding-left: 1rem;
+            border-left: 0.22rem solid rgba(142, 52, 45, 0.55);
         }
 
-        .highlight-list strong {
+        .research-list li {
+            border-left-color: rgba(52, 77, 102, 0.55);
+        }
+
+        .link-list li {
+            border-left-color: rgba(63, 96, 74, 0.52);
+        }
+
+        .link-list a,
+        .research-list a {
+            font-weight: 700;
+        }
+
+        .link-list small,
+        .research-list small {
             display: block;
-            margin-bottom: 0.18rem;
+            margin-top: 0.18rem;
+            color: var(--faint);
+            font-size: 0.82rem;
         }
 
-        .highlight-list span {
-            color: var(--muted);
+        .book-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
-        .band-teal {
-            background: var(--teal-soft);
-            border-block: 1px solid #cce5e2;
+        .book-card {
+            display: flex;
+            flex-direction: column;
         }
 
-        .band-wine {
-            background: var(--wine-soft);
-            border-block: 1px solid #edd3dc;
+        .card-actions {
+            margin-top: auto;
+            padding-top: 1rem;
         }
 
-        .feature {
+        .book-note {
+            margin: 0.8rem 0 0;
+            font-size: 0.9rem;
+        }
+
+        .writing-extra {
             display: grid;
-            grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-            gap: 2rem;
+            grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        .prize-highlight {
+            border: 1px solid var(--rule-strong);
+            border-radius: 6px;
+            background: rgba(255, 252, 241, 0.74);
+            box-shadow: 0 10px 24px rgba(38, 25, 16, 0.07);
+        }
+
+        .progressive-panel {
+            display: grid;
+            gap: 0.95rem;
+        }
+
+        .reveal-toggle {
+            justify-self: start;
+        }
+
+        .reveal-toggle[aria-expanded="true"] svg,
+        .compact-toggle[aria-expanded="true"] svg {
+            transform: rotate(180deg);
+        }
+
+        .compact-toggle {
+            justify-content: center;
+        }
+
+        .reveal-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            margin-top: -0.2rem;
+            opacity: 0;
+            overflow: hidden;
+            transition: grid-template-rows 0.42s ease, opacity 0.28s ease, margin-top 0.28s ease;
+        }
+
+        .reveal-content-inner {
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .progressive-panel.is-open .reveal-content {
+            grid-template-rows: 1fr;
+            margin-top: 0;
+            opacity: 1;
+        }
+
+        .collapse-on-open {
+            max-height: 80rem;
+            opacity: 1;
+            overflow: hidden;
+            transition: max-height 0.34s ease, opacity 0.24s ease, margin 0.28s ease;
+        }
+
+        .progressive-panel.is-open .collapse-on-open {
+            max-height: 0;
+            margin: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .prize-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+            gap: 0.75rem;
+        }
+
+        .prize-highlight {
+            padding: 0.75rem;
+        }
+
+        .prize-highlight strong {
+            display: block;
+            color: var(--ink);
+            line-height: 1.25;
+        }
+
+        .prize-highlight span {
+            display: block;
+            margin-top: 0.25rem;
+            color: var(--faint);
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .literary-subsection {
+            margin-top: 2rem;
+        }
+
+        .archive-subsection {
+            margin-top: clamp(2.4rem, 5vw, 4rem);
+        }
+
+        .archive-subsection:first-of-type {
+            margin-top: 0;
+        }
+
+        .section-heading + .archive-subsection {
+            margin-top: 0;
+        }
+
+        .subsection-heading {
+            max-width: 48rem;
+            margin-bottom: 1.1rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 1px dashed var(--rule-strong);
+        }
+
+        .subsection-heading h3 {
+            margin-bottom: 0.3rem;
+            font-size: 1.45rem;
+        }
+
+        .subsection-heading p {
+            margin-bottom: 0;
+            color: var(--soft-ink);
+        }
+
+        .single-card {
+            max-width: 44rem;
+        }
+
+        .single-card.wide {
+            max-width: 100%;
+        }
+
+        .mini-heading {
+            max-width: 45rem;
+            margin-bottom: 1rem;
+        }
+
+        .mini-heading h3 {
+            margin-bottom: 0.35rem;
+            font-size: 1.45rem;
+        }
+
+        .mini-heading p {
+            margin-bottom: 0;
+            color: var(--soft-ink);
+        }
+
+        .awarded-poem-layout {
+            display: grid;
+            grid-template-columns: minmax(16rem, 0.58fr) minmax(0, 1.42fr);
+            gap: 1.25rem;
             align-items: start;
         }
 
-        .feature-text {
-            max-width: 38rem;
+        .poem-picker,
+        .prize-list {
+            display: grid;
+            gap: 0.85rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
         }
 
-        .chapter-grid,
-        .card-grid,
-        .library-grid {
+        .poem-picker.is-collapsed .poem-card:nth-of-type(n+5) {
+            display: none;
+        }
+
+        .poem-language-section,
+        .translation-shelf {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+            gap: 0.8rem;
+        }
+
+        .poem-language-section + .poem-language-section {
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px dashed var(--rule-strong);
+        }
+
+        .language-heading {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .language-heading h4 {
+            margin: 0;
+            font-size: 1.18rem;
+            line-height: 1.25;
+        }
+
+        .language-heading .tag {
+            margin-bottom: 0.1rem;
+        }
+
+        .flag-mark {
+            display: inline-grid;
+            place-items: center;
+            width: 2.35rem;
+            height: 2.35rem;
+            flex: 0 0 auto;
+            border: 1px solid var(--rule-strong);
+            border-radius: 50%;
+            background: rgba(255, 252, 241, 0.86);
+            font-size: 1.25rem;
+            box-shadow: 0 8px 18px rgba(38, 25, 16, 0.08);
+        }
+
+        .serbian-poem-list,
+        .language-poem-list {
+            display: grid;
+            gap: 0.7rem;
+        }
+
+        .serbian-poem-list.is-collapsed .poem-card:nth-of-type(n+4),
+        .language-poem-list.is-collapsed .poem-button:nth-of-type(n+4) {
+            display: none;
+        }
+
+        .translation-card h3 {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .translation-card .flag-mark {
+            width: 1.9rem;
+            height: 1.9rem;
+            font-size: 1rem;
+        }
+
+        .compact-toggle {
+            width: 100%;
+        }
+
+        .press-progressive {
+            margin-top: 1.25rem;
+        }
+
+        .readings-progressive {
+            margin-top: 1rem;
+        }
+
+        .press-progressive .writing-extra:first-child {
+            margin-top: 0;
+        }
+
+        .poem-card {
+            min-height: auto;
+        }
+
+        .poem-card.is-selected {
+            border-color: rgba(142, 52, 45, 0.78);
+            background: rgba(255, 252, 241, 0.98);
+            box-shadow: 0 18px 40px rgba(38, 25, 16, 0.14);
+        }
+
+        .poem-meta {
+            margin-bottom: 0.7rem;
+            color: var(--faint);
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+
+        .poem-reader {
+            position: sticky;
+            top: 6rem;
+            display: flex;
+            flex-direction: column;
+            padding: 1.1rem;
+            border: 1px solid var(--rule-strong);
+            border-radius: 6px;
+            background:
+                repeating-linear-gradient(0deg, transparent 0 31px, rgba(72, 51, 32, 0.08) 32px, transparent 33px),
+                rgba(255, 252, 241, 0.94);
+            box-shadow: 0 18px 48px rgba(38, 25, 16, 0.12);
+        }
+
+        .poem-reader h3 {
+            margin-bottom: 0.2rem;
+            font-size: 1.55rem;
+        }
+
+        .translation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .poem-button-list {
+            display: grid;
+            gap: 0.55rem;
+        }
+
+        .poem-button-list .button {
+            justify-content: flex-start;
+            width: 100%;
+            text-align: left;
+        }
+
+        .poem-reader-meta {
+            margin-bottom: 0.9rem;
+            color: var(--faint);
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .poem-text {
+            flex: 1 1 auto;
+            overflow: auto;
+            max-height: min(72vh, 58rem);
+            margin: 0;
+            padding: clamp(1.1rem, 2.1vw, 2rem);
+            border: 1px dashed var(--rule-strong);
+            border-radius: 4px;
+            background: rgba(255, 245, 223, 0.62);
+            color: var(--ink);
+            font-size: 1.04rem;
+            line-height: 1.82;
+            white-space: pre-wrap;
+        }
+
+        .poem-text h1,
+        .poem-text h2,
+        .poem-text h3 {
+            max-width: none;
+            margin: 0 0 1rem;
+            color: var(--ink);
+            font-size: 1.28rem;
+            line-height: 1.25;
+            white-space: normal;
+            word-break: normal;
+        }
+
+        .poem-text p {
+            margin: 0 0 1rem;
+        }
+
+        .poem-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .poem-text em,
+        .poem-text i {
+            font-style: italic;
+        }
+
+        .poem-reader-actions {
+            margin-top: 0.9rem;
+        }
+
+        .science-layout {
+            display: grid;
+            grid-template-columns: minmax(18rem, 0.52fr) minmax(0, 1.48fr);
+            gap: 1.25rem;
+            align-items: start;
+        }
+
+        .science-stack {
+            display: grid;
             gap: 1rem;
         }
 
-        .card,
-        .work-card,
-        .chapter-card {
-            min-height: 100%;
-            padding: 1.15rem;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: var(--surface);
-            box-shadow: var(--shadow);
+        .science-card.is-selected {
+            border-color: rgba(166, 109, 45, 0.78);
+            background: rgba(255, 252, 241, 0.98);
+            box-shadow: 0 18px 40px rgba(38, 25, 16, 0.14);
         }
 
-        .card p,
-        .work-card p,
-        .chapter-card p {
-            color: var(--muted);
+        .science-reader {
+            position: sticky;
+            top: 6rem;
+            display: flex;
+            flex-direction: column;
+            padding: 1.1rem;
+            border: 1px solid var(--rule-strong);
+            border-radius: 6px;
+            background:
+                repeating-linear-gradient(0deg, transparent 0 31px, rgba(72, 51, 32, 0.08) 32px, transparent 33px),
+                rgba(255, 252, 241, 0.94);
+            box-shadow: 0 18px 48px rgba(38, 25, 16, 0.12);
         }
 
-        .meta,
-        .tag {
-            display: inline-flex;
+        .science-reader h3 {
+            margin-bottom: 0.2rem;
+            font-size: 1.55rem;
+        }
+
+        .science-reader-meta {
+            margin-bottom: 0.9rem;
+            color: var(--faint);
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .science-text {
+            flex: 1 1 auto;
+            overflow: auto;
+            max-height: min(74vh, 62rem);
+            padding: clamp(1.1rem, 2.1vw, 2rem);
+            border: 1px dashed var(--rule-strong);
+            border-radius: 4px;
+            background: rgba(255, 245, 223, 0.62);
+            color: var(--ink);
+            font-size: 1.04rem;
+            line-height: 1.82;
+        }
+
+        .science-text h1,
+        .science-text h2,
+        .science-text h3 {
+            max-width: none;
+            margin: 1.4rem 0 0.7rem;
+            color: var(--ink);
+            line-height: 1.22;
+            word-break: normal;
+        }
+
+        .science-text h1:first-child,
+        .science-text h2:first-child,
+        .science-text h3:first-child {
+            margin-top: 0;
+        }
+
+        .science-text h1 {
+            font-size: 1.45rem;
+        }
+
+        .science-text h2,
+        .science-text h3 {
+            font-size: 1.18rem;
+        }
+
+        .science-text p {
+            margin: 0 0 1rem;
+        }
+
+        .science-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .science-text a {
+            font-weight: 700;
+        }
+
+        .science-reader-actions {
+            margin-top: 0.9rem;
+        }
+
+        .editor-callout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 1rem;
             align-items: center;
-            min-height: 1.75rem;
-            margin-bottom: 0.8rem;
-            padding: 0.15rem 0.5rem;
-            border: 1px solid rgba(22, 122, 127, 0.25);
-            border-radius: 999px;
-            color: var(--teal);
-            font-size: 0.77rem;
-            font-weight: 850;
+            margin: -0.35rem 0 1.35rem;
+            padding: 1rem;
+            border: 1px solid rgba(142, 52, 45, 0.58);
+            border-radius: 6px;
+            background: rgba(255, 236, 218, 0.78);
+            box-shadow: 0 14px 34px rgba(142, 52, 45, 0.13);
+            animation: editorial-pulse 3.8s ease-in-out infinite;
+        }
+
+        .editor-callout span {
+            display: block;
+            margin-bottom: 0.15rem;
+            color: var(--red);
+            font-size: 0.78rem;
+            font-weight: 700;
             text-transform: uppercase;
         }
 
-        .tag.poetry,
-        .tag.short-prose {
-            border-color: rgba(152, 50, 79, 0.24);
-            color: var(--wine);
+        .editor-callout strong {
+            display: block;
+            color: var(--red);
+            font-size: clamp(1.25rem, 2.5vw, 2rem);
+            line-height: 1.12;
         }
 
-        .tag.public-science {
-            border-color: rgba(183, 125, 34, 0.3);
-            color: #855914;
+        .editor-callout p {
+            margin: 0.3rem 0 0;
+            color: var(--soft-ink);
         }
 
-        .tag.translation {
-            border-color: rgba(88, 107, 47, 0.28);
-            color: var(--moss);
+        .floating-manuscript-cta {
+            position: fixed;
+            right: max(1rem, calc((100vw - 1360px) / 2));
+            bottom: 1.1rem;
+            z-index: 80;
+            width: min(19rem, calc(100vw - 2rem));
+            padding: 0.8rem 0.9rem;
+            border: 1px solid var(--red);
+            border-radius: 6px;
+            background: rgba(142, 52, 45, 0.96);
+            color: var(--page);
+            box-shadow: 0 18px 48px rgba(38, 25, 16, 0.28);
+            text-decoration: none;
+            animation: manuscript-float 4.2s ease-in-out infinite;
+        }
+
+        .floating-manuscript-cta:hover,
+        .floating-manuscript-cta:focus-visible {
+            color: var(--page);
+            transform: translateY(-3px);
+            text-decoration: none;
+        }
+
+        .floating-manuscript-cta span {
+            display: block;
+            color: rgba(255, 245, 223, 0.74);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .floating-manuscript-cta strong {
+            display: block;
+            margin-top: 0.12rem;
+            font-size: 0.94rem;
+            line-height: 1.28;
+        }
+
+        @keyframes editorial-pulse {
+            0%,
+            100% {
+                box-shadow: 0 14px 34px rgba(142, 52, 45, 0.13);
+            }
+
+            50% {
+                box-shadow: 0 18px 44px rgba(142, 52, 45, 0.24);
+            }
+        }
+
+        @keyframes manuscript-float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-7px);
+            }
+        }
+
+        .poem-reader-actions,
+        .science-reader-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            align-items: center;
+        }
+
+        .poem-reader.is-expanded,
+        .science-reader.is-expanded {
+            position: fixed;
+            inset: 5rem max(1rem, calc((100vw - 1180px) / 2)) 2rem;
+            z-index: 60;
+            max-width: 1180px;
+            margin: 0 auto;
+            background:
+                repeating-linear-gradient(0deg, transparent 0 31px, rgba(72, 51, 32, 0.08) 32px, transparent 33px),
+                rgba(255, 252, 241, 0.98);
+            box-shadow: var(--reader-shadow);
+        }
+
+        .poem-reader.is-expanded .poem-text,
+        .science-reader.is-expanded .science-text {
+            max-height: none;
+            font-size: 1.08rem;
+        }
+
+        body.reader-expanded {
+            overflow: hidden;
+        }
+
+        body.reader-expanded .floating-manuscript-cta {
+            display: none;
+        }
+
+        body.reader-expanded .page-shell::after {
+            background:
+                linear-gradient(90deg, rgba(86, 62, 42, 0.09), transparent 10%, transparent 88%, rgba(86, 62, 42, 0.11)),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent 18%, rgba(120, 78, 42, 0.08)),
+                rgba(36, 25, 21, 0.2);
+        }
+
+        .prize-card {
+            grid-column: span 1;
+        }
+
+        .prize-list li {
+            display: grid;
+            grid-template-columns: 4.4rem minmax(0, 1fr);
+            gap: 0.75rem;
+            padding-bottom: 0.85rem;
+            border-bottom: 1px dashed var(--rule-strong);
+        }
+
+        .prize-list li:last-child {
+            padding-bottom: 0;
+            border-bottom: 0;
+        }
+
+        .prize-list time {
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        .prize-list small {
+            display: block;
+            margin-top: 0.15rem;
+            color: var(--faint);
+            font-size: 0.82rem;
+        }
+
+        .video-frame {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            margin-top: 1rem;
+            border: 1px solid var(--rule-strong);
+            border-radius: 6px;
+            background: #17100d;
+        }
+
+        .video-frame iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .press-grid {
+            grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
+        }
+
+        .press-stack {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            min-height: 1.65rem;
+            padding: 0.16rem 0.48rem;
+            border: 1px solid rgba(89, 70, 58, 0.22);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.35);
+            color: var(--soft-ink);
+            font-size: 0.78rem;
+        }
+
+        .contact-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 0.9fr) minmax(15rem, 0.55fr);
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .email-result {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .email-link {
+            color: var(--red);
+            font-weight: 700;
+            word-break: break-word;
+        }
+
+        .small-note {
+            margin: 0.85rem 0 0;
+            font-size: 0.88rem;
         }
 
         .timeline {
             display: grid;
-            gap: 1rem;
+            gap: 0.85rem;
             margin: 0;
             padding: 0;
             list-style: none;
@@ -470,131 +1289,27 @@
 
         .timeline li {
             display: grid;
-            grid-template-columns: 7rem minmax(0, 1fr);
-            gap: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--line);
+            grid-template-columns: 6.3rem minmax(0, 1fr);
+            gap: 0.75rem;
+            padding-bottom: 0.85rem;
+            border-bottom: 1px dashed var(--rule-strong);
         }
 
         .timeline time {
-            color: var(--moss);
-            font-weight: 850;
+            color: var(--red);
+            font-weight: 700;
         }
 
         .timeline p {
             margin-bottom: 0;
-            color: var(--muted);
-        }
-
-        .award-list {
-            display: grid;
-            gap: 0.65rem;
-            margin: 1rem 0 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .award-list li {
-            padding-left: 1rem;
-            border-left: 0.25rem solid var(--wine);
-            color: #3c423d;
-        }
-
-        .filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.55rem;
-            margin-bottom: 1.4rem;
-        }
-
-        .filter-button {
-            min-height: 2.35rem;
-            padding: 0.45rem 0.75rem;
-            border: 1px solid var(--line);
-            border-radius: 999px;
-            background: var(--surface);
-            color: var(--muted);
-            cursor: pointer;
-            font-weight: 800;
-        }
-
-        .filter-button:hover,
-        .filter-button:focus-visible,
-        .filter-button.is-active {
-            border-color: var(--teal);
-            background: var(--teal);
-            color: var(--surface);
-        }
-
-        .work-card {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .work-card[hidden] {
-            display: none;
-        }
-
-        .work-card footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            margin-top: auto;
-            padding-top: 1rem;
-            color: var(--muted);
-            font-size: 0.9rem;
-            font-weight: 750;
-        }
-
-        .status-pill {
-            display: inline-flex;
-            align-items: center;
-            min-height: 1.9rem;
-            padding: 0.2rem 0.55rem;
-            border-radius: 999px;
-            background: #f4f5ef;
-            color: #5a5f55;
-            font-size: 0.8rem;
-            font-weight: 850;
-        }
-
-        .contact {
-            background: #f5f6f1;
-            border-top: 1px solid var(--line);
-        }
-
-        .contact-panel {
-            display: grid;
-            grid-template-columns: minmax(0, 0.85fr) minmax(18rem, 0.55fr);
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .email-result {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            align-items: center;
-            margin-top: 1rem;
-        }
-
-        .email-link {
-            font-weight: 850;
-            word-break: break-word;
-        }
-
-        .small-note {
-            margin: 0;
-            color: var(--muted);
-            font-size: 0.92rem;
+            color: var(--soft-ink);
         }
 
         .site-footer {
-            padding: 1.2rem 0;
-            border-top: 1px solid var(--line);
-            color: var(--muted);
-            font-size: 0.9rem;
+            padding: 1rem 2rem 1.2rem 6.75rem;
+            border-top: 1px dashed var(--rule-strong);
+            color: var(--faint);
+            font-size: 0.84rem;
         }
 
         .footer-inner {
@@ -602,87 +1317,112 @@
             flex-wrap: wrap;
             justify-content: space-between;
             gap: 0.75rem;
-            width: min(1120px, calc(100% - 2rem));
+            width: min(1160px, 100%);
             margin: 0 auto;
         }
 
-        @media (max-width: 880px) {
-            .nav {
-                align-items: flex-start;
-                flex-direction: column;
-                padding: 0.85rem 0;
+        @media (max-width: 920px) {
+            .page-shell {
+                width: min(calc(100% - 1rem), 1360px);
+                margin-top: 0.5rem;
             }
 
-            .nav-links {
-                justify-content: flex-start;
-                flex-wrap: wrap;
+            .nav,
+            .section,
+            .site-footer {
+                padding-left: 2rem;
             }
 
-            .hero {
-                min-height: auto;
+            .section {
+                --section-pad-left: 2rem;
             }
 
-            .hero-content {
-                padding: 4rem 0 3.25rem;
+            .page-shell {
+                background:
+                    repeating-linear-gradient(0deg, transparent 0 32px, var(--rule) 33px, transparent 34px),
+                    var(--page);
             }
 
-            h1 {
-                font-size: 4.1rem;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
-
-            .lede {
-                font-size: 1.1rem;
-            }
-
-            .signal-list,
+            .hero-grid,
             .section-heading,
-            .split,
-            .feature,
-            .bio-panel,
+            .marginal-layout,
+            .book-grid,
+            .writing-extra,
+            .editor-callout,
+            .awarded-poem-layout,
+            .science-layout,
+            .press-grid,
             .contact-panel {
                 grid-template-columns: 1fr;
             }
 
-            .signal-list {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+            .marginalia,
+            .poem-reader,
+            .science-reader {
+                position: static;
+                transform: none;
+            }
+
+            .poem-reader.is-expanded,
+            .science-reader.is-expanded {
+                position: fixed;
+                inset: 0.75rem;
             }
         }
 
-        @media (max-width: 560px) {
-            .nav-links a {
-                padding-inline: 0.5rem;
+        @media (max-width: 620px) {
+            .nav {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 0.7rem;
+                padding: 0.8rem 1rem;
             }
 
-            .hero-content,
-            .section-inner,
-            .nav,
-            .footer-inner {
-                width: min(calc(100% - 1rem), 1120px);
+            .nav-links {
+                justify-content: flex-start;
             }
 
-            h1 {
-                font-size: 3rem;
+            .section,
+            .site-footer {
+                padding: 3.2rem 1rem;
             }
 
             .section {
-                padding: 3.6rem 0;
+                --section-pad-left: 1rem;
+                --section-pad-right: 1rem;
             }
 
-            .signal-list {
-                grid-template-columns: 1fr;
+            .hero {
+                min-height: auto;
+                padding-top: 3.5rem;
             }
 
-            .timeline li {
-                grid-template-columns: 1fr;
-                gap: 0.2rem;
+            h1 {
+                font-size: 3.2rem;
+            }
+
+            h2 {
+                font-size: 1.65rem;
+            }
+
+            .lede {
+                font-size: 1rem;
             }
 
             .button {
                 width: 100%;
+            }
+
+            .floating-manuscript-cta {
+                right: 0.75rem;
+                bottom: 0.75rem;
+                left: 0.75rem;
+                width: auto;
+            }
+
+            .timeline li {
+                grid-template-columns: 1fr;
+                gap: 0.15rem;
             }
         }
 
@@ -700,272 +1440,571 @@
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <a class="floating-manuscript-cta" href="#popular-science" aria-label="Check out Vladana Perlić's new popular science manuscript on AI misconceptions">
+        <span>New pop-sci manuscript</span>
+        <strong>Be the first to check out my AI misconceptions draft.</strong>
+    </a>
 
-    <header class="site-header">
-        <nav class="nav" aria-label="Main navigation">
-            <a class="brand" href="#top" aria-label="Vladana Perlić home">
-                <span>Vladana Perlić</span>
-                <span>AI research · poetry · public science</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#research">Research</a></li>
-                <li><a href="#writing">Writing</a></li>
-                <li><a href="#ai-book">AI book</a></li>
-                <li><a href="#reading-room">Read</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main id="main">
-        <section class="hero" id="top" aria-labelledby="hero-title">
-            <canvas class="hero-canvas" id="language-map" aria-hidden="true"></canvas>
-            <div class="hero-content">
-                <p class="eyebrow">Industrial PhD researcher in AI · poet · translator</p>
-                <h1 id="hero-title">Vladana Perlić</h1>
-                <p class="lede">I work where language meets machines: building agentic RAG systems for complex technical documents, writing poems and prose across languages, and turning AI misconceptions into clear stories for curious non-specialists.</p>
-                <div class="hero-actions" aria-label="Featured links">
-                    <a class="button primary" href="#ai-book"><i data-lucide="book-open" aria-hidden="true"></i>AI book project</a>
-                    <a class="button" href="#reading-room"><i data-lucide="library" aria-hidden="true"></i>Reading room</a>
-                    <button class="button" type="button" data-email-reveal><i data-lucide="mail" aria-hidden="true"></i>Email me</button>
-                </div>
-
-                <ul class="signal-list" aria-label="Profile highlights">
-                    <li><strong>PhD</strong><span>Generative AI, NLP, multimodal documents</span></li>
-                    <li><strong>2</strong><span>published poetry books in Serbian</span></li>
-                    <li><strong>7</strong><span>languages connected through work and translation</span></li>
-                    <li><strong>2026</strong><span>AI papers published, accepted, or in progress</span></li>
+    <div class="page-shell">
+        <header class="site-header">
+            <nav class="nav" aria-label="Main navigation">
+                <a class="brand" href="#top" aria-label="Vladana Perlić home">
+                    <span>Vladana Perlić</span>
+                    <span>AI research / poetry / popular science</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#research">Research</a></li>
+                    <li><a href="#literary-works">Literary works</a></li>
+                    <li><a href="#press">Press</a></li>
+                    <li><a href="#popular-science">Popular science</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
-            </div>
-        </section>
+            </nav>
+        </header>
 
-        <section class="section" id="about" aria-labelledby="about-title">
-            <div class="section-inner split">
-                <div>
-                    <p class="eyebrow">About</p>
-                    <h2 id="about-title">A linguist turned AI researcher, without leaving literature behind.</h2>
+        <main id="main">
+            <section class="section hero" id="top" aria-labelledby="hero-title">
+                <div class="alps-banner" aria-label="Line-art mountain banner">
+                    <img src="data/alps-banner.png?v=3" alt="" aria-hidden="true" loading="eager">
                 </div>
-                <div class="bio-panel">
-                    <figure class="portrait">
-                        <img src="data/profile_photo.jpg" alt="Portrait of Vladana Perlić" loading="lazy">
-                    </figure>
-                    <div class="bio-copy">
-                        <p>I am an Industrial PhD researcher at STMicroelectronics and Télécom Paris, working on LLMs, retrieval-augmented generation, agentic workflows, and multimodal technical documentation. Before AI, I studied languages and literature; that background still shapes how I think about models, evidence, meaning, and audience.</p>
-                        <p>My creative work moves mostly through Serbian, with poems translated into English, French, German, Polish, Hungarian, Italian, and Hindi. The same curiosity now drives a public-facing AI book: a clear, literary, non-hysterical guide to what AI systems are, what they are not, and why the difference matters.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section class="section band-teal" id="research" aria-labelledby="research-title">
-            <div class="section-inner">
-                <div class="section-heading">
+                <div class="section-inner hero-grid">
                     <div>
-                        <p class="eyebrow">Research</p>
-                        <h2 id="research-title">Generative AI for documents that resist easy answers.</h2>
+                        <p class="eyebrow">Grenoble, France / Banja Luka / Paris</p>
+                        <h1 id="hero-title">Vladana Perlić</h1>
+                        <p class="location-line">Based in Grenoble, France.</p>
+                        <p class="lede">Industrial PhD researcher in Generative AI and NLP. Poet, writer, and literary translator. This site gathers my research papers, books, awarded poems, translations, interviews, and a new popular-science manuscript about AI misconceptions.</p>
                     </div>
-                    <p>My PhD focuses on augmenting agentic RAG for complex, multimodal documents, with applied work in semiconductor technical documentation and broader research across LLM evaluation, memory, and natural-language interfaces.</p>
-                </div>
 
-                <div class="card-grid">
-                    <article class="card">
-                        <span class="meta">Current PhD</span>
-                        <h3>Augmenting Agentic RAG for Complex, Multimodal Documents</h3>
-                        <p>Industrial PhD researcher, STMicroelectronics and Télécom Paris, LTCI. Grenoble and Paris, 2025-2028.</p>
-                    </article>
-                    <article class="card">
-                        <span class="meta">Published / accepted</span>
-                        <h3>LLM-as-a-qualitative-judge</h3>
-                        <p>Automating error analysis in natural language generation. 1st MME Workshop, 2026.</p>
-                    </article>
-                    <article class="card">
-                        <span class="meta">Published / accepted</span>
-                        <h3>Memory Design in LLM-based Multi-Agent Agenda Assistants</h3>
-                        <p>A comparative study of memory design for LLM-based multi-agent assistants. WOA, 2026.</p>
-                    </article>
-                    <article class="card">
-                        <span class="meta">Under review</span>
-                        <h3>MMA-RAG</h3>
-                        <p>A survey on multimodal agentic retrieval-augmented generation, currently under review.</p>
-                    </article>
+                    <div class="portrait-slip" aria-label="Portrait">
+                        <figure>
+                            <img src="data/profile_photo.jpg" alt="Portrait of Vladana Perlić" loading="eager">
+                            <figcaption>PhD candidate in AI / poet / recovering linguist</figcaption>
+                        </figure>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="section" id="writing" aria-labelledby="writing-title">
-            <div class="section-inner feature">
-                <div class="feature-text">
-                    <p class="eyebrow">Writing</p>
-                    <h2 id="writing-title">Poetry, translation, and a literary life in several languages.</h2>
-                    <p>My literary work has appeared through books, festivals, translations, awards, and residencies across the ex-Yugoslav region and Europe. The Serbian original matters; so does the travel of a poem into another language, another mouth, another room.</p>
-                </div>
-                <div class="card-grid">
-                    <article class="card">
-                        <span class="tag poetry">Book</span>
-                        <h3><em>Kucanje na vrata kule</em></h3>
-                        <p><em>Knocking on the Tower Door</em>, Zaprokul, Belgrade, 2020. Winner of the “Novica Tadić” Award.</p>
-                    </article>
-                    <article class="card">
-                        <span class="tag poetry">Book</span>
-                        <h3><em>Isus među dojkama</em></h3>
-                        <p><em>Jesus Among Breasts</em>, LOM, Belgrade, 2020.</p>
-                    </article>
-                    <article class="card">
-                        <span class="tag translation">Translation</span>
-                        <h3><em>L'hypoténuse</em></h3>
-                        <p>Poems by Jasmina Holbus, translated by Vladana Perlić. Al Manar, France, 2016.</p>
-                    </article>
-                    <article class="card">
-                        <span class="tag short-prose">Residency</span>
-                        <h3>MQ Artist-in-Residence</h3>
-                        <p>Q21, Vienna, 2022.</p>
-                    </article>
-                </div>
-            </div>
-
-            <div class="section-inner" style="margin-top: 2.5rem;">
-                <h3>Selected awards and appearances</h3>
-                <ul class="award-list">
-                    <li>“Aladin Lukač” Award for young poets from the ex-Yugoslav region, Serbia, 2021.</li>
-                    <li>“Anka Topić” Award for best debut by a Bosnian-Herzegovinian female poet, BiH, 2021.</li>
-                    <li>1st Prize, “Ulaznica” Poetry Competition, Serbia, 2021.</li>
-                    <li>1st Prize, “Ratkovićeve večeri poezije”, Montenegro, 2020.</li>
-                    <li>Festival of European Poetry in Belgrade “Trgni se! Poezija!”, Serbia, 2024.</li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="section band-wine" id="ai-book" aria-labelledby="book-title">
-            <div class="section-inner feature">
-                <div class="feature-text">
-                    <p class="eyebrow">Public science</p>
-                    <h2 id="book-title">An AI book for people who do not want to be dazzled into confusion.</h2>
-                    <p>I am developing a general-audience book about misconceptions in AI: not a hype pamphlet, not a panic pamphlet, but a lucid guide to what these systems can do, where language misleads us, and how ordinary people can ask better questions about them.</p>
-                    <p>The website is set up to host draft excerpts for readers, editors, researchers, educators, and publishing people interested in an English-language home for the project.</p>
-                </div>
-                <div class="chapter-grid" aria-label="Forthcoming AI book chapter excerpts">
-                    <article class="chapter-card">
-                        <span class="tag public-science">Excerpt space</span>
-                        <h3>Chapter excerpt 1</h3>
-                        <p>A public draft from the AI misconceptions manuscript can live here as soon as the text is ready to publish.</p>
-                        <span class="status-pill">Prepared for text</span>
-                    </article>
-                    <article class="chapter-card">
-                        <span class="tag public-science">Excerpt space</span>
-                        <h3>Chapter excerpt 2</h3>
-                        <p>A second excerpt can target a different misconception, creating a clearer path for editors and new readers.</p>
-                        <span class="status-pill">Prepared for text</span>
-                    </article>
-                    <article class="chapter-card">
-                        <span class="tag public-science">Essay space</span>
-                        <h3>Notes from the border of AI and poetry</h3>
-                        <p>A shorter non-fiction format for talks, newsletters, interviews, or reflections that connect research to culture.</p>
-                        <span class="status-pill">Ready to expand</span>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="reading-room" aria-labelledby="reading-title">
-            <div class="section-inner">
-                <div class="section-heading">
+            <section class="section" id="about" aria-labelledby="about-title">
+                <div class="section-inner marginal-layout">
                     <div>
-                        <p class="eyebrow">Reading room</p>
-                        <h2 id="reading-title">Papers, poems, prose, and public science in one place.</h2>
+                        <p class="eyebrow">About</p>
+                        <h2 id="about-title">I study AI through language, evidence, and literature.</h2>
+                        <p class="section-copy">I am an Industrial PhD researcher at STMicroelectronics and Télécom Paris, working on LLMs, retrieval-augmented generation, agentic workflows, and multimodal technical documentation. I also write poetry, prose, and literary translations, mostly in Serbian and across translation.</p>
+                        <p class="section-copy">That double life is the method, not the detour: literature trained me to notice ambiguity, tone, silence, and what a text refuses to say; AI research keeps me asking what systems retrieve, what they invent, and how people decide whether an answer deserves trust.</p>
                     </div>
-                    <p>This library is organized for the site’s next stage: published papers, poetry in original and translation, short stories, interviews, and public AI essays can be added without changing the structure.</p>
+                    <aside class="marginalia" aria-live="polite">
+                        <span>Location</span>
+                        <p id="margin-note-text">Based in Grenoble, France, with work and collaborations across Paris, Banja Luka, and Belgrade.</p>
+                    </aside>
                 </div>
+            </section>
 
-                <div class="filters" aria-label="Filter reading room">
-                    <button class="filter-button is-active" type="button" data-filter="all">All</button>
-                    <button class="filter-button" type="button" data-filter="paper">AI papers</button>
-                    <button class="filter-button" type="button" data-filter="poetry">Poetry</button>
-                    <button class="filter-button" type="button" data-filter="short-prose">Short prose</button>
-                    <button class="filter-button" type="button" data-filter="public-science">Public science</button>
-                </div>
+            <section class="section" id="research" aria-labelledby="research-title">
+                <div class="section-inner">
+                    <div class="section-heading simple-heading">
+                        <div>
+                            <p class="eyebrow">Research papers</p>
+                            <h2 id="research-title">Published and in-progress AI research.</h2>
+                        </div>
+                    </div>
 
-                <div class="library-grid" aria-live="polite">
-                    <article class="work-card" data-kind="paper">
-                        <span class="tag">AI paper</span>
-                        <h3>LLM-as-a-qualitative-judge</h3>
-                        <p>Automating error analysis in natural language generation. 1st MME Workshop, 2026.</p>
-                        <footer><span>English</span><span class="status-pill">Link pending</span></footer>
-                    </article>
-                    <article class="work-card" data-kind="paper">
-                        <span class="tag">AI paper</span>
-                        <h3>Memory Design in LLM-based Multi-Agent Agenda Assistants</h3>
-                        <p>A comparative study presented at WOA, 2026.</p>
-                        <footer><span>English</span><span class="status-pill">Link pending</span></footer>
-                    </article>
-                    <article class="work-card" data-kind="poetry">
-                        <span class="tag poetry">Poetry</span>
-                        <h3><em>Kucanje na vrata kule</em></h3>
-                        <p>Selected poems from the award-winning debut collection can be excerpted here in Serbian and translation.</p>
-                        <footer><span>Serbian</span><span class="status-pill">Text pending</span></footer>
-                    </article>
-                    <article class="work-card" data-kind="poetry">
-                        <span class="tag poetry">Poetry</span>
-                        <h3><em>Isus među dojkama</em></h3>
-                        <p>A future home for selected poems, notes, and translations from the 2020 collection published by LOM.</p>
-                        <footer><span>Serbian</span><span class="status-pill">Text pending</span></footer>
-                    </article>
-                    <article class="work-card" data-kind="short-prose">
-                        <span class="tag short-prose">Short prose</span>
-                        <h3>Stories and fragments</h3>
-                        <p>A dedicated shelf for short stories, hybrid prose, interviews, and literary fragments.</p>
-                        <footer><span>Multilingual</span><span class="status-pill">Ready</span></footer>
-                    </article>
-                    <article class="work-card" data-kind="public-science">
-                        <span class="tag public-science">Public science</span>
-                        <h3>AI misconceptions</h3>
-                        <p>Draft chapters and shorter essays for readers who want clarity without surrendering imagination.</p>
-                        <footer><span>English</span><span class="status-pill">Prepared</span></footer>
-                    </article>
+                    <ul class="research-list" aria-label="Selected AI publications">
+                        <li>
+                            <strong>Nadezhda Chirkova, Tunde Oluwaseyi Ajayi, Seth Aycock, Zain Muhammad Mujahid, Vladana Perlić, Ekaterina Borisova, and Markarit Vartampetian.</strong> 2026. <a href="https://aclanthology.org/2026.mme-main.7/" target="_blank" rel="noopener noreferrer">LLM-as-a-qualitative-judge: automating error analysis in natural language generation</a>. In <em>Proceedings of the First Workshop on Multilingual Multicultural Evaluation</em>, pages 99-132, Rabat, Morocco. Association for Computational Linguistics.
+                            <small><a href="https://doi.org/10.18653/v1/2026.mme-main.7" target="_blank" rel="noopener noreferrer">DOI: 10.18653/v1/2026.mme-main.7</a> / <a href="https://aclanthology.org/2026.mme-main.7.pdf" target="_blank" rel="noopener noreferrer">PDF</a></small>
+                        </li>
+                        <li>
+                            <strong>E. Capiluppi, A. Ferrando, V. Malvone, and V. Perlić.</strong> 2026. <em>Memory Design in LLM-based Multi-Agent Agenda Assistants: A Comparative Study.</em> Accepted at WOA 2026.
+                            <small>Paper soon available.</small>
+                        </li>
+                        <li>
+                            <strong>V. Perlić et al.</strong> 2026. <a href="https://hal.science/hal-05322313v1/document" target="_blank" rel="noopener noreferrer">MMA-RAG: A Survey on Multimodal Agentic Retrieval-Augmented Generation</a>. Under review.
+                            <small>HAL preprint PDF.</small>
+                        </li>
+                    </ul>
                 </div>
+            </section>
+
+            <section class="section" id="literary-works" aria-labelledby="literary-title">
+                <div class="section-inner">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">Literary works</p>
+                            <h2 id="literary-title">Books, translations, prizes, poems, and prose.</h2>
+                        </div>
+                        <p class="section-copy">Poetry books, literary translation, prizes, selected poems, and short fiction.</p>
+                    </div>
+
+                    <div class="archive-subsection">
+                        <div class="subsection-heading">
+                            <p class="eyebrow">Poetry books</p>
+                            <h3>Two books of poetry</h3>
+                            <p>Published in Belgrade in 2020.</p>
+                        </div>
+                        <div class="book-grid">
+                            <article class="book-card" data-note="The debut: award-winning, officially free to download, and now easy to find from the site." data-stamp="book i">
+                                <span class="tag poetry">Book</span>
+                                <h3><em>Kucanje na vrata kule</em></h3>
+                                <p><em>Knocking on the Tower Door</em>, Zaprokul, Belgrade, 2020. Winner of the “Novica Tadić” Award.</p>
+                                <div class="card-actions" aria-label="Kucanje na vrata kule links">
+                                    <a class="button" href="https://zaprokul.org.rs/wp-content/uploads/2024/06/Vladana-Perlic-Kucanje-na-vrata-kule-final.pdf" target="_blank" rel="noopener noreferrer"><i data-lucide="download" aria-hidden="true"></i>Free PDF</a>
+                                    <a class="button" href="https://zaprokul.org.rs/vladana-perlic-kucanje-na-vrata-kule-2020/" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" aria-hidden="true"></i>Zaprokul</a>
+                                    <a class="button" href="https://www.goodreads.com/book/show/54923796-kucanje-na-vrata-kule" target="_blank" rel="noopener noreferrer"><i data-lucide="star" aria-hidden="true"></i>Goodreads</a>
+                                </div>
+                            </article>
+                            <article class="book-card" data-note="The second book: published by LOM, available to buy, and open to practical questions from readers." data-stamp="book ii">
+                                <span class="tag poetry">Book</span>
+                                <h3><em>Isus među dojkama</em></h3>
+                                <p><em>Jesus Among Breasts</em>, LOM, Belgrade, 2020.</p>
+                                <div class="card-actions" aria-label="Isus među dojkama links">
+                                    <a class="button" href="https://lombooks.com/shop/nekategorizovano/4060/" target="_blank" rel="noopener noreferrer"><i data-lucide="shopping-bag" aria-hidden="true"></i>Buy from LOM</a>
+                                    <a class="button" href="https://www.goodreads.com/book/show/55945708-isus-me-u-dojkama" target="_blank" rel="noopener noreferrer"><i data-lucide="star" aria-hidden="true"></i>Goodreads</a>
+                                    <a class="button" href="#contact"><i data-lucide="mail" aria-hidden="true"></i>Access questions</a>
+                                </div>
+                                <p class="book-note">If getting a copy is difficult, write to me and we can see what reading options are possible.</p>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="archive-subsection">
+                        <div class="subsection-heading">
+                            <p class="eyebrow">Book translation</p>
+                            <h3>One book translated into French</h3>
+                            <p>At only 20, I translated this book for the Festival <i>Voix Vives de Méditerranée en Méditerranée</i>, becoming the youngest participant in the festival’s history.</p>
+                        </div>
+                        <article class="note-card single-card" data-note="Translation is part of the archive too: not a supplement, a second life." data-stamp="translation">
+                            <span class="tag translation">Translation</span>
+                            <h3><a href="https://editmanar.com/editions/livres/l-hypotenuse/" target="_blank" rel="noopener noreferrer"><em>L’hypoténuse</em></a></h3>
+                            <p>Jasmina Holbus, translated from Serbian to French by Vladana Perlić. Al Manar, collection Voix vives de la Méditerranée, July 2016.</p>
+                            <div class="card-actions">
+                                <a class="button" href="https://editmanar.com/editions/livres/l-hypotenuse/" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" aria-hidden="true"></i>Al Manar</a>
+                                <a class="button" href="https://voixvivesmediterranee.com/" target="_blank" rel="noopener noreferrer"><i data-lucide="mic" aria-hidden="true"></i>Voix Vives</a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="archive-subsection">
+                        <div class="subsection-heading">
+                            <p class="eyebrow">Prizes and honors</p>
+                            <h3>🏆 18 Awards</h3>
+                            <p>A few headline honors first, then the full chronology for readers who like the trail of dates.</p>
+                        </div>
+                        <article class="note-card prize-card single-card wide" data-note="Awards are not the work, but they do leave useful breadcrumbs for new readers." data-stamp="prizes">
+                            <div class="progressive-panel prize-panel" data-progressive-panel>
+                                <div class="prize-highlights collapse-on-open" aria-label="Highlighted prizes">
+                                    <div class="prize-highlight"><strong>„Novica Tadić“</strong><span>2020 / first book manuscript</span></div>
+                                    <div class="prize-highlight"><strong>„Ratkovićeve večeri poezije“</strong><span>2020 / first prize</span></div>
+                                    <div class="prize-highlight"><strong>„Ulaznica 2021“</strong><span>2021 / first prize in poetry</span></div>
+                                    <div class="prize-highlight"><strong>„Anka Topić“</strong><span>2021 / first poetry book</span></div>
+                                    <div class="prize-highlight"><strong>„Milo Bošković“</strong><span>2020 and 2023</span></div>
+                                    <div class="prize-highlight"><strong>„Mak Dizdar“</strong><span>2018 and 2020</span></div>
+                                </div>
+                                <button class="button reveal-toggle" type="button" aria-expanded="false" aria-controls="all-prizes" data-reveal-toggle data-collapsed-label="See all prizes" data-expanded-label="Back to highlights"><i data-lucide="chevron-down" aria-hidden="true"></i><span data-reveal-label>See all prizes</span></button>
+                                <div class="reveal-content" id="all-prizes" data-reveal-content aria-hidden="true" inert>
+                                    <div class="reveal-content-inner">
+                                        <ol class="prize-list">
+                                            <li><time>2025</time><div><strong>Treća nagrada</strong> za pjesmu <em>Niko me više ne smije taknuti</em>.<small>Deveti natječaj Gradske knjižnice Solin.</small></div></li>
+                                            <li><time>2023</time><div><strong>Druga nagrada „Milo Bošković“</strong> za pjesmu <em>Résidence Le Rabot</em>.<small>Kolašin, Crna Gora.</small></div></li>
+                                            <li><time>2022</time><div>Finalistkinja MArteLive Europe festivala za pjesmu <em>Ljubavno pismo gradu koji se više ne javlja</em>.<small>Rim, Italija.</small></div></li>
+                                            <li><time>2021</time><div><strong>Prva nagrada „Ulaznica 2021“</strong> u kategoriji poezija za <em>Koga god sretnem gleda me sažaljivo i kaže šteta</em>.<small>Zrenjanin, Srbija.</small></div></li>
+                                            <li><time>2021</time><div><strong>Nagrada „Aladin Lukač“</strong> za mlade pjesnike sa prostora Srbije, BiH, Crne Gore i Hrvatske koji su izdali knjigu 2019. i 2020. godine.<small>Kulturni centar Novi Pazar, Srbija.</small></div></li>
+                                            <li><time>2021</time><div>Druga nagrada na konkursu „Priče iz komšiluka“ za kratku priču <em>Lovac mekog srca</em>.<small>Mondo portal, BiH.</small></div></li>
+                                            <li><time>2021</time><div><strong>Nagrada „Anka Topić“</strong> za prvu knjigu poezije bosanskohercegovačkih pjesnikinja objavljenu u posljednjih šest godina za <em>Kucanje na vrata kule</em>.<small>HKD Napredak, Vitez - Žepče, BiH.</small></div></li>
+                                            <li><time>2021</time><div>Nagrada žirija na konkursu „Brankova pohvala svetu“ za pjesmu <em>Pohvala vatri</em>.<small>Niški kulturni centar, Srbija.</small></div></li>
+                                            <li><time>2020</time><div><strong>Nagrada „Novica Tadić“</strong> za rukopis <em>Kucanje na vrata kule</em>.<small>Zavod za proučavanje kulturnog razvitka, Beograd, Srbija.</small></div></li>
+                                            <li><time>2020</time><div><strong>Prva nagrada „Ratkovićeve večeri poezije“</strong>.<small>Bijelo Polje, Crna Gora.</small></div></li>
+                                            <li><time>2020</time><div><strong>Druga nagrada „Mak Dizdar“</strong>.<small>Festival Slovo Gorčina, Stolac, BiH. Also awarded in 2018.</small></div></li>
+                                            <li><time>2020</time><div>Treća nagrada na Festivalu poezije mladih u Vrbasu.<small>Vrbas, Srbija.</small></div></li>
+                                            <li><time>2020</time><div>Treća nagrada „Milo Bošković“ za pjesmu <em>Radije bih da znam popravljati česme</em>.<small>Kolašin, Crna Gora.</small></div></li>
+                                            <li><time>2020</time><div>Finalistkinja konkursa Trećeg Trga za prvu knjigu poezije.<small>Beograd, Srbija.</small></div></li>
+                                            <li><time>2020</time><div>Finalistkinja konkursa „Prvenac“.<small>SKC, Kragujevac, Srbija.</small></div></li>
+                                            <li><time>2019</time><div>Pobjednica konkursa „Vrijeme (bez) utopije“ u kategoriji poezija za pjesmu <em>Život prije nas</em>.<small>Mreža mladih pisaca, BiH, Srbija, Crna Gora, Hrvatska i Rusija.</small></div></li>
+                                            <li><time>2019</time><div>Prva nagrada na Prvom pjesničkom konkursu za najbolju studentsku poeziju.<small>Univerzitet u Banjoj Luci, Banja Luka, BiH.</small></div></li>
+                                            <li><time>2018</time><div><strong>Druga nagrada „Mak Dizdar“</strong>.<small>Festival Slovo Gorčina, Stolac, BiH.</small></div></li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="archive-subsection" id="awarded-poems">
+                        <div class="mini-heading">
+                            <p class="eyebrow">Poem archive</p>
+                            <h3>Prize-Winning Poems and Translations</h3>
+                            <p>Read the Serbian originals and selected English, French, German, and Polish translations.</p>
+                        </div>
+
+                        <div class="awarded-poem-layout">
+                            <div class="poem-picker" id="poem-picker" aria-label="Poem archive">
+                                <section class="poem-language-section" aria-labelledby="serbian-poems-title">
+                                    <div class="language-heading">
+                                        <span class="flag-mark" aria-hidden="true">🇷🇸</span>
+                                        <div>
+                                            <span class="tag poetry">Serbian originals</span>
+                                            <h4 id="serbian-poems-title">Awarded poems in Serbian</h4>
+                                        </div>
+                                    </div>
+                                    <div class="serbian-poem-list is-collapsed" id="serbian-awarded-poems">
+                                <article class="note-card poem-card" data-note="A 2025 prize poem from the Solin library competition." data-stamp="2025">
+                                    <span class="tag poetry">2025 / third prize</span>
+                                    <h3>Niko me više ne smije taknuti</h3>
+                                    <p class="poem-meta">Deveti natječaj Gradske knjižnice Solin.</p>
+                                    <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/Niko me više ne smije taknuti.txt" data-poem-title="Niko me više ne smije taknuti" data-poem-meta="Treća nagrada, Deveti natječaj Gradske knjižnice Solin, 2025."><i data-lucide="book-open" aria-hidden="true"></i>Read poem</button>
+                                </article>
+
+                                <article class="note-card poem-card" data-note="A Grenoble ghost-residence poem, second prize in Kolašin." data-stamp="2023">
+                                    <span class="tag poetry">2023 / second prize</span>
+                                    <h3>Résidence Le Rabot</h3>
+                                    <p class="poem-meta">„Milo Bošković“, Kolašin, Crna Gora.</p>
+                                    <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/Résidence Le Rabot.txt" data-poem-title="Résidence Le Rabot" data-poem-meta="Druga nagrada „Milo Bošković“, Kolašin, Crna Gora, 2023."><i data-lucide="book-open" aria-hidden="true"></i>Read poem</button>
+                                </article>
+
+                                <article class="note-card poem-card" data-note="The city-love poem that travelled to MArteLive Europe." data-stamp="2022">
+                                    <span class="tag poetry">2022 / finalist</span>
+                                    <h3>Ljubavno pismo gradu koji se više ne javlja</h3>
+                                    <p class="poem-meta">MArteLive Europe festival, Rim, Italija.</p>
+                                    <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/LJUBAVNO PISMO GRADU KOJI SE VIŠE NE JAVLJA.txt" data-poem-title="Ljubavno pismo gradu koji se više ne javlja" data-poem-meta="Finalistkinja MArteLive Europe festivala, Rim, Italija, 2022."><i data-lucide="book-open" aria-hidden="true"></i>Read poem</button>
+                                </article>
+
+                                <article class="note-card poem-card" data-note="A first-prize poem from Ulaznica, sharp and domestic in the best dangerous way." data-stamp="2021">
+                                    <span class="tag poetry">2021 / first prize</span>
+                                    <h3>Koga god sretnem gleda me sažaljivo i kaže šteta</h3>
+                                    <p class="poem-meta">„Ulaznica 2021“, Zrenjanin, Srbija.</p>
+                                    <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/Koga god sretnem gleda me sažaljivo.txt" data-poem-title="Koga god sretnem gleda me sažaljivo i kaže šteta" data-poem-meta="Prva nagrada „Ulaznica 2021“ u kategoriji poezija, Zrenjanin, Srbija."><i data-lucide="book-open" aria-hidden="true"></i>Read poem</button>
+                                </article>
+
+                                <article class="note-card poem-card" data-note="A short, ember-bright poem recognized by the Brankova pohvala svetu jury." data-stamp="2021">
+                                    <span class="tag poetry">2021 / jury award</span>
+                                    <h3>Pohvala vatri</h3>
+                                    <p class="poem-meta">„Brankova pohvala svetu“, Niški kulturni centar.</p>
+                                    <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/Pohvala vatri.txt" data-poem-title="Pohvala vatri" data-poem-meta="Nagrada žirija na konkursu „Brankova pohvala svetu“, Niški kulturni centar, Srbija, 2021."><i data-lucide="book-open" aria-hidden="true"></i>Read poem</button>
+                                </article>
+
+                                <article class="note-card poem-card" data-note="A 2020 Milo Bošković poem about envy, usefulness, and the old ache of writing." data-stamp="2020">
+                                    <span class="tag poetry">2020 / third prize</span>
+                                    <h3>Radije bih da znam popravljati česme</h3>
+                                    <p class="poem-meta">„Milo Bošković“, Kolašin, Crna Gora.</p>
+                                    <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/RADIJE BIH DA ZNAM POPRAVLJATI ČESME.txt" data-poem-title="Radije bih da znam popravljati česme" data-poem-meta="Treća nagrada „Milo Bošković“, Kolašin, Crna Gora, 2020."><i data-lucide="book-open" aria-hidden="true"></i>Read poem</button>
+                                </article>
+
+                                <article class="note-card poem-card" data-note="The 2019 winning poem from Vrijeme (bez) utopije, preserved here in Cyrillic." data-stamp="2019">
+                                    <span class="tag poetry">2019 / winner</span>
+                                    <h3>Život prije nas / Живот прије нас</h3>
+                                    <p class="poem-meta">„Vrijeme (bez) utopije“, Mreža mladih pisaca.</p>
+                                    <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/Живот прије нас.txt" data-poem-title="Život prije nas / Живот прије нас" data-poem-meta="Pobjednica konkursa „Vrijeme (bez) utopije“ u kategoriji poezija, 2019."><i data-lucide="book-open" aria-hidden="true"></i>Read poem</button>
+                                </article>
+
+                                        <button class="button compact-toggle" type="button" aria-expanded="false" aria-controls="serbian-awarded-poems" data-compact-toggle data-compact-target="serbian-awarded-poems" data-collapsed-label="See more Serbian awarded poems" data-expanded-label="Show fewer Serbian poems"><i data-lucide="chevron-down" aria-hidden="true"></i><span data-compact-label>See more Serbian awarded poems</span></button>
+                                    </div>
+                                </section>
+
+                                <section class="poem-language-section" aria-labelledby="translated-poems-title">
+                                    <div class="language-heading">
+                                        <span class="flag-mark" aria-hidden="true">🌍</span>
+                                        <div>
+                                            <span class="tag translation">Translations</span>
+                                            <h4 id="translated-poems-title">Poems translated to other languages</h4>
+                                        </div>
+                                    </div>
+                                    <div class="translation-shelf">
+
+                                <article class="note-card poem-card translation-card" data-note="English translations are loaded from DOCX files and rendered in the reader." data-stamp="english">
+                                    <span class="tag translation">English translations</span>
+                                    <h3><span class="flag-mark" aria-hidden="true">🇬🇧</span>English</h3>
+                                    <div class="poem-button-list language-poem-list is-collapsed" id="english-translations">
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/poezija i proza na engleskom/A Love Letter to the Town That Isn't Calling Back.docx" data-poem-title="A Love Letter to the Town That Isn't Calling Back" data-poem-meta="English translation."><i data-lucide="languages" aria-hidden="true"></i>A Love Letter to the Town That Isn't Calling Back</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/poezija i proza na engleskom/Life Before Us.docx" data-poem-title="Life Before Us" data-poem-meta="English translation."><i data-lucide="languages" aria-hidden="true"></i>Life Before Us</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/poezija i proza na engleskom/My Parents.docx" data-poem-title="My Parents" data-poem-meta="English translation."><i data-lucide="languages" aria-hidden="true"></i>My Parents</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/poezija i proza na engleskom/The Year When My Brother Started Believing in Aliens.docx" data-poem-title="The Year When My Brother Started Believing in Aliens" data-poem-meta="English translation."><i data-lucide="languages" aria-hidden="true"></i>The Year When My Brother Started Believing in Aliens</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/poezija i proza na engleskom/Unreal Girls.docx" data-poem-title="Unreal Girls" data-poem-meta="English translation."><i data-lucide="languages" aria-hidden="true"></i>Unreal Girls</button>
+                                        <button class="button compact-toggle" type="button" aria-expanded="false" aria-controls="english-translations" data-compact-toggle data-compact-target="english-translations" data-collapsed-label="See more English translations" data-expanded-label="Show fewer English translations"><i data-lucide="chevron-down" aria-hidden="true"></i><span data-compact-label>See more English translations</span></button>
+                                    </div>
+                                </article>
+
+                                <article class="note-card poem-card translation-card" data-note="French translations keep the original lineation and DOCX italics where available." data-stamp="french">
+                                    <span class="tag translation">French translations</span>
+                                    <h3><span class="flag-mark" aria-hidden="true">🇫🇷</span>French</h3>
+                                    <div class="poem-button-list language-poem-list is-collapsed" id="french-translations">
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_french/Poezija na francuskom/L'Amante.docx" data-poem-title="L'Amante" data-poem-meta="French translation."><i data-lucide="languages" aria-hidden="true"></i>L'Amante</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_french/Poezija na francuskom/La poétesse que vous attendiez depuis toujours.docx" data-poem-title="La poétesse que vous attendiez depuis toujours" data-poem-meta="French translation."><i data-lucide="languages" aria-hidden="true"></i>La poétesse que vous attendiez depuis toujours</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_french/Poezija na francuskom/La-vie-avant-nous-1.docx" data-poem-title="La vie avant nous" data-poem-meta="French translation."><i data-lucide="languages" aria-hidden="true"></i>La vie avant nous</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_french/Poezija na francuskom/Les fillettes irréelles.docx" data-poem-title="Les fillettes irréelles" data-poem-meta="French translation."><i data-lucide="languages" aria-hidden="true"></i>Les fillettes irréelles</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_french/Poezija na francuskom/Mes-parents.docx" data-poem-title="Mes parents" data-poem-meta="French translation."><i data-lucide="languages" aria-hidden="true"></i>Mes parents</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_french/Poezija na francuskom/Puisque tu veux niquer ma mère, fais au moins en sorte qu’elle en profite.docx" data-poem-title="Puisque tu veux niquer ma mère, fais au moins en sorte qu’elle en profite" data-poem-meta="French translation."><i data-lucide="languages" aria-hidden="true"></i>Puisque tu veux niquer ma mère, fais au moins en sorte qu’elle en profite</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_french/Poezija na francuskom/SI NOUS ABANDONNONS NOTRE MAISON.docx" data-poem-title="Si nous abandonnons notre maison" data-poem-meta="French translation."><i data-lucide="languages" aria-hidden="true"></i>Si nous abandonnons notre maison</button>
+                                        <button class="button compact-toggle" type="button" aria-expanded="false" aria-controls="french-translations" data-compact-toggle data-compact-target="french-translations" data-collapsed-label="See more French translations" data-expanded-label="Show fewer French translations"><i data-lucide="chevron-down" aria-hidden="true"></i><span data-compact-label>See more French translations</span></button>
+                                    </div>
+                                </article>
+
+                                <article class="note-card poem-card translation-card" data-note="German translations are grouped by translator when that information is in the file name." data-stamp="german">
+                                    <span class="tag translation">German translations</span>
+                                    <h3><span class="flag-mark" aria-hidden="true">🇩🇪</span>German</h3>
+                                    <div class="poem-button-list">
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/Meine Eltern - prevod Marija Mirković.docx" data-poem-title="Meine Eltern" data-poem-meta="German translation by Marija Mirković."><i data-lucide="languages" aria-hidden="true"></i>Meine Eltern</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/PERLIC_Vladana_Gedichte_DE_1 prevod Maša Dabić.docx" data-poem-title="Selected poems in German" data-poem-meta="German translations by Maša Dabić."><i data-lucide="languages" aria-hidden="true"></i>Selected poems in German</button>
+                                    </div>
+                                </article>
+
+                                <article class="note-card poem-card translation-card" data-note="Polish translations sit beside the originals for readers moving between languages." data-stamp="polish">
+                                    <span class="tag translation">Polish translations</span>
+                                    <h3><span class="flag-mark" aria-hidden="true">🇵🇱</span>Polish</h3>
+                                    <div class="poem-button-list">
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_polish/poezija na poljskom/MOI RODZICE.docx" data-poem-title="Moi rodzice" data-poem-meta="Polish translation."><i data-lucide="languages" aria-hidden="true"></i>Moi rodzice</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_polish/poezija na poljskom/Życie-przed-nami.docx" data-poem-title="Życie przed nami" data-poem-meta="Polish translation."><i data-lucide="languages" aria-hidden="true"></i>Życie przed nami</button>
+                                    </div>
+                                </article>
+
+                                    </div>
+                                </section>
+                            </div>
+
+                            <aside class="poem-reader" id="poem-reader" aria-live="polite">
+                                <span class="tag poetry">Poem reader</span>
+                                <h3 id="poem-reader-title">Loading poem</h3>
+                                <p class="poem-reader-meta" id="poem-reader-meta">Awarded poem archive.</p>
+                                <div class="poem-text" id="poem-reader-text">Loading the first poem...</div>
+                                <div class="poem-reader-actions">
+                                    <button class="button" type="button" aria-expanded="false" data-reader-toggle data-reader-target="poem-reader" data-expanded-label="Exit wide reader" data-collapsed-label="Wide reader"><i data-lucide="maximize-2" aria-hidden="true"></i><span data-reader-label>Wide reader</span></button>
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+
+                    <div class="archive-subsection">
+                        <div class="subsection-heading">
+                            <p class="eyebrow">Short fiction</p>
+                            <h3>Published prose</h3>
+                        </div>
+                        <article class="note-card single-card" data-note="Short fiction belongs with the poems and prose, not in the interview drawer." data-stamp="fiction">
+                            <span class="tag poetry">Short story</span>
+                            <h3>Lovac mekog srca</h3>
+                            <p>Second place in Mondo.ba’s “Priče iz komšiluka 5” competition.</p>
+                            <div class="card-actions">
+                                <a class="button" href="https://mondo.ba/Magazin/Kultura/a1051759/Kratka-prica-Vladana-Perlic-Lovac-mekog-srca.html" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" aria-hidden="true"></i>Read story</a>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="archive-subsection" aria-labelledby="recorded-readings-title">
+                        <div class="subsection-heading">
+                            <p class="eyebrow">Recorded poetry</p>
+                            <h3 id="recorded-readings-title">Recorded Poetry Readings</h3>
+                            <p>Video recordings of me reading my poetry, newest to oldest.</p>
+                        </div>
+
+                        <article class="note-card single-card wide" data-note="A featured reading from the English translations shelf, kept close to the poems." data-stamp="reading">
+                            <span class="tag poetry">Featured reading</span>
+                            <h3>A Love Letter to the Town That Isn't Calling Back</h3>
+                            <div class="video-frame">
+                                <iframe src="https://www.youtube-nocookie.com/embed/NFQm5dAjoe4" title="A Love Letter to the Town That Isn't Calling Back // Vladana Perlić" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            </div>
+                            <div class="card-actions">
+                                <a class="button" href="https://www.youtube.com/watch?v=NFQm5dAjoe4" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" aria-hidden="true"></i>Watch on YouTube</a>
+                            </div>
+                        </article>
+
+                        <div class="progressive-panel readings-progressive" data-progressive-panel>
+                            <button class="button reveal-toggle" type="button" aria-expanded="false" aria-controls="recorded-readings-archive" data-reveal-toggle data-collapsed-label="See more recorded readings" data-expanded-label="Show fewer recorded readings"><i data-lucide="chevron-down" aria-hidden="true"></i><span data-reveal-label>See more recorded readings</span></button>
+                            <div class="reveal-content" id="recorded-readings-archive" data-reveal-content aria-hidden="true" inert>
+                                <div class="reveal-content-inner">
+                                    <article class="note-card single-card wide" data-note="Older poetry readings, still kept newest to oldest." data-stamp="watch">
+                                        <span class="tag poetry">More readings / newest to oldest</span>
+                                        <ul class="link-list">
+                                            <li><a href="https://www.youtube.com/watch?v=7SWDrSGUuyw&amp;t=44s" target="_blank" rel="noopener noreferrer">SVI MI i Vladana Perlić</a></li>
+                                            <li><a href="https://www.youtube.com/watch?v=BfpH6K64RDg" target="_blank" rel="noopener noreferrer">Vladana Perlić, iz rukopisa <em>Život prije nas</em></a></li>
+                                            <li><a href="https://www.youtube.com/watch?v=BhnijjezSrI" target="_blank" rel="noopener noreferrer">#4 Nestvarne djevojčice</a></li>
+                                        </ul>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="press" aria-labelledby="press-title">
+                <div class="section-inner">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">Press archive</p>
+                            <h2 id="press-title">Interviews, reviews, criticism, and public conversations.</h2>
+                        </div>
+                        <p class="section-copy">A compact public archive for readers, editors, journalists, and organizers who want context before they read the poems, write about the books, or invite me into a conversation.</p>
+                    </div>
+
+                    <div class="press-grid">
+                        <article class="press-card" data-note="A featured video shelf belongs in the diary too: voice, gesture, pauses, the unpolished texture of conversation." data-stamp="featured">
+                            <span class="tag press">Featured video</span>
+                            <h3>Šampioni znanja - Vladana Perlić</h3>
+                            <p>A recent video interview</p>
+                            <div class="video-frame">
+                                <iframe src="https://www.youtube-nocookie.com/embed/ZtZjYOe2-28" title="Šampioni znanja - Vladana Perlić" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            </div>
+                        </article>
+
+                        <article class="press-card" data-note="Academic readers have written about the books too, especially in relation to contemporary poetry." data-stamp="papers">
+                            <span class="tag poetry">Citations and criticism</span>
+                            <h3>Research papers citing my books</h3>
+                            <ul class="link-list">
+                                <li><a href="https://www.researchgate.net/profile/Sara-Matin-3/publication/362570625_Vladana_Perlic_i_Radmila_Petrovic_studija_ukrstenog_citanja/links/677ec63d7934b95644aafca3/Vladana-Perlic-i-Radmila-Petrovic-studija-ukrstenog-citanja.pdf" target="_blank" rel="noopener noreferrer">Vladana Perlić i Radmila Petrović: studija ukrštenog čitanja</a><small>ResearchGate PDF.</small></li>
+                                <li><a href="http://dirikum.org.rs/1226/1/Katarina%20Pantovi%C4%87%20O%20nekim%20aspektima%20mlade%20srpske%20poezije.pdf" target="_blank" rel="noopener noreferrer">Katarina Pantović: O nekim aspektima mlade srpske poezije</a><small>PDF.</small></li>
+                            </ul>
+                        </article>
+                    </div>
+
+                    <div class="progressive-panel press-progressive" data-progressive-panel>
+                        <button class="button reveal-toggle" type="button" aria-expanded="false" aria-controls="press-archive" data-reveal-toggle data-collapsed-label="See more press" data-expanded-label="Show less press"><i data-lucide="chevron-down" aria-hidden="true"></i><span data-reveal-label>See more press</span></button>
+                        <div class="reveal-content" id="press-archive" data-reveal-content aria-hidden="true" inert>
+                            <div class="reveal-content-inner">
+                                <div class="writing-extra">
+                                    <article class="press-card" data-note="Text interviews keep the context legible: titles, books, humor, awards, and the scene around the poems." data-stamp="interviews">
+                                        <span class="tag press">Text interviews</span>
+                                        <h3>Profiles and conversations</h3>
+                                        <ul class="link-list">
+                                            <li><a href="https://mondo.ba/Magazin/Kultura/a1044880/Vladana-Perlic-intervju.html" target="_blank" rel="noopener noreferrer">Vladana Perlić: Pozitivne kritike jako su dosadne</a><small>Mondo.ba, 16 May 2021.</small></li>
+                                            <li><a href="https://www.booksa.hr/razgovori/video/ucitavanje-vladana-perlic" target="_blank" rel="noopener noreferrer">Učitavanje: Vladana Perlić</a><small>Booksa, 16 February 2021.</small></li>
+                                            <li><a href="https://etrafika.net/moze-i-drugacije/78788/ljubav-u-svim-oblicima-kroz-pjesnistvo-vladane-perlic/" target="_blank" rel="noopener noreferrer">Ljubav u svim oblicima kroz pjesništvo Vladane Perlić</a><small>eTrafika, 12 February 2021.</small></li>
+                                            <li><a href="https://banjaluka.net/vladana-perlic-moja-prva-knjiga-salje-istu-poruku-kao-sandra-bulok-u-filmu-mis-tajni-agent/" target="_blank" rel="noopener noreferrer">Moja prva knjiga šalje istu poruku kao Sandra Bulok u filmu <em>Mis tajni agent</em></a><small>Banjaluka.net, 25 August 2020.</small></li>
+                                        </ul>
+                                    </article>
+
+                                    <article class="press-card" data-note="Video interviews and public conversations, kept in the order requested: newest first." data-stamp="watch">
+                            <span class="tag press">Video interviews / newest to oldest</span>
+                            <ul class="link-list">
+                                <li><a href="https://www.youtube.com/watch?v=ZtZjYOe2-28" target="_blank" rel="noopener noreferrer">Šampioni znanja - Vladana Perlić</a></li>
+                                <li><a href="https://www.youtube.com/watch?v=kFt4O7SbHfI" target="_blank" rel="noopener noreferrer">Za one koji se slažu da je poezija kraljica umetnosti Vladana Perlić je izdala drugu knjigu</a></li>
+                                <li><a href="https://www.youtube.com/watch?v=UiF5Tr4fti4" target="_blank" rel="noopener noreferrer">TzK Razgovori: Vladana Perlić</a></li>
+                                <li><a href="https://www.youtube.com/watch?v=izVwdyrlMK4" target="_blank" rel="noopener noreferrer">Vladana Perlić - BN TV</a></li>
+                                <li><a href="https://www.youtube.com/watch?v=f_xzkxURU6o" target="_blank" rel="noopener noreferrer">Vladana Perlić | Mjesec knjige</a></li>
+                                <li><a href="https://www.youtube.com/watch?v=JnD7l3Jx1XM" target="_blank" rel="noopener noreferrer">Praznik savremene poezije</a></li>
+                                <li><a href="https://www.youtube.com/watch?v=PtUJPQkk9p4" target="_blank" rel="noopener noreferrer">Poeziju će svi pisati (razgovori o političkoj poeziji)</a></li>
+                                <li><a href="https://www.youtube.com/watch?v=aZ9sDNUQTaI" target="_blank" rel="noopener noreferrer">Marginalne tačke gledišta: Vladana Perlić</a></li>
+                            </ul>
+                                    </article>
+                                </div>
+
+                                <div class="writing-extra">
+
+                                    <article class="press-card" data-note="Critical reception for the books, gathered without pretending the archive is finished." data-stamp="reviews">
+                            <span class="tag poetry">Online reviews</span>
+                            <ul class="link-list">
+                                <li><a href="https://sinhro.rs/2021/04/prikaz-knjige-isus-medu-dojkama-vladane-perlic/" target="_blank" rel="noopener noreferrer">PRIKAZ knjige <em>Isus među dojkama</em> Vladane Perlić</a><small>Sinhro.rs, 19 April 2021.</small></li>
+                                <li><a href="https://citamcitaj.wordpress.com/2021/03/04/vladana-perlic-kucanje-na-vrata-kule/" target="_blank" rel="noopener noreferrer">Vladana Perlić: <em>Kucanje na vrata kule</em></a><small>Čitaonica, 4 March 2021.</small></li>
+                                <li><a href="https://glediste.rs/za-citanje-i-uzivanje-isus-medju-dojkama-vladane-perlic/" target="_blank" rel="noopener noreferrer">ZA ČITANJE I UŽIVANJE: <em>Isus među dojkama</em> Vladane Perlić</a><small>Gledište.</small></li>
+                            </ul>
+                                    </article>
+
+                                    <article class="press-card" data-note="News items are breadcrumbs: they mark arrivals, prizes, readings, and public moments." data-stamp="news">
+                            <span class="tag press">News</span>
+                            <ul class="link-list">
+                                <li><a href="https://www.seecult.org/vladani-perlic-nagrada-novica-tadic/" target="_blank" rel="noopener noreferrer">Vladani Perlić nagrada Novica Tadić</a><small>SEEcult.</small></li>
+                                <li><a href="https://mondo.ba/Magazin/Kultura/a992571/Rafalna-paljba-stihova-u-Banskom-dvoru-FOTO.html" target="_blank" rel="noopener noreferrer">“Rafalna paljba” stihova u Banskom dvoru</a><small>Mondo.ba.</small></li>
+                            </ul>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="popular-science" aria-labelledby="popular-science-title">
+                <div class="section-inner">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">Popular science</p>
+                            <h2 id="popular-science-title">AI writing for people who want the machinery, not the mystique.</h2>
+                        </div>
+                        <p class="section-copy">A working book project about AI misconceptions: technically grounded, literary, funny, and written for readers who would rather understand what these systems do than admire the fog around them.</p>
+                    </div>
+
+                    <div class="editor-callout" data-note="The fastest route for editors: one short pitch, then the manuscript excerpt if the premise bites." data-stamp="editors">
+                        <div>
+                            <span>Editors, over here</span>
+                            <strong>Are you an editor? Read the pitch first.</strong>
+                            <p>One minute, one premise: a popular-science AI book with teeth, jokes, and actual technical footing.</p>
+                        </div>
+                        <button class="button primary science-button" type="button" aria-controls="science-reader-text" data-science-src="data/popular_science/that_ai_book/editor_pitch.md" data-science-title="Editor pitch" data-science-meta="Publisher note / Markdown."><i data-lucide="send" aria-hidden="true"></i>Read pitch</button>
+                    </div>
+
+                    <div class="science-layout">
+                        <div class="science-stack" aria-label="Popular science documents">
+                            <article class="chapter-card science-card" data-note="A public-facing manuscript sample: jokes, examples, and enough technical grounding to keep the fog away." data-stamp="book">
+                                <span class="tag public-science">Manuscript sample</span>
+                                <h3><em>Don’t Introduce Me to Your Mother</em></h3>
+                                <p>A substantial draft excerpt from the AI misconceptions book, currently titled <em>Don’t Introduce Me to Your Mother: The Blunt Truth About What AI Can, Can't, and Shouldn't Do</em>.</p>
+                                <div class="card-actions">
+                                    <button class="button science-button" type="button" aria-controls="science-reader-text" data-science-src="data/popular_science/that_ai_book/That AI Book.md" data-science-title="Don’t Introduce Me to Your Mother" data-science-meta="Working manuscript sample / Markdown."><i data-lucide="book-open" aria-hidden="true"></i>Read excerpt</button>
+                                </div>
+                            </article>
+
+                            <article class="chapter-card science-card" data-note="This is the editor-facing doorway: compact, direct, and less shy about why the book should exist." data-stamp="pitch">
+                                <span class="tag public-science">For editors</span>
+                                <h3>Editor pitch</h3>
+                                <p>A short note for editors and publishers interested in a popular-science AI book with technical footing and literary voltage.</p>
+                                <div class="card-actions">
+                                    <button class="button science-button" type="button" aria-controls="science-reader-text" data-science-src="data/popular_science/that_ai_book/editor_pitch.md" data-science-title="Editor pitch" data-science-meta="Publisher note / Markdown."><i data-lucide="send" aria-hidden="true"></i>Read pitch</button>
+                                </div>
+                            </article>
+                        </div>
+
+                        <aside class="science-reader" id="science-reader" aria-live="polite">
+                            <span class="tag public-science">Popular science reader</span>
+                            <h3 id="science-reader-title">Loading popular science text</h3>
+                            <p class="science-reader-meta" id="science-reader-meta">AI book project.</p>
+                            <div class="science-text" id="science-reader-text">Loading the editor pitch...</div>
+                            <div class="science-reader-actions">
+                                <button class="button" type="button" aria-expanded="false" data-reader-toggle data-reader-target="science-reader" data-expanded-label="Exit wide reader" data-collapsed-label="Wide reader"><i data-lucide="maximize-2" aria-hidden="true"></i><span data-reader-label>Wide reader</span></button>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="contact" aria-labelledby="contact-title">
+                <div class="section-inner contact-panel">
+                    <div>
+                        <p class="eyebrow">Last page / contact</p>
+                        <h2 id="contact-title">For research, readings, interviews, translation, and publishing conversations.</h2>
+                        <p class="section-copy">Reach out about AI and NLP collaborations, popular science work, poetry events, interviews, or the AI misconceptions manuscript.</p>
+                        <div class="contact-actions">
+                            <button class="button primary" type="button" data-email-reveal><i data-lucide="mail" aria-hidden="true"></i>Reveal email</button>
+                            <a class="button" href="https://www.linkedin.com/in/vladana-perlic/" rel="me noopener noreferrer" target="_blank"><i data-lucide="linkedin" aria-hidden="true"></i>LinkedIn</a>
+                        </div>
+                        <div class="email-result" id="email-result" hidden>
+                            <a class="email-link" id="email-link" href="#"></a>
+                            <button class="button" type="button" id="copy-email"><i data-lucide="copy" aria-hidden="true"></i>Copy</button>
+                        </div>
+                        <p class="small-note" id="email-status" aria-live="polite"></p>
+                    </div>
+                    <ol class="timeline" aria-label="Background timeline">
+                        <li>
+                            <time>2025-2028</time>
+                            <div><strong>Industrial PhD in AI</strong><p>Télécom Paris, Institut Polytechnique de Paris, and STMicroelectronics.</p></div>
+                        </li>
+                        <li>
+                            <time>2023-2024</time>
+                            <div><strong>Master 2 in NLP</strong><p>Université Grenoble Alpes, Industries de la langue.</p></div>
+                        </li>
+                        <li>
+                            <time>2020</time>
+                            <div><strong>Two poetry books</strong><p>Published in Belgrade by Zaprokul and LOM.</p></div>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <span>© <span id="year"></span> Vladana Perlić</span>
+                <span>Based in France / writing across English, Serbian, and French</span>
             </div>
-        </section>
-
-        <section class="section contact" id="contact" aria-labelledby="contact-title">
-            <div class="section-inner contact-panel">
-                <div>
-                    <p class="eyebrow">Contact</p>
-                    <h2 id="contact-title">For research, readings, interviews, translation, and publishing conversations.</h2>
-                    <p>Reach out about AI and NLP collaborations, public science work, poetry events, interviews, or the AI misconceptions manuscript.</p>
-                    <div class="contact-actions">
-                        <button class="button primary" type="button" data-email-reveal><i data-lucide="mail" aria-hidden="true"></i>Reveal email</button>
-                        <a class="button" href="https://www.linkedin.com/in/vladana-perlic/" rel="me noopener noreferrer" target="_blank"><i data-lucide="linkedin" aria-hidden="true"></i>LinkedIn</a>
-                    </div>
-                    <div class="email-result" id="email-result" hidden>
-                        <a class="email-link" id="email-link" href="#"></a>
-                        <button class="button" type="button" id="copy-email"><i data-lucide="copy" aria-hidden="true"></i>Copy</button>
-                    </div>
-                    <p class="small-note" id="email-status" aria-live="polite"></p>
-                </div>
-                <ol class="timeline" aria-label="Background timeline">
-                    <li>
-                        <time>2025-2028</time>
-                        <div><strong>Industrial PhD in Artificial Intelligence</strong><p>Télécom Paris, Institut Polytechnique de Paris, and STMicroelectronics.</p></div>
-                    </li>
-                    <li>
-                        <time>2023-2024</time>
-                        <div><strong>Master 2 in NLP</strong><p>Université Grenoble Alpes, Industries de la langue.</p></div>
-                    </li>
-                    <li>
-                        <time>2020</time>
-                        <div><strong>Two poetry books published</strong><p>Belgrade publishers Zaprokul and LOM.</p></div>
-                    </li>
-                </ol>
-            </div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <span>© <span id="year"></span> Vladana Perlić</span>
-            <span>Based in France · working across English, Serbian, and French</span>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <script>
         const protectedEmailCodes = [118, 108, 97, 100, 97, 110, 97, 46, 112, 101, 114, 108, 105, 99, 64, 116, 101, 108, 101, 99, 111, 109, 45, 112, 97, 114, 105, 115, 46, 102, 114];
@@ -994,89 +2033,285 @@
             link.focus();
         }
 
-        function setupReadingRoomFilters() {
-            const buttons = document.querySelectorAll("[data-filter]");
-            const cards = document.querySelectorAll(".work-card[data-kind]");
+        function formatPoemText(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/&lt;i&gt;/g, "<em>")
+                .replace(/&lt;\/i&gt;/g, "</em>");
+        }
 
+        function stripPlainTextTitle(text) {
+            const lines = text.trim().split(/\r?\n/);
+            return lines.length > 1 ? lines.slice(1).join("\n").trimStart() : text.trim();
+        }
+
+        function normalizeTitleText(text) {
+            return text.replace(/\s+/g, " ").trim().toLocaleLowerCase();
+        }
+
+        function stripRenderedDocTitle(html, title) {
+            if (!title || !html.trim() || !window.DOMParser) {
+                return html;
+            }
+
+            const titleText = normalizeTitleText(title);
+            const parsed = new DOMParser().parseFromString(html, "text/html");
+            const titleTags = new Set(["H1", "H2", "H3", "P"]);
+            const blocks = Array.from(parsed.body.children);
+
+            while (blocks.length > 0 && !normalizeTitleText(blocks[0].textContent || "")) {
+                blocks.shift().remove();
+            }
+
+            const firstBlock = blocks[0];
+            if (firstBlock && titleTags.has(firstBlock.tagName) && normalizeTitleText(firstBlock.textContent || "") === titleText) {
+                firstBlock.remove();
+            }
+
+            return parsed.body.innerHTML.trim() || html;
+        }
+
+        function formatMarkdown(text) {
+            if (window.marked) {
+                window.marked.setOptions({ breaks: true });
+                return window.marked.parse(text);
+            }
+
+            return formatPoemText(text).replace(/\n{2,}/g, "</p><p>").replace(/^/, "<p>").replace(/$/, "</p>");
+        }
+
+        async function renderPoemSource(response, source, title) {
+            if (source.toLowerCase().endsWith(".docx")) {
+                if (!window.mammoth) {
+                    throw new Error("DOCX reader is not available");
+                }
+                const arrayBuffer = await response.arrayBuffer();
+                const result = await window.mammoth.convertToHtml({ arrayBuffer });
+                return stripRenderedDocTitle(result.value || "<p>This document is empty.</p>", title);
+            }
+
+            const text = await response.text();
+            return formatPoemText(stripPlainTextTitle(text));
+        }
+
+        async function loadPoem(button, shouldScroll = false) {
+            const title = button.dataset.poemTitle;
+            const meta = button.dataset.poemMeta;
+            const source = button.dataset.poemSrc;
+            const reader = document.getElementById("poem-reader");
+            const titleTarget = document.getElementById("poem-reader-title");
+            const metaTarget = document.getElementById("poem-reader-meta");
+            const textTarget = document.getElementById("poem-reader-text");
+
+            titleTarget.textContent = title;
+            metaTarget.textContent = meta;
+            textTarget.textContent = "Loading poem...";
+
+            document.querySelectorAll(".poem-card").forEach((card) => card.classList.toggle("is-selected", card.contains(button)));
+            document.querySelectorAll(".poem-button").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+
+            try {
+                const response = await fetch(encodeURI(source));
+                if (!response.ok) {
+                    throw new Error(`Could not load ${source}`);
+                }
+                textTarget.innerHTML = await renderPoemSource(response, source, title);
+            } catch (error) {
+                textTarget.textContent = "This poem could not be loaded inside the page in this browser.";
+            }
+
+            if (shouldScroll && window.matchMedia("(max-width: 920px)").matches) {
+                reader.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        }
+
+        function setupPoemReader() {
+            const buttons = document.querySelectorAll(".poem-button[data-poem-src]");
             buttons.forEach((button) => {
-                button.addEventListener("click", () => {
-                    const filter = button.dataset.filter;
-                    buttons.forEach((item) => item.classList.toggle("is-active", item === button));
-                    cards.forEach((card) => {
-                        card.hidden = filter !== "all" && card.dataset.kind !== filter;
-                    });
-                });
+                button.addEventListener("click", () => loadPoem(button, true));
+            });
+
+            if (buttons.length > 0) {
+                loadPoem(buttons[0]);
+            }
+        }
+
+        async function loadScienceText(button, shouldScroll = false) {
+            const title = button.dataset.scienceTitle;
+            const meta = button.dataset.scienceMeta;
+            const source = button.dataset.scienceSrc;
+            const reader = document.getElementById("science-reader");
+            const titleTarget = document.getElementById("science-reader-title");
+            const metaTarget = document.getElementById("science-reader-meta");
+            const textTarget = document.getElementById("science-reader-text");
+
+            titleTarget.textContent = title;
+            metaTarget.textContent = meta;
+            textTarget.textContent = "Loading text...";
+
+            document.querySelectorAll(".science-card").forEach((card) => {
+                const cardButton = card.querySelector(".science-button[data-science-src]");
+                card.classList.toggle("is-selected", card.contains(button) || cardButton?.dataset.scienceSrc === source);
+            });
+            document.querySelectorAll(".science-button").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+
+            try {
+                const response = await fetch(encodeURI(source));
+                if (!response.ok) {
+                    throw new Error(`Could not load ${source}`);
+                }
+                const text = await response.text();
+                textTarget.innerHTML = formatMarkdown(text.trim());
+            } catch (error) {
+                textTarget.textContent = "This text could not be loaded inside the page in this browser.";
+            }
+
+            if (shouldScroll && window.matchMedia("(max-width: 920px)").matches) {
+                reader.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        }
+
+        function setupScienceReader() {
+            const buttons = document.querySelectorAll(".science-button[data-science-src]");
+            buttons.forEach((button) => {
+                button.addEventListener("click", () => loadScienceText(button, true));
+            });
+
+            const pitchButton = Array.from(buttons).find((button) => button.dataset.scienceSrc.includes("editor_pitch"));
+            if (pitchButton || buttons.length > 0) {
+                loadScienceText(pitchButton || buttons[0]);
+            }
+        }
+
+        function setupRevealPanels() {
+            document.querySelectorAll("[data-progressive-panel]").forEach((panel) => {
+                const button = panel.querySelector("[data-reveal-toggle]");
+                const content = panel.querySelector("[data-reveal-content]");
+                const label = button?.querySelector("[data-reveal-label]");
+                if (!button || !content) {
+                    return;
+                }
+
+                const setOpen = (isOpen) => {
+                    panel.classList.toggle("is-open", isOpen);
+                    button.setAttribute("aria-expanded", String(isOpen));
+                    content.setAttribute("aria-hidden", String(!isOpen));
+                    content.toggleAttribute("inert", !isOpen);
+                    if (label) {
+                        label.textContent = isOpen ? button.dataset.expandedLabel : button.dataset.collapsedLabel;
+                    }
+                };
+
+                setOpen(button.getAttribute("aria-expanded") === "true");
+                button.addEventListener("click", () => setOpen(!panel.classList.contains("is-open")));
             });
         }
 
-        function setupCanvas() {
-            const canvas = document.getElementById("language-map");
-            const context = canvas.getContext("2d");
-            const labels = ["LLMs", "RAG", "poetry", "Serbian", "English", "French", "semiconductors", "misconceptions", "translation", "agents"];
-            let width = 0;
-            let height = 0;
-            let nodes = [];
-            let frame = 0;
+        function setupCompactToggles() {
+            document.querySelectorAll("[data-compact-toggle]").forEach((button) => {
+                const target = document.getElementById(button.dataset.compactTarget);
+                const label = button.querySelector("[data-compact-label]");
+                if (!target) {
+                    return;
+                }
 
-            function resize() {
-                const ratio = Math.min(window.devicePixelRatio || 1, 2);
-                width = canvas.offsetWidth;
-                height = canvas.offsetHeight;
-                canvas.width = Math.floor(width * ratio);
-                canvas.height = Math.floor(height * ratio);
-                context.setTransform(ratio, 0, 0, ratio, 0, 0);
-                nodes = labels.map((label, index) => ({
-                    label,
-                    x: (width * (0.16 + ((index * 0.17) % 0.72))),
-                    y: (height * (0.14 + ((index * 0.23) % 0.68))),
-                    speed: 0.35 + (index % 4) * 0.08,
-                    phase: index * 1.7
-                }));
-            }
-
-            function draw() {
-                frame += 0.006;
-                context.clearRect(0, 0, width, height);
-                context.lineWidth = 1;
-                context.font = "700 13px Inter, system-ui, sans-serif";
-
-                const points = nodes.map((node) => ({
-                    ...node,
-                    px: node.x + Math.sin(frame * node.speed + node.phase) * 22,
-                    py: node.y + Math.cos(frame * node.speed + node.phase) * 18
-                }));
-
-                for (let outerIndex = 0; outerIndex < points.length; outerIndex += 1) {
-                    for (let innerIndex = outerIndex + 1; innerIndex < points.length; innerIndex += 1) {
-                        const a = points[outerIndex];
-                        const b = points[innerIndex];
-                        const distance = Math.hypot(a.px - b.px, a.py - b.py);
-                        if (distance < 310) {
-                            context.strokeStyle = `rgba(22, 122, 127, ${Math.max(0.04, 0.16 - distance / 2400)})`;
-                            context.beginPath();
-                            context.moveTo(a.px, a.py);
-                            context.lineTo(b.px, b.py);
-                            context.stroke();
-                        }
+                const setExpanded = (isExpanded) => {
+                    target.classList.toggle("is-collapsed", !isExpanded);
+                    button.setAttribute("aria-expanded", String(isExpanded));
+                    if (label) {
+                        label.textContent = isExpanded ? button.dataset.expandedLabel : button.dataset.collapsedLabel;
                     }
+                };
+
+                setExpanded(!target.classList.contains("is-collapsed"));
+                button.addEventListener("click", () => setExpanded(target.classList.contains("is-collapsed")));
+            });
+        }
+
+        function closeReader(reader) {
+            reader.classList.remove("is-expanded");
+            const button = document.querySelector(`[data-reader-toggle][data-reader-target="${reader.id}"]`);
+            const label = button?.querySelector("[data-reader-label]");
+            if (button) {
+                button.setAttribute("aria-expanded", "false");
+                if (label) {
+                    label.textContent = button.dataset.collapsedLabel;
                 }
-
-                points.forEach((point, index) => {
-                    const color = index % 3 === 0 ? "152, 50, 79" : index % 3 === 1 ? "22, 122, 127" : "88, 107, 47";
-                    context.fillStyle = `rgba(${color}, 0.18)`;
-                    context.fillRect(point.px - 4, point.py - 4, 8, 8);
-                    context.fillStyle = `rgba(${color}, 0.46)`;
-                    context.fillText(point.label, point.px + 10, point.py + 5);
-                });
-
-                if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-                    requestAnimationFrame(draw);
+                const icon = button.querySelector("[data-lucide]");
+                if (icon) {
+                    icon.setAttribute("data-lucide", "maximize-2");
                 }
             }
+        }
 
-            resize();
-            draw();
-            window.addEventListener("resize", resize);
+        function setupReaderModes() {
+            const readerSelector = ".poem-reader.is-expanded, .science-reader.is-expanded";
+            const refreshIcons = () => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            };
+            const closeAllReaders = () => {
+                document.querySelectorAll(readerSelector).forEach(closeReader);
+                document.body.classList.remove("reader-expanded");
+                refreshIcons();
+            };
+
+            document.querySelectorAll("[data-reader-toggle]").forEach((button) => {
+                const reader = document.getElementById(button.dataset.readerTarget);
+                const label = button.querySelector("[data-reader-label]");
+                if (!reader) {
+                    return;
+                }
+
+                button.addEventListener("click", () => {
+                    const shouldExpand = !reader.classList.contains("is-expanded");
+                    closeAllReaders();
+                    if (shouldExpand) {
+                        reader.classList.add("is-expanded");
+                        document.body.classList.add("reader-expanded");
+                        button.setAttribute("aria-expanded", "true");
+                        if (label) {
+                            label.textContent = button.dataset.expandedLabel;
+                        }
+                        const icon = button.querySelector("[data-lucide]");
+                        if (icon) {
+                            icon.setAttribute("data-lucide", "minimize-2");
+                        }
+                        reader.scrollIntoView({ behavior: "smooth", block: "nearest" });
+                        refreshIcons();
+                    }
+                });
+            });
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape") {
+                    closeAllReaders();
+                }
+            });
+        }
+
+        function setupMarginalia() {
+            const note = document.getElementById("margin-note-text");
+            const defaultText = note.textContent;
+            const annotatedItems = document.querySelectorAll("[data-note]");
+
+            annotatedItems.forEach((item) => {
+                item.addEventListener("mouseenter", () => {
+                    note.textContent = item.dataset.note;
+                });
+                item.addEventListener("focusin", () => {
+                    note.textContent = item.dataset.note;
+                });
+                item.addEventListener("mouseleave", () => {
+                    note.textContent = defaultText;
+                });
+                item.addEventListener("focusout", () => {
+                    note.textContent = defaultText;
+                });
+            });
         }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -1092,8 +2327,12 @@
                     status.textContent = "Email revealed above.";
                 }
             });
-            setupReadingRoomFilters();
-            setupCanvas();
+            setupPoemReader();
+            setupScienceReader();
+            setupRevealPanels();
+            setupCompactToggles();
+            setupReaderModes();
+            setupMarginalia();
             if (window.lucide) {
                 window.lucide.createIcons();
             }
