@@ -32,6 +32,10 @@
             box-sizing: border-box;
         }
 
+        [hidden] {
+            display: none !important;
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -512,6 +516,69 @@
             max-width: 48rem;
         }
 
+        .section-heading-title-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 0.75rem 1.05rem;
+        }
+
+        .section-heading-title-row h2 {
+            margin-bottom: 0;
+        }
+
+        .literary-hook {
+            position: relative;
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: 0.8rem;
+            align-items: center;
+            align-self: end;
+            margin: 0;
+            padding: 1rem 1rem 0.95rem;
+            border: 2px solid rgba(142, 52, 45, 0.44);
+            border-radius: 6px 18px 6px 14px;
+            background:
+                linear-gradient(135deg, rgba(255, 247, 175, 0.98), rgba(255, 229, 145, 0.82) 48%, rgba(255, 248, 232, 0.95));
+            box-shadow: 7px 8px 0 rgba(142, 52, 45, 0.14), 0 20px 42px rgba(83, 57, 22, 0.13);
+            color: var(--ink);
+            transform: rotate(1.4deg);
+        }
+
+        .literary-hook::before {
+            content: "";
+            position: absolute;
+            inset: 0.4rem 0.45rem auto auto;
+            width: 2.6rem;
+            height: 0.55rem;
+            border-top: 1px solid rgba(142, 52, 45, 0.22);
+            border-bottom: 1px solid rgba(142, 52, 45, 0.22);
+            transform: rotate(-8deg);
+        }
+
+        .literary-hook svg {
+            width: 2.2rem;
+            height: 2.2rem;
+            color: var(--gold);
+            filter: drop-shadow(2px 2px 0 rgba(142, 52, 45, 0.16));
+        }
+
+        .literary-hook-kicker {
+            display: block;
+            color: var(--red);
+            font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+            font-weight: 700;
+            line-height: 0.95;
+            text-transform: uppercase;
+        }
+
+        .literary-hook p {
+            margin: 0.38rem 0 0;
+            color: var(--soft-ink);
+            font-size: 0.96rem;
+            line-height: 1.42;
+        }
+
         .marginal-layout {
             display: grid;
             grid-template-columns: minmax(0, 1fr) minmax(13rem, 0.34fr);
@@ -712,6 +779,18 @@
             border-bottom: 1px dashed var(--rule-strong);
         }
 
+        .subsection-heading-with-note {
+            display: grid;
+            grid-template-columns: minmax(0, 48rem) minmax(12rem, 14rem);
+            gap: 0.9rem 1.4rem;
+            align-items: start;
+            max-width: none;
+        }
+
+        .subsection-heading-copy {
+            max-width: 48rem;
+        }
+
         .subsection-heading h3 {
             margin-bottom: 0.3rem;
             font-size: 1.45rem;
@@ -720,6 +799,126 @@
         .subsection-heading p {
             margin-bottom: 0;
             color: var(--soft-ink);
+        }
+
+        .sticker-note {
+            position: relative;
+            align-self: start;
+            padding: 1rem 1rem 0.95rem;
+            border: 1px solid rgba(134, 93, 39, 0.42);
+            border-radius: 4px 12px 5px 10px;
+            background:
+                linear-gradient(180deg, rgba(255, 243, 166, 0.95), rgba(247, 216, 121, 0.9));
+            box-shadow: 0 18px 32px rgba(83, 57, 22, 0.16);
+            color: #5d4319;
+            transform: rotate(3deg);
+        }
+
+        .sticker-note::before {
+            content: "";
+            position: absolute;
+            top: -0.45rem;
+            left: 50%;
+            width: 4.4rem;
+            height: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 2px;
+            background: rgba(255, 247, 215, 0.72);
+            box-shadow: 0 2px 8px rgba(86, 62, 42, 0.12);
+            transform: translateX(-50%) rotate(-6deg);
+        }
+
+        .sticker-note p {
+            margin: 0;
+            font-size: 0.92rem;
+            line-height: 1.45;
+        }
+
+        .mini-sticker-link {
+            position: relative;
+            display: grid;
+            place-items: center;
+            isolation: isolate;
+            width: clamp(7.4rem, 11vw, 8.8rem);
+            aspect-ratio: 1;
+            padding: 0;
+            border-radius: 50%;
+            box-shadow: 0 18px 28px rgba(20, 12, 15, 0.18);
+            color: #fff4e8;
+            text-decoration: none;
+            justify-self: center;
+            margin-left: 0.55rem;
+            transition: box-shadow 0.18s ease, filter 0.18s ease;
+        }
+
+        .mini-sticker-link::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.04) 0 15%, transparent 16%),
+                radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.28) 0 5%, rgba(255, 255, 255, 0.08) 6% 11%, transparent 12%),
+                repeating-radial-gradient(circle at 50% 50%, #242022 0 2px, #121012 2px 5px, #090809 5px 7px),
+                radial-gradient(circle at 50% 50%, #3c3739 0 18%, #141214 48%, #050405 100%);
+            box-shadow:
+                inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+                inset 0 -22px 26px rgba(0, 0, 0, 0.3);
+            animation: record-spin 7.8s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .mini-sticker-link::after {
+            content: "";
+            position: absolute;
+            inset: 7%;
+            border-radius: 50%;
+            background: conic-gradient(from 210deg, rgba(255, 255, 255, 0.2), transparent 16%, transparent 60%, rgba(255, 255, 255, 0.08) 74%, transparent 82%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .mini-sticker-link span {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            place-items: center;
+            width: 58%;
+            aspect-ratio: 1;
+            padding: 0.72rem;
+            border: 1px solid rgba(255, 226, 213, 0.3);
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.42) 0 12%, rgba(255, 255, 255, 0) 13% 25%),
+                radial-gradient(circle at 50% 50%, #ff8b84 0 14%, #d53a35 15% 68%, #9a1517 100%);
+            box-shadow:
+                inset 0 3px 6px rgba(255, 255, 255, 0.16),
+                inset 0 -10px 12px rgba(103, 12, 16, 0.34),
+                0 0 0 0.48rem rgba(10, 9, 10, 0.76);
+            color: #fff4e8;
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 1.05;
+            text-align: center;
+            text-wrap: balance;
+            text-shadow: 0 1px 0 rgba(90, 8, 14, 0.42);
+        }
+
+        .mini-sticker-link span::before {
+            content: "";
+            position: absolute;
+            inset: calc(50% - 0.3rem);
+            border-radius: 50%;
+            background: #f5ead8;
+            box-shadow: 0 0 0 0.16rem rgba(133, 23, 24, 0.42);
+        }
+
+        .mini-sticker-link:hover,
+        .mini-sticker-link:focus-visible {
+            color: #fff4e8;
+            box-shadow: 0 22px 34px rgba(20, 12, 15, 0.24);
+            filter: saturate(1.06);
         }
 
         .single-card {
@@ -968,6 +1167,69 @@
             box-shadow: 0 18px 40px rgba(38, 25, 16, 0.14);
         }
 
+        .manuscript-rumor {
+            position: relative;
+            display: grid;
+            place-items: center;
+            isolation: isolate;
+            justify-self: end;
+            width: min(11.8rem, 78%);
+            aspect-ratio: 1;
+            margin: 2.15rem 2.25rem 0.2rem 0;
+            padding: 1.08rem;
+            border: 1px solid rgba(105, 61, 27, 0.58);
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 32% 24%, rgba(255, 255, 255, 0.95) 0 0.78rem, rgba(255, 255, 255, 0.38) 0.84rem 1.55rem, transparent 1.6rem),
+                radial-gradient(circle at 46% 42%, #fff5c7 0 38%, #f7ca76 58%, #c98334 78%, #7b421d 100%);
+            box-shadow:
+                inset 0 0 0 0.34rem rgba(255, 248, 219, 0.58),
+                inset 0 0.34rem 0.52rem rgba(255, 255, 255, 0.52),
+                inset 0 -0.85rem 1.35rem rgba(82, 43, 18, 0.34),
+                inset -0.42rem -0.38rem 0.8rem rgba(89, 47, 19, 0.22),
+                0 0.28rem 0 rgba(115, 63, 26, 0.38),
+                0 1.15rem 1.9rem rgba(83, 57, 22, 0.24);
+            color: #5b3519;
+            font-size: 0.82rem;
+            font-weight: 700;
+            line-height: 1.26;
+            text-align: center;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.46);
+            text-wrap: balance;
+            transform-origin: center;
+            animation: magnet-wobble 5.4s ease-in-out infinite;
+        }
+
+        .manuscript-rumor::before {
+            content: "";
+            position: absolute;
+            inset: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.34);
+            border-radius: 50%;
+            background:
+                radial-gradient(ellipse at 34% 20%, rgba(255, 255, 255, 0.5) 0 12%, transparent 13% 36%),
+                linear-gradient(145deg, rgba(255, 255, 255, 0.24), transparent 42%, rgba(92, 46, 18, 0.14) 78%);
+            box-shadow:
+                inset 0 0 0 1px rgba(120, 72, 33, 0.2),
+                inset 0 -0.4rem 0.8rem rgba(111, 61, 25, 0.12);
+            pointer-events: none;
+        }
+
+        .manuscript-rumor::after {
+            content: "";
+            position: absolute;
+            left: 14%;
+            right: 10%;
+            bottom: -0.58rem;
+            z-index: -1;
+            height: 1.15rem;
+            border-radius: 50%;
+            background: rgba(75, 45, 18, 0.22);
+            filter: blur(7px);
+            transform: rotate(8deg);
+            pointer-events: none;
+        }
+
         .science-reader {
             position: sticky;
             top: 6rem;
@@ -1143,6 +1405,27 @@
             }
         }
 
+        @keyframes magnet-wobble {
+            0%,
+            100% {
+                transform: rotate(-7deg) translateY(0);
+            }
+
+            50% {
+                transform: rotate(-3.5deg) translateY(-5px);
+            }
+        }
+
+        @keyframes record-spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
         .poem-reader-actions,
         .science-reader-actions {
             display: flex;
@@ -1154,20 +1437,18 @@
         .poem-reader.is-expanded,
         .science-reader.is-expanded {
             position: fixed;
-            inset: 5rem max(1rem, calc((100vw - 1180px) / 2)) 2rem;
-            z-index: 60;
-            max-width: 1180px;
-            margin: 0 auto;
-            background:
-                repeating-linear-gradient(0deg, transparent 0 31px, rgba(72, 51, 32, 0.08) 32px, transparent 33px),
-                rgba(255, 252, 241, 0.98);
-            box-shadow: var(--reader-shadow);
+            inset: 1rem;
+            z-index: 70;
+            width: auto;
+            max-width: none;
+            max-height: calc(100vh - 2rem);
+            overflow: auto;
+            transform: none;
         }
 
         .poem-reader.is-expanded .poem-text,
         .science-reader.is-expanded .science-text {
             max-height: none;
-            font-size: 1.08rem;
         }
 
         body.reader-expanded {
@@ -1179,10 +1460,7 @@
         }
 
         body.reader-expanded .page-shell::after {
-            background:
-                linear-gradient(90deg, rgba(86, 62, 42, 0.09), transparent 10%, transparent 88%, rgba(86, 62, 42, 0.11)),
-                linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent 18%, rgba(120, 78, 42, 0.08)),
-                rgba(36, 25, 21, 0.2);
+            display: none;
         }
 
         .prize-card {
@@ -1191,9 +1469,9 @@
 
         .prize-list li {
             display: grid;
-            grid-template-columns: 4.4rem minmax(0, 1fr);
+            grid-template-columns: 4rem minmax(0, 1fr);
             gap: 0.75rem;
-            padding-bottom: 0.85rem;
+            padding-bottom: 0.75rem;
             border-bottom: 1px dashed var(--rule-strong);
         }
 
@@ -1345,6 +1623,7 @@
 
             .hero-grid,
             .section-heading,
+            .subsection-heading-with-note,
             .marginal-layout,
             .book-grid,
             .writing-extra,
@@ -1361,6 +1640,11 @@
             .science-reader {
                 position: static;
                 transform: none;
+            }
+
+            .sticker-note {
+                width: min(100%, 14rem);
+                transform: rotate(2deg);
             }
 
             .poem-reader.is-expanded,
@@ -1405,6 +1689,16 @@
                 font-size: 1.65rem;
             }
 
+            .section-heading-title-row {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
+
+            .mini-sticker-link {
+                margin-left: 0;
+                width: min(8.6rem, 56vw);
+            }
+
             .lede {
                 font-size: 1rem;
             }
@@ -1442,7 +1736,7 @@
     <a class="skip-link" href="#main">Skip to content</a>
     <a class="floating-manuscript-cta" href="#popular-science" aria-label="Check out Vladana Perlić's new popular science manuscript on AI misconceptions">
         <span>New pop-sci manuscript</span>
-        <strong>Be the first to check out my AI misconceptions draft.</strong>
+        <strong>Psst! Hey, you! Yes, you! 🫵 Come meet the future Taylor Swift of explaining why you shouldn't put a chatbot in charge of your mortgage. And hurry before the tickets get expensive!</strong>
     </a>
 
     <div class="page-shell">
@@ -1474,13 +1768,13 @@
                         <p class="eyebrow">Grenoble / Paris / Banja Luka</p>
                         <h1 id="hero-title">Vladana Perlić</h1>
                         <p class="location-line">Based in Grenoble, France.</p>
-                        <p class="lede">Industrial PhD researcher in Generative AI and NLP. Poet, writer, and literary translator. This site gathers my research papers, books, awarded poems, translations, interviews, and a new popular-science manuscript about AI misconceptions.</p>
+                        <p class="lede">Industrial PhD researcher in Generative AI and NLP. Poet, writer, and literary translator. I research, write, translate, publish, collect prizes, and make jokes precisely when adults would advise against it. This site gathers the receipts: AI papers, books, awarded poems, translations, interviews, and a new popular-science manuscript on AI misconceptions.</p>
                     </div>
 
                     <div class="portrait-slip" aria-label="Portrait">
                         <figure>
                             <img src="data/profile_photo.jpg" alt="Portrait of Vladana Perlić" loading="eager">
-                            <figcaption>PhD candidate in AI / poet / recovering linguist</figcaption>
+                            <figcaption>PhD candidate in AI / poet / seriously unserious / still smarter than AI</figcaption>
                         </figure>
                     </div>
                 </div>
@@ -1490,9 +1784,9 @@
                 <div class="section-inner marginal-layout">
                     <div>
                         <p class="eyebrow">About</p>
-                        <h2 id="about-title">I study AI through language, evidence, and literature.</h2>
-                        <p class="section-copy">I am an Industrial PhD researcher at STMicroelectronics and Télécom Paris, working on LLMs, retrieval-augmented generation, agentic workflows, and multimodal technical documentation. I also write poetry, prose, and literary translations, mostly in Serbian and across translation.</p>
-                        <p class="section-copy">That double life is the method, not the detour: literature trained me to notice ambiguity, tone, silence, and what a text refuses to say; AI research keeps me asking what systems retrieve, what they invent, and how people decide whether an answer deserves trust.</p>
+                        <h2 id="about-title">I write poems and study machines that need to lay off the shrooms</h2>
+                        <p class="section-copy">I am an Industrial PhD researcher at STMicroelectronics and Télécom Paris, working on LLMs, retrieval-augmented generation, agentic workflows, and multimodal technical documentation. In less CV-shaped terms: I study how AI systems find information, assemble answers, improvise when they should not, and sound frighteningly calm while doing it.</p>
+                        <p class="section-copy">I also write poetry, prose, essays, and popular science articles. The overlap is simple: I spend a lot of time asking what a sentence is doing, what it is leaving out, and whether there is evidence behind the confidence. The awards are here, politely pretending I do not enjoy them, if anyone needs proof that the jokes come with follow-through.</p>
                     </div>
                     <aside class="marginalia" aria-live="polite">
                         <span>Location</span>
@@ -1532,9 +1826,15 @@
                     <div class="section-heading">
                         <div>
                             <p class="eyebrow">Literary works</p>
-                            <h2 id="literary-title">Books, translations, prizes, poems, and prose.</h2>
+                            <h2 id="literary-title">Books, translations, prizes, selected poems, and prose.</h2>
                         </div>
-                        <p class="section-copy">Poetry books, literary translation, prizes, selected poems, and short fiction.</p>
+                        <aside class="literary-hook" aria-label="Did you know">
+                            <i data-lucide="lightbulb" aria-hidden="true"></i>
+                            <div>
+                                <span class="literary-hook-kicker">Did you know?</span>
+                                <p>You're a couple of poems away from becoming a fan and trading friendship bracelets with me.</p>
+                            </div>
+                        </aside>
                     </div>
 
                     <div class="archive-subsection">
@@ -1561,9 +1861,9 @@
                                 <div class="card-actions" aria-label="Isus među dojkama links">
                                     <a class="button" href="https://lombooks.com/shop/nekategorizovano/4060/" target="_blank" rel="noopener noreferrer"><i data-lucide="shopping-bag" aria-hidden="true"></i>Buy from LOM</a>
                                     <a class="button" href="https://www.goodreads.com/book/show/55945708-isus-me-u-dojkama" target="_blank" rel="noopener noreferrer"><i data-lucide="star" aria-hidden="true"></i>Goodreads</a>
-                                    <a class="button" href="#contact"><i data-lucide="mail" aria-hidden="true"></i>Access questions</a>
+                                    <a class="button" href="#contact"><i data-lucide="mail" aria-hidden="true"></i>Beg me for a copy</a>
                                 </div>
-                                <p class="book-note">If getting a copy is difficult, write to me and we can see what reading options are possible.</p>
+                                <p class="book-note">If getting a copy is difficult, write to me and we can see what reading options are possible. ;)</p>
                             </article>
                         </div>
                     </div>
@@ -1577,7 +1877,7 @@
                         <article class="note-card single-card" data-note="Translation is part of the archive too: not a supplement, a second life." data-stamp="translation">
                             <span class="tag translation">Translation</span>
                             <h3><a href="https://editmanar.com/editions/livres/l-hypotenuse/" target="_blank" rel="noopener noreferrer"><em>L’hypoténuse</em></a></h3>
-                            <p>Jasmina Holbus, translated from Serbian to French by Vladana Perlić. Al Manar, collection Voix vives de la Méditerranée, July 2016.</p>
+                            <p>Jasmina Holbus, translated from Serbian to French. Al Manar, July 2016.</p>
                             <div class="card-actions">
                                 <a class="button" href="https://editmanar.com/editions/livres/l-hypotenuse/" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" aria-hidden="true"></i>Al Manar</a>
                                 <a class="button" href="https://voixvivesmediterranee.com/" target="_blank" rel="noopener noreferrer"><i data-lucide="mic" aria-hidden="true"></i>Voix Vives</a>
@@ -1586,11 +1886,17 @@
                     </div>
 
                     <div class="archive-subsection">
-                        <div class="subsection-heading">
-                            <p class="eyebrow">Prizes and honors</p>
-                            <h3>🏆 18 Awards</h3>
-                            <p>A few headline honors first, then the full chronology for readers who like the trail of dates.</p>
+                        <div class="subsection-heading subsection-heading-with-note">
+                            <div class="subsection-heading-copy">
+                                <p class="eyebrow">Prizes and honors</p>
+                                <h3>🏆 18 Awards at Literary Competitions</h3>
+                                <p>As a kid, I was taught it's not nice to boast, so I'll let the awards do the talking.</p>
+                            </div>
+                            <aside class="sticker-note" aria-label="Playful note about the awards section">
+                                <p>Oh, no! I think my pride is showing again</p>
+                            </aside>
                         </div>
+
                         <article class="note-card prize-card single-card wide" data-note="Awards are not the work, but they do leave useful breadcrumbs for new readers." data-stamp="prizes">
                             <div class="progressive-panel prize-panel" data-progressive-panel>
                                 <div class="prize-highlights collapse-on-open" aria-label="Highlighted prizes">
@@ -1706,7 +2012,7 @@
                                         <span class="flag-mark" aria-hidden="true">🌍</span>
                                         <div>
                                             <span class="tag translation">Translations</span>
-                                            <h4 id="translated-poems-title">Poems translated to other languages</h4>
+                                            <h4 id="translated-poems-title">Poems translated into other languages</h4>
                                         </div>
                                     </div>
                                     <div class="translation-shelf">
@@ -1830,16 +2136,19 @@
                     <div class="section-heading">
                         <div>
                             <p class="eyebrow">Press archive</p>
-                            <h2 id="press-title">Interviews, reviews, criticism, and public conversations.</h2>
+                            <div class="section-heading-title-row">
+                                <h2 id="press-title">Interviews, reviews, criticism, and public conversations.</h2>
+                                <a class="mini-sticker-link" href="https://youtu.be/6vQpW9XRiyM?si=M8yIjhGp6YtAJ9S6" target="_blank" rel="noopener noreferrer"><span>Alexa, play Glory Days</span></a>
+                            </div>
                         </div>
-                        <p class="section-copy">A compact public archive for readers, editors, journalists, and organizers who want context before they read the poems, write about the books, or invite me into a conversation.</p>
+                        <p class="section-copy">A press archive for the books: interviews, reviews, criticism, citations, and public conversations that trace how the work has been read, questioned, discussed, and carried forward.</p>
                     </div>
 
                     <div class="press-grid">
                         <article class="press-card" data-note="A featured video shelf belongs in the diary too: voice, gesture, pauses, the unpolished texture of conversation." data-stamp="featured">
                             <span class="tag press">Featured video</span>
                             <h3>Šampioni znanja - Vladana Perlić</h3>
-                            <p>A recent video interview</p>
+                            <p>A recent video interview for Brainz TV</p>
                             <div class="video-frame">
                                 <iframe src="https://www.youtube-nocookie.com/embed/ZtZjYOe2-28" title="Šampioni znanja - Vladana Perlić" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                             </div>
@@ -1916,16 +2225,16 @@
                     <div class="section-heading">
                         <div>
                             <p class="eyebrow">Popular science</p>
-                            <h2 id="popular-science-title">AI writing for people who want the machinery, not the mystique.</h2>
+                            <h2 id="popular-science-title">What AI Does, What It Doesn’t Do, and Why Your Aunt Keeps Using It as a Therapist</h2>
                         </div>
-                        <p class="section-copy">A working book project about AI misconceptions: technically grounded, literary, funny, and written for readers who would rather understand what these systems do than admire the fog around them.</p>
+                        <p class="section-copy">A working popular-science book on AI misconceptions: clear enough for non-specialists, grounded enough for technical readers, and funny enough to survive several appearances of the words “large language model.”</p>
                     </div>
 
                     <div class="editor-callout" data-note="The fastest route for editors: one short pitch, then the manuscript excerpt if the premise bites." data-stamp="editors">
                         <div>
                             <span>Editors, over here</span>
-                            <strong>Are you an editor? Read the pitch first.</strong>
-                            <p>One minute, one premise: a popular-science AI book with teeth, jokes, and actual technical footing.</p>
+                            <strong>Read the pitch first. The manuscript is longer, funnier, and has receipts.</strong>
+                            <p>A quick publisher-facing note on the premise, audience, tone, and why this AI book refuses to treat autocomplete like a minor deity.</p>
                         </div>
                         <button class="button primary science-button" type="button" aria-controls="science-reader-text" data-science-src="data/popular_science/that_ai_book/editor_pitch.md" data-science-title="Editor pitch" data-science-meta="Publisher note / Markdown."><i data-lucide="send" aria-hidden="true"></i>Read pitch</button>
                     </div>
@@ -1935,27 +2244,19 @@
                             <article class="chapter-card science-card" data-note="A public-facing manuscript sample: jokes, examples, and enough technical grounding to keep the fog away." data-stamp="book">
                                 <span class="tag public-science">Manuscript sample</span>
                                 <h3><em>Don’t Introduce Me to Your Mother</em></h3>
-                                <p>A substantial draft excerpt from the AI misconceptions book, currently titled <em>Don’t Introduce Me to Your Mother: The Blunt Truth About What AI Can, Can't, and Shouldn't Do</em>.</p>
+                                <p>A draft excerpt from <em>Don’t Introduce Me to Your Mother</em>: a book about AI hype, useful machinery, broken metaphors, expensive mistakes, and why your chatbot does not need to meet your parents.</p>
                                 <div class="card-actions">
-                                    <button class="button science-button" type="button" aria-controls="science-reader-text" data-science-src="data/popular_science/that_ai_book/That AI Book.md" data-science-title="Don’t Introduce Me to Your Mother" data-science-meta="Working manuscript sample / Markdown."><i data-lucide="book-open" aria-hidden="true"></i>Read excerpt</button>
+                                    <button class="button science-button" type="button" aria-controls="science-reader-text" data-science-src="data/popular_science/that_ai_book/That AI Book.md" data-science-title="Don't Introduce Me to Your Mother: The Blunt Truth About What AI Can, Can't, and Shouldn't Do" data-science-meta="Working manuscript sample / Markdown."><i data-lucide="book-open" aria-hidden="true"></i>Read excerpt</button>
                                 </div>
                             </article>
-
-                            <article class="chapter-card science-card" data-note="This is the editor-facing doorway: compact, direct, and less shy about why the book should exist." data-stamp="pitch">
-                                <span class="tag public-science">For editors</span>
-                                <h3>Editor pitch</h3>
-                                <p>A short note for editors and publishers interested in a popular-science AI book with technical footing and literary voltage.</p>
-                                <div class="card-actions">
-                                    <button class="button science-button" type="button" aria-controls="science-reader-text" data-science-src="data/popular_science/that_ai_book/editor_pitch.md" data-science-title="Editor pitch" data-science-meta="Publisher note / Markdown."><i data-lucide="send" aria-hidden="true"></i>Read pitch</button>
-                                </div>
-                            </article>
+                            <p class="manuscript-rumor">NYT, watch out: a new manuscript is on the loose and is eyeing your bestseller list</p>
                         </div>
 
                         <aside class="science-reader" id="science-reader" aria-live="polite">
                             <span class="tag public-science">Popular science reader</span>
                             <h3 id="science-reader-title">Loading popular science text</h3>
                             <p class="science-reader-meta" id="science-reader-meta">AI book project.</p>
-                            <div class="science-text" id="science-reader-text">Loading the editor pitch...</div>
+                            <div class="science-text" id="science-reader-text">Loading popular science text...</div>
                             <div class="science-reader-actions">
                                 <button class="button" type="button" aria-expanded="false" data-reader-toggle data-reader-target="science-reader" data-expanded-label="Exit wide reader" data-collapsed-label="Wide reader"><i data-lucide="maximize-2" aria-hidden="true"></i><span data-reader-label>Wide reader</span></button>
                             </div>
@@ -1969,14 +2270,14 @@
                     <div>
                         <p class="eyebrow">Last page / contact</p>
                         <h2 id="contact-title">For research, readings, interviews, translation, and publishing conversations.</h2>
-                        <p class="section-copy">Reach out about AI and NLP collaborations, popular science work, poetry events, interviews, or the AI misconceptions manuscript.</p>
+                        <p class="section-copy">Reach out about AI research collaborations, popular science work, poetry events, interviews, or the AI misconceptions manuscript.</p>
                         <div class="contact-actions">
                             <button class="button primary" type="button" data-email-reveal><i data-lucide="mail" aria-hidden="true"></i>Reveal email</button>
                             <a class="button" href="https://www.linkedin.com/in/vladana-perlic/" rel="me noopener noreferrer" target="_blank"><i data-lucide="linkedin" aria-hidden="true"></i>LinkedIn</a>
                         </div>
                         <div class="email-result" id="email-result" hidden>
                             <a class="email-link" id="email-link" href="#"></a>
-                            <button class="button" type="button" id="copy-email"><i data-lucide="copy" aria-hidden="true"></i>Copy</button>
+                            <button class="button" type="button" id="copy-email" hidden><i data-lucide="copy" aria-hidden="true"></i>Copy</button>
                         </div>
                         <p class="small-note" id="email-status" aria-live="polite"></p>
                     </div>
@@ -2021,11 +2322,13 @@
             const email = getProtectedEmail();
             const result = document.getElementById("email-result");
             const link = document.getElementById("email-link");
+            const copyButton = document.getElementById("copy-email");
             const status = document.getElementById("email-status");
             const trigger = event.currentTarget;
             link.href = `mailto:${email}`;
             link.textContent = email;
             result.hidden = false;
+            copyButton.hidden = false;
             status.textContent = "";
             if (!trigger.closest("#contact")) {
                 document.getElementById("contact").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2138,6 +2441,24 @@
             }
         }
 
+        const selectedScienceStorageKey = "selectedScienceSource";
+
+        function getStoredScienceSource() {
+            try {
+                return window.localStorage.getItem(selectedScienceStorageKey);
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function storeScienceSource(source) {
+            try {
+                window.localStorage.setItem(selectedScienceStorageKey, source);
+            } catch (error) {
+                // Ignore storage failures and fall back to default selection.
+            }
+        }
+
         async function loadScienceText(button, shouldScroll = false) {
             const title = button.dataset.scienceTitle;
             const meta = button.dataset.scienceMeta;
@@ -2150,6 +2471,7 @@
             titleTarget.textContent = title;
             metaTarget.textContent = meta;
             textTarget.textContent = "Loading text...";
+            storeScienceSource(source);
 
             document.querySelectorAll(".science-card").forEach((card) => {
                 const cardButton = card.querySelector(".science-button[data-science-src]");
@@ -2158,7 +2480,7 @@
             document.querySelectorAll(".science-button").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
 
             try {
-                const response = await fetch(encodeURI(source));
+                const response = await fetch(encodeURI(source), { cache: "no-store" });
                 if (!response.ok) {
                     throw new Error(`Could not load ${source}`);
                 }
@@ -2179,9 +2501,15 @@
                 button.addEventListener("click", () => loadScienceText(button, true));
             });
 
+            const storedSource = getStoredScienceSource();
+            const storedButton = storedSource
+                ? Array.from(buttons).find((button) => button.dataset.scienceSrc === storedSource)
+                : null;
+            const excerptButton = Array.from(buttons).find((button) => button.dataset.scienceSrc.includes("That AI Book.md"));
             const pitchButton = Array.from(buttons).find((button) => button.dataset.scienceSrc.includes("editor_pitch"));
-            if (pitchButton || buttons.length > 0) {
-                loadScienceText(pitchButton || buttons[0]);
+            const initialButton = storedButton || pitchButton || excerptButton || buttons[0];
+            if (initialButton) {
+                loadScienceText(initialButton);
             }
         }
 

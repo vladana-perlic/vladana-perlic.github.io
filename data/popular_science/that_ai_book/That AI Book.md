@@ -1,16 +1,8 @@
+## Chapter 1: "You'll Never Walk Alone" and Why I Appreciate My Solitary Walks
 
-
-
-# Don't Introduce Me to Your Mother: The Blunt Truth About What AI Can, Can't, and Shouldn't Do  
-
-
-# "You'll Never Walk Alone" and Why I Appreciate My Solitary Walks
-
+*"There was a time when humanity faced the universe alone and without a friend. Now he has creatures to help him; stronger creatures than himself, more faithful, more useful, and absolutely devoted to him. Mankind is no longer alone. Have you ever thought of it that way?"* 
    
-   
-"There was a time when humanity faced the universe alone and without a friend. Now he has creatures to help him; stronger creatures than himself, more faithful, more useful, and absolutely devoted to him. Mankind is no longer alone. Have you ever thought of it that way?"  
-   
-Susan Calvin in I, Robot by Isaac Asimov  
+Dr Susan Calvin in I, Robot by Isaac Asimov  
    
    
 Who hasn't yearned for a metallic buddy as a kid? The one who can relieve you of all your troubles, all cumbersome tasks, who can be there for you when no one else can, the one who is more perfect than any human, made in our image, by us, for us, who exists solely to serve us, who has our best interests at heart, who will sacrifice himself for us, who will be our friend with his ever-loving metallic embrace?  
@@ -41,7 +33,7 @@ If we understand their limits, we can use them properly. If we understand how th
    
  
 
-# Dumber Than a 5 Year Old, Hungrier Than a City: The Massive Illusion of AI Intelligence
+## Dumber Than a 5 Year Old, Hungrier Than a City: The Massive Illusion of AI Intelligence
 
    
    
@@ -73,7 +65,7 @@ So yes, modern AI can be useful. It can even be dazzling. But when it dazzles yo
    
  
 
-# Why the Joke "X Speaks Y Language Like Google Translate" Disappeared With Skinny Jeans
+## Why the Joke "X Speaks Y Language Like Google Translate" Disappeared With Skinny Jeans
 
    
    
@@ -105,7 +97,7 @@ I only hope we improve AI writing before skinny jeans return. God please, do not
    
  
 
-# Show Me Your Dataset and I'll Tell You Who You Are
+## Show Me Your Dataset and I'll Tell You Who You Are
 
    
    
@@ -133,7 +125,7 @@ So when someone tells you "just feed it data and it will learn," ask them what d
    
  
 
-# The Strawberry Test
+## The Strawberry Test
 
    
    
@@ -165,7 +157,7 @@ No heartbeat detected. No longing detected. Please do not introduce me to your m
    
  
 
-# How Much Does AI Cost and Why Are So Many AI Companies Not Making Money?
+## How Much Does AI Cost and Why Are So Many AI Companies Not Making Money?
 
    
    
@@ -195,7 +187,7 @@ And boringly useful is underrated. Boringly useful pays invoices. Boringly usefu
    
  
 
-# If It Costs a Fortune to Run, Why the Hell Is It Free Then?
+## If It Costs a Fortune to Run, Why the Hell Is It Free Then?
 
    
    
@@ -223,7 +215,7 @@ If you do not know, congratulations. You found the business model.
    
  
 
-# Get 'Em Hooked While They're Young
+## Get 'Em Hooked While They're Young
 
    
    
@@ -247,7 +239,7 @@ Microsoft is happy. Employees are happy. Janice is happy. And somewhere, a procu
    
  
 
-# Killing Off White-Collar Careers in Cradles
+## Killing Off White-Collar Careers in Cradles
 
    
    
@@ -277,7 +269,7 @@ Humans resist change because change is often expensive, humiliating, and announc
    
  
 
-# Attention Is All You Need, But You Don't Have It Anymore: How We Outsourced Thinking to Our Thinking Machines
+## Attention Is All You Need, But You Don't Have It Anymore: How We Outsourced Thinking to Our Thinking Machines
 
    
    
@@ -307,7 +299,7 @@ We need to be more than button-pressers operating thinking machines built by som
    
  
 
-# Why the Earth Doesn't Need Saving, But You Do
+## Why the Earth Doesn't Need Saving, But You Do
 
    
    
@@ -335,7 +327,7 @@ The Earth will continue spinning. The question is whether we want to be comforta
    
  
 
-# Sources and Useful Receipts, Because Vibes Are Not Peer Review
+## Sources and Useful Receipts, Because Vibes Are Not Peer Review
 
    
    
