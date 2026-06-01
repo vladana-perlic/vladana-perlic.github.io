@@ -1072,6 +1072,27 @@
             font-weight: 700;
         }
 
+        .poem-language-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .poem-language-options .button {
+            flex: 1 1 7.25rem;
+            justify-content: center;
+            min-height: 2.55rem;
+            padding-inline: 0.65rem;
+        }
+
+        .poem-button[aria-pressed="true"] {
+            border-color: var(--red);
+            background: var(--ink);
+            color: var(--page);
+            box-shadow: 3px 3px 0 rgba(142, 52, 45, 0.28);
+        }
+
         .poem-reader {
             position: sticky;
             top: 6rem;
@@ -2094,7 +2115,7 @@
                         <p class="eyebrow">Grenoble / Paris / Banja Luka</p>
                         <h1 id="hero-title">Vladana Perlić</h1>
                         <p class="location-line">Based in Grenoble, France.</p>
-                        <p class="lede">Industrial PhD researcher in Generative AI and NLP. Poet, writer, and literary translator. I research, write, translate, publish, collect prizes, and make jokes precisely when adults would advise against it. This site gathers the receipts: AI papers, books, awarded poems, translations, interviews, and a new popular-science manuscript on AI misconceptions.</p>
+                        <p class="lede">Industrial PhD student in Generative AI and NLP. Poet, writer, and literary translator. I research, write, translate, publish, collect prizes, and make jokes precisely when adults would advise against it. This site gathers the receipts: AI papers, books, awarded poems, translations, interviews, and a new popular-science manuscript on AI misconceptions.</p>
                     </div>
 
                     <div class="portrait-slip" aria-label="Portrait">
@@ -2276,57 +2297,81 @@
                                         <span class="flag-mark" aria-hidden="true">🇷🇸</span>
                                         <div>
                                             <span class="tag poetry">Serbian originals</span>
-                                            <h4 id="serbian-poems-title">Awarded poems in Serbian</h4>
+                                            <h4 id="serbian-poems-title">Awarded poems</h4>
                                         </div>
                                     </div>
                                     <div class="serbian-poem-list is-collapsed" id="serbian-awarded-poems">
                                 <article class="note-card poem-card" data-note="A 2025 prize poem from the Solin library competition." data-stamp="2025">
                                     <span class="tag poetry">2025 / third prize</span>
-                                    <h3>Niko me više ne smije taknuti</h3>
+                                    <h3>No One Dares Touch Me Anymore / Niko me više ne smije taknuti</h3>
                                     <p class="poem-meta">Ninth competition of the Solin City Library.</p>
-                                    <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/Niko me više ne smije taknuti.txt" data-poem-title="Niko me više ne smije taknuti" data-poem-meta="Third prize, Ninth competition of the Solin City Library, 2025."><i data-lucide="book-open" aria-hidden="true"></i>Read poem</button>
+                                    <div class="poem-language-options" role="group" aria-label="Available languages for Niko me više ne smije taknuti">
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/awarded_poems/No One Dares Touch Me Anymore.txt" data-poem-title="No One Dares Touch Me Anymore" data-poem-meta="English translation. Third prize, Ninth competition of the Solin City Library, 2025."><i data-lucide="languages" aria-hidden="true"></i>English</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/Niko me više ne smije taknuti.txt" data-poem-title="Niko me više ne smije taknuti" data-poem-meta="Serbian original. Third prize, Ninth competition of the Solin City Library, 2025."><i data-lucide="book-open" aria-hidden="true"></i>Serbian</button>
+                                    </div>
                                 </article>
 
                                 <article class="note-card poem-card" data-note="A Grenoble ghost-residence poem, second prize in Kolašin." data-stamp="2023">
                                     <span class="tag poetry">2023 / second prize</span>
                                     <h3>Résidence Le Rabot</h3>
                                     <p class="poem-meta">“Milo Bošković”, Kolašin, Montenegro.</p>
-                                    <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/Résidence Le Rabot.txt" data-poem-title="Résidence Le Rabot" data-poem-meta="Second prize, “Milo Bošković”, Kolašin, Montenegro, 2023."><i data-lucide="book-open" aria-hidden="true"></i>Read poem</button>
+                                    <div class="poem-language-options" role="group" aria-label="Available languages for Résidence Le Rabot">
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/awarded_poems/Residence Le Rabot.txt" data-poem-title="Residence Le Rabot" data-poem-meta="English translation. Second prize, “Milo Bošković”, Kolašin, Montenegro, 2023."><i data-lucide="languages" aria-hidden="true"></i>English</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/Résidence Le Rabot.txt" data-poem-title="Résidence Le Rabot" data-poem-meta="Serbian original. Second prize, “Milo Bošković”, Kolašin, Montenegro, 2023."><i data-lucide="book-open" aria-hidden="true"></i>Serbian</button>
+                                    </div>
                                 </article>
 
                                 <article class="note-card poem-card" data-note="The city-love poem that travelled to MArteLive Europe." data-stamp="2022">
                                     <span class="tag poetry">2022 / finalist</span>
-                                    <h3>Ljubavno pismo gradu koji se više ne javlja</h3>
+                                    <h3>A Love Letter to the Town That Isn't Calling Back / Ljubavno pismo gradu koji se više ne javlja</h3>
                                     <p class="poem-meta">MArteLive Europe Festival, Rome, Italy.</p>
-                                    <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/LJUBAVNO PISMO GRADU KOJI SE VIŠE NE JAVLJA.txt" data-poem-title="Ljubavno pismo gradu koji se više ne javlja" data-poem-meta="Finalist at the MArteLive Europe Festival, Rome, Italy, 2022."><i data-lucide="book-open" aria-hidden="true"></i>Read poem</button>
+                                    <div class="poem-language-options" role="group" aria-label="Available languages for Ljubavno pismo gradu koji se više ne javlja">
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/poezija i proza na engleskom/A Love Letter to the Town That Isn't Calling Back.docx" data-poem-title="A Love Letter to the Town That Isn't Calling Back" data-poem-meta="English translation. Finalist at the MArteLive Europe Festival, Rome, Italy, 2022."><i data-lucide="languages" aria-hidden="true"></i>English</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/LJUBAVNO PISMO GRADU KOJI SE VIŠE NE JAVLJA.txt" data-poem-title="Ljubavno pismo gradu koji se više ne javlja" data-poem-meta="Serbian original. Finalist at the MArteLive Europe Festival, Rome, Italy, 2022."><i data-lucide="book-open" aria-hidden="true"></i>Serbian</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/LIEBESBRIEF AN DIE STADT DIE SICH NICHT MEHR MELDET.docx" data-poem-title="Liebesbrief an die Stadt, die sich nicht mehr meldet" data-poem-meta="German translation by Maša Dabić. Finalist at the MArteLive Europe Festival, Rome, Italy, 2022."><i data-lucide="languages" aria-hidden="true"></i>German</button>
+                                    </div>
                                 </article>
 
                                 <article class="note-card poem-card" data-note="A first-prize poem from Ulaznica, sharp and domestic in the best dangerous way." data-stamp="2021">
                                     <span class="tag poetry">2021 / first prize</span>
-                                    <h3>Koga god sretnem gleda me sažaljivo i kaže šteta</h3>
+                                    <h3>Everyone I Meet Looks at Me With Pity and Says What a Shame / Koga god sretnem gleda me sažaljivo i kaže šteta</h3>
                                     <p class="poem-meta">“Ulaznica 2021”, Zrenjanin, Serbia.</p>
-                                    <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/Koga god sretnem gleda me sažaljivo.txt" data-poem-title="Koga god sretnem gleda me sažaljivo i kaže šteta" data-poem-meta="First prize, “Ulaznica 2021”, poetry category, Zrenjanin, Serbia."><i data-lucide="book-open" aria-hidden="true"></i>Read poem</button>
+                                    <div class="poem-language-options" role="group" aria-label="Available languages for Koga god sretnem gleda me sažaljivo i kaže šteta">
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/awarded_poems/Everyone I Meet Looks at Me With Pity and Says What a Shame.txt" data-poem-title="Everyone I Meet Looks at Me With Pity and Says What a Shame" data-poem-meta="English translation. First prize, “Ulaznica 2021”, poetry category, Zrenjanin, Serbia."><i data-lucide="languages" aria-hidden="true"></i>English</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/Koga god sretnem gleda me sažaljivo.txt" data-poem-title="Koga god sretnem gleda me sažaljivo i kaže šteta" data-poem-meta="Serbian original. First prize, “Ulaznica 2021”, poetry category, Zrenjanin, Serbia."><i data-lucide="book-open" aria-hidden="true"></i>Serbian</button>
+                                    </div>
                                 </article>
 
                                 <article class="note-card poem-card" data-note="A short, ember-bright poem recognized by the Branko’s Praise of the World jury." data-stamp="2021">
                                     <span class="tag poetry">2021 / jury award</span>
-                                    <h3>Pohvala vatri</h3>
+                                    <h3>Praise of Fire / Pohvala vatri</h3>
                                     <p class="poem-meta">“Branko’s Praise of the World”, Niš Cultural Center.</p>
-                                    <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/Pohvala vatri.txt" data-poem-title="Pohvala vatri" data-poem-meta="Jury award in the “Branko’s Praise of the World” competition, Niš Cultural Center, Serbia, 2021."><i data-lucide="book-open" aria-hidden="true"></i>Read poem</button>
+                                    <div class="poem-language-options" role="group" aria-label="Available languages for Pohvala vatri">
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/awarded_poems/Praise of Fire.txt" data-poem-title="Praise of Fire" data-poem-meta="English translation. Jury award in the “Branko’s Praise of the World” competition, Niš Cultural Center, Serbia, 2021."><i data-lucide="languages" aria-hidden="true"></i>English</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/Pohvala vatri.txt" data-poem-title="Pohvala vatri" data-poem-meta="Serbian original. Jury award in the “Branko’s Praise of the World” competition, Niš Cultural Center, Serbia, 2021."><i data-lucide="book-open" aria-hidden="true"></i>Serbian</button>
+                                    </div>
                                 </article>
 
                                 <article class="note-card poem-card" data-note="A 2020 Milo Bošković poem about envy, usefulness, and the old ache of writing." data-stamp="2020">
                                     <span class="tag poetry">2020 / third prize</span>
-                                    <h3>Radije bih da znam popravljati česme</h3>
+                                    <h3>I Would Rather Know How to Fix Faucets / Radije bih da znam popravljati česme</h3>
                                     <p class="poem-meta">“Milo Bošković”, Kolašin, Montenegro.</p>
-                                    <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/RADIJE BIH DA ZNAM POPRAVLJATI ČESME.txt" data-poem-title="Radije bih da znam popravljati česme" data-poem-meta="Third prize, “Milo Bošković”, Kolašin, Montenegro, 2020."><i data-lucide="book-open" aria-hidden="true"></i>Read poem</button>
+                                    <div class="poem-language-options" role="group" aria-label="Available languages for Radije bih da znam popravljati česme">
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/awarded_poems/I Would Rather Know How to Fix Faucets.txt" data-poem-title="I Would Rather Know How to Fix Faucets" data-poem-meta="English translation. Third prize, “Milo Bošković”, Kolašin, Montenegro, 2020."><i data-lucide="languages" aria-hidden="true"></i>English</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/RADIJE BIH DA ZNAM POPRAVLJATI ČESME.txt" data-poem-title="Radije bih da znam popravljati česme" data-poem-meta="Serbian original. Third prize, “Milo Bošković”, Kolašin, Montenegro, 2020."><i data-lucide="book-open" aria-hidden="true"></i>Serbian</button>
+                                    </div>
                                 </article>
 
                                 <article class="note-card poem-card" data-note="The 2019 winning poem from Time (Without) Utopia, preserved here in Cyrillic." data-stamp="2019">
                                     <span class="tag poetry">2019 / winner</span>
-                                    <h3>Život prije nas / Живот прије нас</h3>
+                                    <h3>Life Before Us / Život prije nas</h3>
                                     <p class="poem-meta">“Time (Without) Utopia”, Young Writers Network.</p>
-                                    <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/Живот прије нас.txt" data-poem-title="Život prije nas / Живот прије нас" data-poem-meta="Winner of the “Time (Without) Utopia” competition in the poetry category, 2019."><i data-lucide="book-open" aria-hidden="true"></i>Read poem</button>
+                                    <div class="poem-language-options" role="group" aria-label="Available languages for Život prije nas">
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/poezija i proza na engleskom/Life Before Us.docx" data-poem-title="Life Before Us" data-poem-meta="English translation. Winner of the “Time (Without) Utopia” competition in the poetry category, 2019."><i data-lucide="languages" aria-hidden="true"></i>English</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_serbian/Život prije nas.txt" data-poem-title="Život prije nas" data-poem-meta="Serbian original. Winner of the “Time (Without) Utopia” competition in the poetry category, 2019."><i data-lucide="book-open" aria-hidden="true"></i>Serbian</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_french/Poezija na francuskom/La-vie-avant-nous-1.docx" data-poem-title="La vie avant nous" data-poem-meta="French translation. Winner of the “Time (Without) Utopia” competition in the poetry category, 2019."><i data-lucide="languages" aria-hidden="true"></i>French</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_polish/poezija na poljskom/Życie-przed-nami.docx" data-poem-title="Życie przed nami" data-poem-meta="Polish translation. Winner of the “Time (Without) Utopia” competition in the poetry category, 2019."><i data-lucide="languages" aria-hidden="true"></i>Polish</button>
+                                    </div>
                                 </article>
 
                                         <button class="button compact-toggle" type="button" aria-expanded="false" aria-controls="serbian-awarded-poems" data-compact-toggle data-compact-target="serbian-awarded-poems" data-collapsed-label="See more Serbian awarded poems" data-expanded-label="Show fewer Serbian poems"><i data-lucide="chevron-down" aria-hidden="true"></i><span data-compact-label>See more Serbian awarded poems</span></button>
@@ -2347,12 +2392,9 @@
                                     <span class="tag translation">English translations</span>
                                     <h3><span class="flag-mark" aria-hidden="true">🇬🇧</span>English</h3>
                                     <div class="poem-button-list language-poem-list is-collapsed" id="english-translations">
-                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/poezija i proza na engleskom/A Love Letter to the Town That Isn't Calling Back.docx" data-poem-title="A Love Letter to the Town That Isn't Calling Back" data-poem-meta="English translation."><i data-lucide="languages" aria-hidden="true"></i>A Love Letter to the Town That Isn't Calling Back</button>
-                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/poezija i proza na engleskom/Life Before Us.docx" data-poem-title="Life Before Us" data-poem-meta="English translation."><i data-lucide="languages" aria-hidden="true"></i>Life Before Us</button>
                                         <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/poezija i proza na engleskom/My Parents.docx" data-poem-title="My Parents" data-poem-meta="English translation."><i data-lucide="languages" aria-hidden="true"></i>My Parents</button>
                                         <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/poezija i proza na engleskom/The Year When My Brother Started Believing in Aliens.docx" data-poem-title="The Year When My Brother Started Believing in Aliens" data-poem-meta="English translation."><i data-lucide="languages" aria-hidden="true"></i>The Year When My Brother Started Believing in Aliens</button>
                                         <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_english/poezija i proza na engleskom/Unreal Girls.docx" data-poem-title="Unreal Girls" data-poem-meta="English translation."><i data-lucide="languages" aria-hidden="true"></i>Unreal Girls</button>
-                                        <button class="button compact-toggle" type="button" aria-expanded="false" aria-controls="english-translations" data-compact-toggle data-compact-target="english-translations" data-collapsed-label="See more English translations" data-expanded-label="Show fewer English translations"><i data-lucide="chevron-down" aria-hidden="true"></i><span data-compact-label>See more English translations</span></button>
                                     </div>
                                 </article>
 
@@ -2376,13 +2418,13 @@
                                     <h3><span class="flag-mark" aria-hidden="true">🇩🇪</span>German</h3>
                                     <div class="poem-button-list language-poem-list is-collapsed" id="german-translations">
                                         <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/Meine Eltern - prevod Marija Mirković.docx" data-poem-title="Meine Eltern" data-poem-meta="German translation by Marija Mirković."><i data-lucide="languages" aria-hidden="true"></i>Meine Eltern</button>
-                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/DIE DICHTERIN AUF DIE IHR IMMER SCHON GEWARTET HABT.docx" data-poem-title="DIE DICHTERIN AUF DIE IHR IMMER SCHON GEWARTET HABT" data-poem-meta="German translation by Maša Dabić."><i data-lucide="languages" aria-hidden="true"></i>DIE DICHTERIN AUF DIE IHR IMMER SCHON GEWARTET HABT</button>
-                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/LIEBESBRIEF AN DIE STADT DIE SICH NICHT MEHR MELDET.docx" data-poem-title="LIEBESBRIEF AN DIE STADT DIE SICH NICHT MEHR MELDET" data-poem-meta="German translation by Maša Dabić."><i data-lucide="languages" aria-hidden="true"></i>LIEBESBRIEF AN DIE STADT DIE SICH NICHT MEHR MELDET</button>
-                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/WILLST DU MEINE MUTTER FICKEN SOLL SIE ES ZUMINDEST GENIESSEN.docx" data-poem-title="WILLST DU MEINE MUTTER FICKEN SOLL SIE ES ZUMINDEST GENIESSEN" data-poem-meta="German translation by Maša Dabić."><i data-lucide="languages" aria-hidden="true"></i>WILLST DU MEINE MUTTER FICKEN SOLL SIE ES ZUMINDEST GENIESSEN</button>
-                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/WIE MARILYN.docx" data-poem-title="WIE MARILYN" data-poem-meta="German translation by Maša Dabić."><i data-lucide="languages" aria-hidden="true"></i>WIE MARILYN</button>
-                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/DER MANN DESSEN NAMEN IHR MIR GABT VERLOR BUCHSTÄBLICH DEN KOPF.docx" data-poem-title="DER MANN DESSEN NAMEN IHR MIR GABT VERLOR BUCHSTÄBLICH DEN KOPF" data-poem-meta="German translation by Maša Dabić."><i data-lucide="languages" aria-hidden="true"></i>DER MANN DESSEN NAMEN IHR MIR GABT VERLOR BUCHSTÄBLICH DEN KOPF</button>
-                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/ICH BRAUCHE KEINE FANS, ICH WILL SEELENVERWANDTE.docx" data-poem-title="ICH BRAUCHE KEINE FANS, ICH WILL SEELENVERWANDTE" data-poem-meta="German translation by Maša Dabić."><i data-lucide="languages" aria-hidden="true"></i>ICH BRAUCHE KEINE FANS, ICH WILL SEELENVERWANDTE</button>
-                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/ER HÄTTE GERNE DASS ICH IHN EIN WENIG STILLE.docx" data-poem-title="ER HÄTTE GERNE DASS ICH IHN EIN WENIG STILLE" data-poem-meta="German translation by Maša Dabić."><i data-lucide="languages" aria-hidden="true"></i>ER HÄTTE GERNE DASS ICH IHN EIN WENIG STILLE</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/DIE DICHTERIN AUF DIE IHR IMMER SCHON GEWARTET HABT.docx" data-poem-title="Die Dichterin, auf die ihr immer schon gewartet habt" data-poem-meta="German translation by Maša Dabić."><i data-lucide="languages" aria-hidden="true"></i>Die Dichterin, auf die ihr immer schon gewartet habt</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/LIEBESBRIEF AN DIE STADT DIE SICH NICHT MEHR MELDET.docx" data-poem-title="Liebesbrief an die Stadt, die sich nicht mehr meldet" data-poem-meta="German translation by Maša Dabić."><i data-lucide="languages" aria-hidden="true"></i>Liebesbrief an die Stadt, die sich nicht mehr meldet</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/WILLST DU MEINE MUTTER FICKEN SOLL SIE ES ZUMINDEST GENIESSEN.docx" data-poem-title="Willst du meine Mutter ficken, soll sie es zumindest genießen" data-poem-meta="German translation by Maša Dabić."><i data-lucide="languages" aria-hidden="true"></i>Willst du meine Mutter ficken, soll sie es zumindest genießen</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/WIE MARILYN.docx" data-poem-title="Wie Marilyn" data-poem-meta="German translation by Maša Dabić."><i data-lucide="languages" aria-hidden="true"></i>Wie Marilyn</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/DER MANN DESSEN NAMEN IHR MIR GABT VERLOR BUCHSTÄBLICH DEN KOPF.docx" data-poem-title="Der Mann, dessen Namen ihr mir gabt, verlor buchstäblich den Kopf" data-poem-meta="German translation by Maša Dabić."><i data-lucide="languages" aria-hidden="true"></i>Der Mann, dessen Namen ihr mir gabt, verlor buchstäblich den Kopf</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/ICH BRAUCHE KEINE FANS, ICH WILL SEELENVERWANDTE.docx" data-poem-title="Ich brauche keine Fans, ich will Seelenverwandte" data-poem-meta="German translation by Maša Dabić."><i data-lucide="languages" aria-hidden="true"></i>Ich brauche keine Fans, ich will Seelenverwandte</button>
+                                        <button class="button poem-button" type="button" aria-controls="poem-reader-text" data-poem-src="data/poems/poems_german/ER HÄTTE GERNE DASS ICH IHN EIN WENIG STILLE.docx" data-poem-title="Er hätte gerne, dass ich ihn ein wenig stille" data-poem-meta="German translation by Maša Dabić."><i data-lucide="languages" aria-hidden="true"></i>Er hätte gerne, dass ich ihn ein wenig stille</button>
                                         <button class="button compact-toggle" type="button" aria-expanded="false" aria-controls="german-translations" data-compact-toggle data-compact-target="german-translations" data-collapsed-label="See more German translations" data-expanded-label="Show fewer German translations"><i data-lucide="chevron-down" aria-hidden="true"></i><span data-compact-label>See more German translations</span></button>
                                     </div>
                                 </article>
@@ -2685,7 +2727,13 @@
         }
 
         function normalizeTitleText(text) {
-            return text.replace(/\s+/g, " ").trim().toLocaleLowerCase();
+            return text
+                .normalize("NFKC")
+                .replace(/ß/g, "ss")
+                .replace(/[.,;:!?()[\]{}"“”„«»'’`´\-–—/]+/g, " ")
+                .replace(/\s+/g, " ")
+                .trim()
+                .toLocaleLowerCase();
         }
 
         function stripRenderedDocTitle(html, title) {
