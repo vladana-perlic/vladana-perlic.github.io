@@ -1310,7 +1310,7 @@
             margin-top: 0.9rem;
         }
 
-        .editor-callout {
+        .publisher-callout {
             display: grid;
             grid-template-columns: minmax(0, 1fr) auto;
             gap: 1rem;
@@ -1321,10 +1321,10 @@
             border-radius: 6px;
             background: rgba(255, 236, 218, 0.78);
             box-shadow: 0 14px 34px rgba(142, 52, 45, 0.13);
-            animation: editorial-pulse 3.8s ease-in-out infinite;
+            animation: publisherial-pulse 3.8s ease-in-out infinite;
         }
 
-        .editor-callout span {
+        .publisher-callout span {
             display: block;
             margin-bottom: 0.15rem;
             color: var(--red);
@@ -1333,14 +1333,14 @@
             text-transform: uppercase;
         }
 
-        .editor-callout strong {
+        .publisher-callout strong {
             display: block;
             color: var(--red);
             font-size: clamp(1.25rem, 2.5vw, 2rem);
             line-height: 1.12;
         }
 
-        .editor-callout p {
+        .publisher-callout p {
             margin: 0.3rem 0 0;
             color: var(--soft-ink);
         }
@@ -1383,7 +1383,7 @@
             line-height: 1.28;
         }
 
-        @keyframes editorial-pulse {
+        @keyframes publisherial-pulse {
             0%,
             100% {
                 box-shadow: 0 14px 34px rgba(142, 52, 45, 0.13);
@@ -1627,7 +1627,7 @@
             .marginal-layout,
             .book-grid,
             .writing-extra,
-            .editor-callout,
+            .publisher-callout,
             .awarded-poem-layout,
             .science-layout,
             .press-grid,
@@ -2230,13 +2230,13 @@
                         <p class="section-copy">A working popular-science book on AI misconceptions: clear enough for non-specialists, grounded enough for technical readers, and funny enough to survive several appearances of the words “large language model.”</p>
                     </div>
 
-                    <div class="editor-callout" data-note="The fastest route for editors: one short pitch, then the manuscript excerpt if the premise bites." data-stamp="editors">
+                    <div class="publisher-callout" data-note="The fastest route for publishers: one short pitch, then the manuscript excerpt if the premise bites." data-stamp="publishers">
                         <div>
-                            <span>Editors, over here</span>
+                            <span>Publishers, over here</span>
                             <strong>Read the pitch first. The manuscript is longer, funnier, and has receipts.</strong>
                             <p>A quick publisher-facing note on the premise, audience, tone, and why this AI book refuses to treat autocomplete like a minor deity.</p>
                         </div>
-                        <button class="button primary science-button" type="button" aria-controls="science-reader-text" data-science-src="data/popular_science/that_ai_book/editor_pitch.md" data-science-title="Editor pitch" data-science-meta="Publisher note / Markdown."><i data-lucide="send" aria-hidden="true"></i>Read pitch</button>
+                        <button class="button primary science-button" type="button" aria-controls="science-reader-text" data-science-src="data/popular_science/that_ai_book/publisher_pitch.md" data-science-title="Publisher pitch" data-science-meta="Publisher note / Markdown."><i data-lucide="send" aria-hidden="true"></i>Read pitch</button>
                     </div>
 
                     <div class="science-layout">
@@ -2506,7 +2506,7 @@
                 ? Array.from(buttons).find((button) => button.dataset.scienceSrc === storedSource)
                 : null;
             const excerptButton = Array.from(buttons).find((button) => button.dataset.scienceSrc.includes("That AI Book.md"));
-            const pitchButton = Array.from(buttons).find((button) => button.dataset.scienceSrc.includes("editor_pitch"));
+            const pitchButton = Array.from(buttons).find((button) => button.dataset.scienceSrc.includes("publisher_pitch"));
             const initialButton = storedButton || pitchButton || excerptButton || buttons[0];
             if (initialButton) {
                 loadScienceText(initialButton);
