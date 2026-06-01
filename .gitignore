@@ -1,2 +1,2 @@
-# Private CV source files contain personal contact details.
-data/*.tex
+data/popular_science/ai_book_overleaf/*
+!data/popular_science/ai_book_overleaf/main.tex

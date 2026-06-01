@@ -8,6 +8,17 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
     <script src="https://unpkg.com/mammoth/mammoth.browser.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                displayMath: [["\\[", "\\]"]]
+            },
+            options: {
+                skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
     <style>
         :root {
             --paper: #e7dac0;
@@ -1306,6 +1317,189 @@
             font-weight: 700;
         }
 
+        .science-reader.is-latex-mode {
+            background:
+                linear-gradient(90deg, rgba(142, 52, 45, 0.07), transparent 18%, transparent 82%, rgba(52, 77, 102, 0.06)),
+                repeating-linear-gradient(0deg, transparent 0 31px, rgba(72, 51, 32, 0.07) 32px, transparent 33px),
+                rgba(255, 252, 241, 0.96);
+        }
+
+        .science-text.is-latex-reader {
+            background: #fffaf0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 1.08rem;
+            line-height: 1.78;
+        }
+
+        .latex-manuscript {
+            width: min(47rem, 100%);
+            margin: 0 auto;
+        }
+
+        .latex-title-page {
+            min-height: 18rem;
+            display: grid;
+            align-content: center;
+            gap: 0.85rem;
+            margin-bottom: 2rem;
+            padding: clamp(1.2rem, 4vw, 3rem) 0;
+            border-bottom: 1px solid var(--rule-strong);
+            text-align: center;
+        }
+
+        .latex-title-page span,
+        .latex-chapter-kicker,
+        .latex-bibliography h4 {
+            color: var(--gold);
+            font-family: var(--type);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0;
+            text-transform: uppercase;
+        }
+
+        .latex-title-page h4,
+        .latex-chapter-title {
+            margin: 0;
+            color: var(--ink);
+            font-family: Georgia, "Times New Roman", serif;
+            font-weight: 700;
+            line-height: 1.14;
+        }
+
+        .latex-title-page h4 {
+            font-size: 2.05rem;
+        }
+
+        .latex-title-page p {
+            max-width: 34rem;
+            margin: 0 auto;
+            color: var(--soft-ink);
+            font-size: 1.08rem;
+            text-indent: 0;
+        }
+
+        .latex-toc {
+            margin: 0 0 2.25rem;
+            padding: 1rem 1.05rem;
+            border: 1px solid rgba(166, 109, 45, 0.36);
+            border-radius: 6px;
+            background: rgba(255, 245, 223, 0.6);
+        }
+
+        .latex-toc strong {
+            display: block;
+            margin-bottom: 0.65rem;
+            color: var(--red);
+            font-family: var(--type);
+            font-size: 0.82rem;
+            text-transform: uppercase;
+        }
+
+        .latex-toc ol,
+        .latex-bibliography-list {
+            display: grid;
+            gap: 0.55rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .latex-toc ol {
+            padding-left: 1.25rem;
+        }
+
+        .latex-chapter {
+            padding-top: 2.4rem;
+            border-top: 1px dashed var(--rule-strong);
+        }
+
+        .latex-chapter:first-of-type {
+            border-top: 0;
+        }
+
+        .latex-chapter + .latex-chapter {
+            margin-top: 2.4rem;
+        }
+
+        .latex-chapter-title {
+            margin-bottom: 1.25rem;
+            font-size: 1.55rem;
+        }
+
+        .science-text.is-latex-reader p {
+            margin-bottom: 0.78rem;
+            text-indent: 1.15em;
+        }
+
+        .science-text.is-latex-reader p:first-of-type,
+        .latex-title-page p,
+        .latex-quote p,
+        .latex-bibliography p {
+            text-indent: 0;
+        }
+
+        .latex-quote {
+            margin: 1.25rem 0 1.35rem;
+            padding: 0.95rem 1rem 0.85rem;
+            border-left: 0.24rem solid rgba(142, 52, 45, 0.62);
+            background: rgba(255, 245, 223, 0.68);
+            color: var(--soft-ink);
+        }
+
+        .latex-quote p:last-child {
+            margin-bottom: 0;
+        }
+
+        .latex-quote p:not(.latex-quote-attribution) {
+            font-style: italic;
+        }
+
+        .latex-quote-attribution {
+            color: var(--faint);
+            font-family: var(--type);
+            font-size: 0.86rem;
+            font-weight: 700;
+        }
+
+        .latex-citation {
+            color: var(--blue);
+            font-family: var(--type);
+            font-size: 0.82em;
+            white-space: nowrap;
+        }
+
+        .latex-equation {
+            overflow-x: auto;
+            margin: 1.25rem 0;
+            padding: 0.85rem;
+            border: 1px dashed var(--rule-strong);
+            border-radius: 4px;
+            background: rgba(255, 252, 241, 0.86);
+        }
+
+        .latex-bibliography {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--rule-strong);
+        }
+
+        .latex-bibliography h4 {
+            margin: 0 0 1rem;
+            font-size: 1rem;
+        }
+
+        .latex-bibliography-list {
+            list-style: none;
+        }
+
+        .latex-bibliography-list li {
+            padding-left: 0.8rem;
+            border-left: 0.18rem solid rgba(52, 77, 102, 0.38);
+            color: var(--soft-ink);
+            font-size: 0.94rem;
+            line-height: 1.55;
+        }
+
         .science-reader-actions {
             margin-top: 0.9rem;
         }
@@ -2236,7 +2430,7 @@
                             <strong>Read the pitch first. The manuscript is longer, funnier, and has receipts.</strong>
                             <p>A quick publisher-facing note on the premise, audience, tone, and why this AI book refuses to treat autocomplete like a minor deity.</p>
                         </div>
-                        <button class="button primary science-button" type="button" aria-controls="science-reader-text" data-science-src="data/popular_science/that_ai_book/publisher_pitch.md" data-science-title="Are you a publisher?"><i data-lucide="send" aria-hidden="true"></i>Read pitch</button>
+                        <button class="button primary science-button" type="button" aria-controls="science-reader-text" data-science-src="data/popular_science/publisher_pitch.md" data-science-title="Are you a publisher?" data-science-meta="Publisher pitch"><i data-lucide="send" aria-hidden="true"></i>Read pitch</button>
                     </div>
 
                     <div class="science-layout">
@@ -2246,7 +2440,7 @@
                                 <h3><em>Don’t Introduce Me to Your Mother</em></h3>
                                 <p>A draft excerpt from <em>Don’t Introduce Me to Your Mother</em>: a book about AI hype, useful machinery, broken metaphors, expensive mistakes, and why your chatbot does not need to meet your parents.</p>
                                 <div class="card-actions">
-                                    <button class="button science-button" type="button" aria-controls="science-reader-text" data-science-src="data/popular_science/that_ai_book/That AI Book.md" data-science-title="Don't Introduce Me to Your Mother: The Blunt Truth About What AI Can, Can't, and Shouldn't Do" data-science-meta="Working manuscript sample"><i data-lucide="book-open" aria-hidden="true"></i>Read excerpt</button>
+                                    <button class="button science-button" type="button" aria-controls="science-reader-text" data-science-src="data/popular_science/ai_book_overleaf/main.tex" data-science-title="Don't Introduce Me to Your Mother: The Blunt Truth About What AI Can, Can't, and Shouldn't Do" data-science-meta="LaTeX manuscript reader" data-science-format="latex"><i data-lucide="book-open" aria-hidden="true"></i>Read manuscript</button>
                                 </div>
                             </article>
                             <p class="manuscript-rumor">NYT, watch out: a new manuscript is on the loose and is eyeing your bestseller list</p>
@@ -2268,7 +2462,7 @@
             <section class="section" id="contact" aria-labelledby="contact-title">
                 <div class="section-inner contact-panel">
                     <div>
-                        <p class="eyebrow">Last page / contact</p>
+                        <p class="eyebrow">Contact</p>
                         <h2 id="contact-title">For research, readings, interviews, translation, and publishing conversations.</h2>
                         <p class="section-copy">Reach out about AI research collaborations, popular science work, poetry events, interviews, or the AI misconceptions manuscript.</p>
                         <div class="contact-actions">
@@ -2385,6 +2579,442 @@
             return formatPoemText(text).replace(/\n{2,}/g, "</p><p>").replace(/^/, "<p>").replace(/$/, "</p>");
         }
 
+        function escapeHtml(value) {
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;");
+        }
+
+        function escapeAttribute(value) {
+            return escapeHtml(value).replace(/'/g, "&#39;");
+        }
+
+        function isEscaped(source, characterIndex) {
+            let slashCount = 0;
+            let cursorIndex = characterIndex - 1;
+            while (cursorIndex >= 0 && source[cursorIndex] === "\\") {
+                slashCount += 1;
+                cursorIndex -= 1;
+            }
+            return slashCount % 2 === 1;
+        }
+
+        function findMatchingBrace(source, openingBraceIndex) {
+            let depth = 0;
+            for (let characterIndex = openingBraceIndex; characterIndex < source.length; characterIndex += 1) {
+                const character = source[characterIndex];
+                if (isEscaped(source, characterIndex)) {
+                    continue;
+                }
+                if (character === "{") {
+                    depth += 1;
+                } else if (character === "}") {
+                    depth -= 1;
+                    if (depth === 0) {
+                        return characterIndex;
+                    }
+                }
+            }
+            return -1;
+        }
+
+        function stripLatexComments(source) {
+            return source.split(/\r?\n/).map((line) => {
+                for (let characterIndex = 0; characterIndex < line.length; characterIndex += 1) {
+                    if (line[characterIndex] === "%" && !isEscaped(line, characterIndex)) {
+                        return line.slice(0, characterIndex).trimEnd();
+                    }
+                }
+                return line.trimEnd();
+            }).join("\n");
+        }
+
+        function extractLatexCommandGroup(source, commandName) {
+            const marker = `\\${commandName}{`;
+            const markerIndex = source.indexOf(marker);
+            if (markerIndex === -1) {
+                return "";
+            }
+            const openingBraceIndex = markerIndex + marker.length - 1;
+            const closingBraceIndex = findMatchingBrace(source, openingBraceIndex);
+            return closingBraceIndex === -1 ? "" : source.slice(openingBraceIndex + 1, closingBraceIndex);
+        }
+
+        function latexTextToPlainText(value) {
+            const accentMap = {
+                '"': { a: "ä", A: "Ä", e: "ë", E: "Ë", i: "ï", I: "Ï", o: "ö", O: "Ö", u: "ü", U: "Ü", y: "ÿ", Y: "Ÿ" },
+                "'": { a: "á", A: "Á", e: "é", E: "É", i: "í", I: "Í", o: "ó", O: "Ó", u: "ú", U: "Ú", y: "ý", Y: "Ý", c: "ć", C: "Ć" },
+                "`": { a: "à", A: "À", e: "è", E: "È", i: "ì", I: "Ì", o: "ò", O: "Ò", u: "ù", U: "Ù" },
+                "^": { a: "â", A: "Â", e: "ê", E: "Ê", i: "î", I: "Î", o: "ô", O: "Ô", u: "û", U: "Û" },
+                "~": { a: "ã", A: "Ã", n: "ñ", N: "Ñ", o: "õ", O: "Õ" }
+            };
+            let text = String(value ?? "");
+            text = text
+                .replace(/\\(["'`^~])\{?([A-Za-z])\}?/g, (match, accent, letter) => accentMap[accent]?.[letter] || letter)
+                .replace(/\\c\{?([cC])\}?/g, (match, letter) => letter === "C" ? "Ç" : "ç")
+                .replace(/\\%/g, "%")
+                .replace(/\\\$/g, "$")
+                .replace(/\\&/g, "&")
+                .replace(/\\_/g, "_")
+                .replace(/\\#/g, "#")
+                .replace(/\\\{/g, "{")
+                .replace(/\\\}/g, "}")
+                .replace(/~/g, " ")
+                .replace(/\\\\/g, "\n");
+
+            let previousText = "";
+            while (previousText !== text) {
+                previousText = text;
+                text = text.replace(/\\[a-zA-Z]+(?:\[[^\]]*\])?\{([^{}]*)\}/g, "$1");
+            }
+
+            return text
+                .replace(/\\[a-zA-Z]+(?:\[[^\]]*\])?/g, "")
+                .replace(/[{}]/g, "")
+                .replace(/[ \t]{2,}/g, " ")
+                .trim();
+        }
+
+        function referenceIdForKey(key) {
+            return `latex-ref-${key.replace(/[^a-z0-9_-]/gi, "-")}`;
+        }
+
+        function splitBibAuthors(authorText) {
+            return latexTextToPlainText(authorText)
+                .split(/\s+and\s+/i)
+                .map((author) => author.replace(/\s+/g, " ").trim())
+                .filter(Boolean);
+        }
+
+        function getBibFamilyName(author) {
+            if (author.includes(",")) {
+                return author.split(",")[0].trim();
+            }
+            const authorParts = author.split(" ").filter(Boolean);
+            return authorParts[authorParts.length - 1] || author;
+        }
+
+        function formatCitationLabel(entry, key) {
+            if (!entry) {
+                return key;
+            }
+            const authors = splitBibAuthors(entry.author || entry.editor || "").map(getBibFamilyName);
+            const year = latexTextToPlainText(entry.year || "n.d.");
+            if (authors.length === 0) {
+                return `${latexTextToPlainText(entry.title || key)} ${year}`;
+            }
+            if (authors.length === 1) {
+                return `${authors[0]} ${year}`;
+            }
+            if (authors.length === 2) {
+                return `${authors[0]} & ${authors[1]} ${year}`;
+            }
+            return `${authors[0]} et al. ${year}`;
+        }
+
+        function formatReferenceAuthors(authorText) {
+            return splitBibAuthors(authorText).join("; ");
+        }
+
+        function formatReferenceSummary(entry) {
+            if (!entry) {
+                return "Reference unavailable.";
+            }
+            const authors = formatReferenceAuthors(entry.author || entry.editor || "");
+            const year = latexTextToPlainText(entry.year || "n.d.");
+            const title = latexTextToPlainText(entry.title || entry.key);
+            return [authors, `(${year}).`, title].filter(Boolean).join(" ");
+        }
+
+        function renderLatexCitation(keys, bibEntries) {
+            const citations = keys.split(",")
+                .map((key) => key.trim())
+                .filter(Boolean)
+                .map((key) => {
+                    const entry = bibEntries[key];
+                    const label = formatCitationLabel(entry, key);
+                    const title = formatReferenceSummary(entry);
+                    return `<a href="#${referenceIdForKey(key)}" title="${escapeAttribute(title)}">${escapeHtml(label)}</a>`;
+                });
+            return `<span class="latex-citation">(${citations.join("; ")})</span>`;
+        }
+
+        function renderLatexInline(source, bibEntries) {
+            const tokens = [];
+            const stashToken = (html) => {
+                const token = `@@LATEX_HTML_${tokens.length}@@`;
+                tokens.push(html);
+                return token;
+            };
+
+            let text = String(source ?? "");
+            text = text.replace(/\\emph\{([^{}]*)\}/g, (match, content) => stashToken(`<em>${renderLatexInline(content, bibEntries)}</em>`));
+            text = text.replace(/\\parencite\{([^{}]+)\}/g, (match, keys) => stashToken(renderLatexCitation(keys, bibEntries)));
+            text = latexTextToPlainText(text).replace(/\s*\n\s*/g, " ");
+
+            let html = escapeHtml(text)
+                .replace(/``/g, "&ldquo;")
+                .replace(/''/g, "&rdquo;")
+                .replace(/---/g, "&mdash;")
+                .replace(/--/g, "&ndash;");
+
+            html = html.replace(/@@LATEX_HTML_(\d+)@@/g, (match, tokenIndex) => tokens[Number(tokenIndex)] || "");
+            return html;
+        }
+
+        function renderLatexParagraphs(source, bibEntries) {
+            return source
+                .replace(/\\(frontmatter|mainmatter|backmatter|clearpage|tableofcontents|maketitle)\b/g, "")
+                .split(/\n\s*\n+/)
+                .map((paragraph) => paragraph.replace(/\s*\n\s*/g, " ").trim())
+                .filter(Boolean)
+                .map((paragraph) => `<p>${renderLatexInline(paragraph, bibEntries)}</p>`)
+                .join("");
+        }
+
+        function renderLatexQuote(source, bibEntries) {
+            const quoteParts = source.trim().replace(/^\\itshape\s*/, "").split(/\\normalfont/);
+            const quoteBody = renderLatexParagraphs(quoteParts[0] || "", bibEntries);
+            const attribution = quoteParts.slice(1).join(" ").trim();
+            const attributionHtml = attribution ? `<p class="latex-quote-attribution">${renderLatexInline(attribution, bibEntries)}</p>` : "";
+            return `<blockquote class="latex-quote">${quoteBody}${attributionHtml}</blockquote>`;
+        }
+
+        function renderLatexBlocks(source, bibEntries) {
+            const output = [];
+            const blockPattern = /\\begin\{quote\}([\s\S]*?)\\end\{quote\}|\\\[([\s\S]*?)\\\]/g;
+            let cursorIndex = 0;
+            let match = blockPattern.exec(source);
+            while (match) {
+                output.push(renderLatexParagraphs(source.slice(cursorIndex, match.index), bibEntries));
+                if (match[1] !== undefined) {
+                    output.push(renderLatexQuote(match[1], bibEntries));
+                } else {
+                    output.push(`<div class="latex-equation">\\[${escapeHtml(match[2].trim())}\\]</div>`);
+                }
+                cursorIndex = match.index + match[0].length;
+                match = blockPattern.exec(source);
+            }
+            output.push(renderLatexParagraphs(source.slice(cursorIndex), bibEntries));
+            return output.join("");
+        }
+
+        function splitLatexChapters(source) {
+            const chapters = [];
+            const marker = "\\chapter{";
+            let searchIndex = 0;
+            let chapterIndex = source.indexOf(marker, searchIndex);
+            while (chapterIndex !== -1) {
+                const openingBraceIndex = chapterIndex + marker.length - 1;
+                const closingBraceIndex = findMatchingBrace(source, openingBraceIndex);
+                if (closingBraceIndex === -1) {
+                    break;
+                }
+                const nextChapterIndex = source.indexOf(marker, closingBraceIndex + 1);
+                chapters.push({
+                    title: source.slice(openingBraceIndex + 1, closingBraceIndex),
+                    content: source.slice(closingBraceIndex + 1, nextChapterIndex === -1 ? source.length : nextChapterIndex)
+                });
+                searchIndex = closingBraceIndex + 1;
+                chapterIndex = nextChapterIndex;
+            }
+            return chapters;
+        }
+
+        function parseBibValue(source, startIndex) {
+            let cursorIndex = startIndex;
+            while (cursorIndex < source.length && /\s/.test(source[cursorIndex])) {
+                cursorIndex += 1;
+            }
+            if (source[cursorIndex] === "{") {
+                const closingBraceIndex = findMatchingBrace(source, cursorIndex);
+                return {
+                    value: closingBraceIndex === -1 ? source.slice(cursorIndex + 1) : source.slice(cursorIndex + 1, closingBraceIndex),
+                    nextIndex: closingBraceIndex === -1 ? source.length : closingBraceIndex + 1
+                };
+            }
+            if (source[cursorIndex] === '"') {
+                let closingQuoteIndex = cursorIndex + 1;
+                while (closingQuoteIndex < source.length && (source[closingQuoteIndex] !== '"' || isEscaped(source, closingQuoteIndex))) {
+                    closingQuoteIndex += 1;
+                }
+                return {
+                    value: source.slice(cursorIndex + 1, closingQuoteIndex),
+                    nextIndex: Math.min(closingQuoteIndex + 1, source.length)
+                };
+            }
+            const commaIndex = source.indexOf(",", cursorIndex);
+            const endIndex = commaIndex === -1 ? source.length : commaIndex;
+            return { value: source.slice(cursorIndex, endIndex), nextIndex: endIndex };
+        }
+
+        function parseBibFields(source) {
+            const fields = {};
+            let cursorIndex = 0;
+            while (cursorIndex < source.length) {
+                while (cursorIndex < source.length && /[\s,]/.test(source[cursorIndex])) {
+                    cursorIndex += 1;
+                }
+                const fieldMatch = source.slice(cursorIndex).match(/^([a-zA-Z]+)\s*=/);
+                if (!fieldMatch) {
+                    break;
+                }
+                const fieldName = fieldMatch[1].toLowerCase();
+                cursorIndex += fieldMatch[0].length;
+                const parsedValue = parseBibValue(source, cursorIndex);
+                fields[fieldName] = latexTextToPlainText(parsedValue.value).replace(/\s+/g, " ").trim();
+                cursorIndex = parsedValue.nextIndex;
+            }
+            return fields;
+        }
+
+        function parseBibEntries(source) {
+            const entries = {};
+            let cursorIndex = 0;
+            let entryIndex = source.indexOf("@", cursorIndex);
+            while (entryIndex !== -1) {
+                const openingBraceIndex = source.indexOf("{", entryIndex);
+                if (openingBraceIndex === -1) {
+                    break;
+                }
+                const closingBraceIndex = findMatchingBrace(source, openingBraceIndex);
+                if (closingBraceIndex === -1) {
+                    break;
+                }
+                const entryType = source.slice(entryIndex + 1, openingBraceIndex).trim().toLowerCase();
+                const entryBody = source.slice(openingBraceIndex + 1, closingBraceIndex);
+                const keyEndIndex = entryBody.indexOf(",");
+                if (keyEndIndex !== -1) {
+                    const key = entryBody.slice(0, keyEndIndex).trim();
+                    entries[key] = {
+                        key,
+                        type: entryType,
+                        ...parseBibFields(entryBody.slice(keyEndIndex + 1))
+                    };
+                }
+                cursorIndex = closingBraceIndex + 1;
+                entryIndex = source.indexOf("@", cursorIndex);
+            }
+            return entries;
+        }
+
+        function getLatexMainBody(source) {
+            const mainMatterIndex = source.indexOf("\\mainmatter");
+            const bodyStartIndex = mainMatterIndex === -1 ? 0 : mainMatterIndex + "\\mainmatter".length;
+            const backMatterIndex = source.indexOf("\\backmatter", bodyStartIndex);
+            const documentEndIndex = source.indexOf("\\end{document}", bodyStartIndex);
+            const bodyEndIndex = backMatterIndex !== -1 ? backMatterIndex : (documentEndIndex === -1 ? source.length : documentEndIndex);
+            return source.slice(bodyStartIndex, bodyEndIndex);
+        }
+
+        function getCitedKeys(source) {
+            const citedKeys = [];
+            const citationPattern = /\\parencite\{([^{}]+)\}/g;
+            let match = citationPattern.exec(source);
+            while (match) {
+                match[1].split(",").map((key) => key.trim()).filter(Boolean).forEach((key) => {
+                    if (!citedKeys.includes(key)) {
+                        citedKeys.push(key);
+                    }
+                });
+                match = citationPattern.exec(source);
+            }
+            return citedKeys;
+        }
+
+        function renderReference(entry) {
+            const parts = [];
+            const authors = formatReferenceAuthors(entry.author || entry.editor || "");
+            const year = latexTextToPlainText(entry.year || "n.d.");
+            const title = latexTextToPlainText(entry.title || entry.key);
+            const container = latexTextToPlainText(entry.journaltitle || entry.booktitle || entry.publisher || entry.note || "");
+            if (authors) {
+                parts.push(`${escapeHtml(authors)}.`);
+            }
+            parts.push(`(${escapeHtml(year)}).`);
+            parts.push(`<span class="latex-bib-title">${escapeHtml(title)}</span>.`);
+            if (container) {
+                parts.push(`${escapeHtml(container)}.`);
+            }
+            if (entry.volume) {
+                parts.push(escapeHtml(entry.volume));
+            }
+            if (entry.pages) {
+                parts.push(`: ${escapeHtml(entry.pages)}.`);
+            }
+            if (entry.doi) {
+                const doi = entry.doi.replace(/^https?:\/\/(dx\.)?doi\.org\//i, "");
+                parts.push(`<a href="https://doi.org/${escapeAttribute(doi)}" target="_blank" rel="noopener noreferrer">doi:${escapeHtml(doi)}</a>`);
+            } else if (entry.url) {
+                parts.push(`<a href="${escapeAttribute(entry.url)}" target="_blank" rel="noopener noreferrer">source</a>`);
+            }
+            return `<li id="${referenceIdForKey(entry.key)}">${parts.join(" ")}</li>`;
+        }
+
+        function renderLatexBibliography(citedKeys, bibEntries) {
+            const references = citedKeys
+                .map((key) => bibEntries[key])
+                .filter(Boolean)
+                .map(renderReference);
+            if (references.length === 0) {
+                return "";
+            }
+            return `<section class="latex-bibliography" id="latex-bibliography"><h4>Bibliography</h4><ol class="latex-bibliography-list">${references.join("")}</ol></section>`;
+        }
+
+        function renderLatexManuscript(latexSource, bibliographySource) {
+            const cleanSource = stripLatexComments(latexSource);
+            const bibEntries = parseBibEntries(bibliographySource || "");
+            const titleParts = extractLatexCommandGroup(cleanSource, "title").split(/\\\\\s*\\large\s*/);
+            const manuscriptTitle = renderLatexInline(titleParts[0] || "LaTeX manuscript", bibEntries);
+            const manuscriptSubtitle = renderLatexInline(titleParts.slice(1).join(" "), bibEntries);
+            const mainBody = getLatexMainBody(cleanSource);
+            const chapters = splitLatexChapters(mainBody);
+            const citedKeys = getCitedKeys(mainBody);
+            const tocHtml = chapters.map((chapter, chapterIndex) => {
+                const chapterId = `latex-chapter-${chapterIndex + 1}`;
+                return `<li><a href="#${chapterId}">${renderLatexInline(chapter.title, bibEntries)}</a></li>`;
+            }).join("");
+            const chaptersHtml = chapters.map((chapter, chapterIndex) => {
+                const chapterId = `latex-chapter-${chapterIndex + 1}`;
+                return `<section class="latex-chapter" id="${chapterId}"><span class="latex-chapter-kicker">Chapter ${chapterIndex + 1}</span><h4 class="latex-chapter-title">${renderLatexInline(chapter.title, bibEntries)}</h4>${renderLatexBlocks(chapter.content, bibEntries)}</section>`;
+            }).join("");
+
+            return `<article class="latex-manuscript"><header class="latex-title-page"><span>Working manuscript</span><h4>${manuscriptTitle}</h4>${manuscriptSubtitle ? `<p>${manuscriptSubtitle}</p>` : ""}</header>${tocHtml ? `<nav class="latex-toc" aria-label="AI book contents"><strong>Contents</strong><ol>${tocHtml}</ol></nav>` : ""}${chaptersHtml}${renderLatexBibliography(citedKeys, bibEntries)}</article>`;
+        }
+
+        function isLatexScienceSource(button, source) {
+            return button.dataset.scienceFormat === "latex" || source.toLowerCase().endsWith(".tex");
+        }
+
+        function getSiblingSource(source, fileName) {
+            const slashIndex = source.lastIndexOf("/");
+            return `${slashIndex === -1 ? "" : source.slice(0, slashIndex + 1)}${fileName}`;
+        }
+
+        async function loadSiblingText(source, fileName) {
+            const response = await fetch(encodeURI(getSiblingSource(source, fileName)), { cache: "no-store" });
+            return response.ok ? response.text() : "";
+        }
+
+        async function typesetMath(target) {
+            if (!window.MathJax) {
+                return;
+            }
+            try {
+                if (window.MathJax.startup?.promise) {
+                    await window.MathJax.startup.promise;
+                }
+                if (window.MathJax.typesetPromise) {
+                    await window.MathJax.typesetPromise([target]);
+                }
+            } catch (error) {
+                // The manuscript remains readable even if the optional math renderer fails.
+            }
+        }
+
         async function renderPoemSource(response, source, title) {
             if (source.toLowerCase().endsWith(".docx")) {
                 if (!window.mammoth) {
@@ -2461,8 +3091,9 @@
 
         async function loadScienceText(button, shouldScroll = false) {
             const title = button.dataset.scienceTitle;
-            const meta = button.dataset.scienceMeta;
+            const meta = button.dataset.scienceMeta || "AI book project.";
             const source = button.dataset.scienceSrc;
+            const isLatexSource = isLatexScienceSource(button, source);
             const reader = document.getElementById("science-reader");
             const titleTarget = document.getElementById("science-reader-title");
             const metaTarget = document.getElementById("science-reader-meta");
@@ -2471,6 +3102,8 @@
             titleTarget.textContent = title;
             metaTarget.textContent = meta;
             textTarget.textContent = "Loading text...";
+            reader.classList.toggle("is-latex-mode", isLatexSource);
+            textTarget.classList.toggle("is-latex-reader", isLatexSource);
             storeScienceSource(source);
 
             document.querySelectorAll(".science-card").forEach((card) => {
@@ -2485,7 +3118,14 @@
                     throw new Error(`Could not load ${source}`);
                 }
                 const text = await response.text();
-                textTarget.innerHTML = formatMarkdown(text.trim());
+                if (isLatexSource) {
+                    const bibliographyText = await loadSiblingText(source, "references.bib");
+                    textTarget.innerHTML = renderLatexManuscript(text, bibliographyText);
+                    await typesetMath(textTarget);
+                } else {
+                    textTarget.innerHTML = formatMarkdown(text.trim());
+                }
+                textTarget.scrollTop = 0;
             } catch (error) {
                 textTarget.textContent = "This text could not be loaded inside the page in this browser.";
             }
@@ -2505,7 +3145,7 @@
             const storedButton = storedSource
                 ? Array.from(buttons).find((button) => button.dataset.scienceSrc === storedSource)
                 : null;
-            const excerptButton = Array.from(buttons).find((button) => button.dataset.scienceSrc.includes("That AI Book.md"));
+            const excerptButton = Array.from(buttons).find((button) => button.dataset.scienceFormat === "latex" || button.dataset.scienceSrc.endsWith(".tex"));
             const pitchButton = Array.from(buttons).find((button) => button.dataset.scienceSrc.includes("publisher_pitch"));
             const initialButton = storedButton || pitchButton || excerptButton || buttons[0];
             if (initialButton) {
