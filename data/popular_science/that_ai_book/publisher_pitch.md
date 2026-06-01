@@ -1,5 +1,3 @@
-# Are you an publisher?
-
 Good. Start here before the manuscript starts waving its arms.
 
 I am writing a funny, blunt, technically grounded popular-science book about AI misconceptions: what LLMs actually do, why they sound smarter than they are, why they make things up with the confidence of a man explaining crypto at a wedding, why people keep using chatbots as therapists, why "free" tools are never just free, and why stuffing a chatbot into every product is not the same as progress.
