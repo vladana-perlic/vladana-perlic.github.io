@@ -1165,11 +1165,13 @@
             grid-template-columns: minmax(18rem, 0.52fr) minmax(0, 1.48fr);
             gap: 1.25rem;
             align-items: start;
+            min-width: 0;
         }
 
         .science-stack {
             display: grid;
             gap: 1rem;
+            min-width: 0;
         }
 
         .science-card.is-selected {
@@ -1246,6 +1248,8 @@
             top: 6rem;
             display: flex;
             flex-direction: column;
+            min-width: 0;
+            max-width: 100%;
             padding: 1.1rem;
             border: 1px solid var(--rule-strong);
             border-radius: 6px;
@@ -1269,6 +1273,8 @@
 
         .science-text {
             flex: 1 1 auto;
+            min-width: 0;
+            max-width: 100%;
             overflow: auto;
             max-height: min(74vh, 62rem);
             padding: clamp(1.1rem, 2.1vw, 2rem);
@@ -1329,10 +1335,13 @@
             font-family: Georgia, "Times New Roman", serif;
             font-size: 1.08rem;
             line-height: 1.78;
+            overflow-wrap: break-word;
         }
 
         .latex-manuscript {
             width: min(47rem, 100%);
+            min-width: 0;
+            max-width: 100%;
             margin: 0 auto;
         }
 
@@ -1380,6 +1389,8 @@
         }
 
         .latex-toc {
+            min-width: 0;
+            max-width: 100%;
             margin: 0 0 2.25rem;
             padding: 1rem 1.05rem;
             border: 1px solid rgba(166, 109, 45, 0.36);
@@ -1408,7 +1419,16 @@
             padding-left: 1.25rem;
         }
 
+        .latex-toc a,
+        .latex-title-page h4,
+        .latex-chapter-title,
+        .latex-bibliography-list li {
+            overflow-wrap: anywhere;
+        }
+
         .latex-chapter {
+            min-width: 0;
+            max-width: 100%;
             padding-top: 2.4rem;
             border-top: 1px dashed var(--rule-strong);
         }
@@ -1465,11 +1485,15 @@
             color: var(--blue);
             font-family: var(--type);
             font-size: 0.82em;
-            white-space: nowrap;
+            overflow-wrap: anywhere;
         }
 
         .latex-equation {
+            width: 100%;
+            min-width: 0;
+            max-width: 100%;
             overflow-x: auto;
+            overflow-y: hidden;
             margin: 1.25rem 0;
             padding: 0.85rem;
             border: 1px dashed var(--rule-strong);
@@ -1477,7 +1501,15 @@
             background: rgba(255, 252, 241, 0.86);
         }
 
+        .latex-equation mjx-container {
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
         .latex-bibliography {
+            min-width: 0;
+            max-width: 100%;
             margin-top: 3rem;
             padding-top: 1.5rem;
             border-top: 1px solid var(--rule-strong);
@@ -1545,21 +1577,67 @@
             bottom: 1.1rem;
             z-index: 80;
             width: min(19rem, calc(100vw - 2rem));
-            padding: 0.8rem 0.9rem;
+            padding: 0;
             border: 1px solid var(--red);
             border-radius: 6px;
             background: rgba(142, 52, 45, 0.96);
             color: var(--page);
             box-shadow: 0 18px 48px rgba(38, 25, 16, 0.28);
-            text-decoration: none;
+            overflow: hidden;
             animation: manuscript-float 4.2s ease-in-out infinite;
         }
 
         .floating-manuscript-cta:hover,
-        .floating-manuscript-cta:focus-visible {
+        .floating-manuscript-cta:focus-within {
             color: var(--page);
             transform: translateY(-3px);
+        }
+
+        .floating-manuscript-cta-link {
+            display: block;
+            padding: 0.8rem 2.55rem 0.8rem 0.9rem;
+            color: inherit;
             text-decoration: none;
+        }
+
+        .floating-manuscript-cta-link:hover,
+        .floating-manuscript-cta-link:focus-visible {
+            color: var(--page);
+            text-decoration: none;
+        }
+
+        .floating-manuscript-cta-close {
+            position: absolute;
+            top: 0.38rem;
+            right: 0.38rem;
+            display: grid;
+            width: 1.75rem;
+            height: 1.75rem;
+            padding: 0;
+            place-items: center;
+            border: 1px solid rgba(255, 245, 223, 0.44);
+            border-radius: 4px;
+            background: rgba(36, 25, 21, 0.16);
+            color: var(--page);
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .floating-manuscript-cta-close:hover,
+        .floating-manuscript-cta-close:focus-visible {
+            background: rgba(255, 245, 223, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .floating-manuscript-cta-close:focus-visible {
+            outline: 2px solid rgba(255, 245, 223, 0.78);
+            outline-offset: 2px;
+        }
+
+        .floating-manuscript-cta-close svg {
+            width: 1rem;
+            height: 1rem;
+            stroke-width: 2.5;
         }
 
         .floating-manuscript-cta span {
@@ -1834,6 +1912,7 @@
             .science-reader {
                 position: static;
                 transform: none;
+                width: 100%;
             }
 
             .sticker-note {
@@ -1908,6 +1987,54 @@
                 width: auto;
             }
 
+            .science-reader {
+                padding: 0.75rem;
+            }
+
+            .science-reader h3 {
+                font-size: 1.25rem;
+                overflow-wrap: anywhere;
+            }
+
+            .science-text {
+                padding: 0.85rem;
+                font-size: 0.98rem;
+            }
+
+            .science-text.is-latex-reader {
+                font-size: 1rem;
+                line-height: 1.72;
+            }
+
+            .latex-title-page {
+                min-height: auto;
+                padding: 1.4rem 0;
+            }
+
+            .latex-title-page h4 {
+                font-size: 1.6rem;
+            }
+
+            .latex-title-page p {
+                font-size: 0.98rem;
+            }
+
+            .latex-toc {
+                padding: 0.85rem;
+            }
+
+            .latex-toc ol {
+                padding-left: 1rem;
+            }
+
+            .latex-chapter-title {
+                font-size: 1.3rem;
+            }
+
+            .latex-equation {
+                padding: 0.65rem;
+            }
+
             .timeline li {
                 grid-template-columns: 1fr;
                 gap: 0.15rem;
@@ -1928,10 +2055,15 @@
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <a class="floating-manuscript-cta" href="#popular-science" aria-label="Check out Vladana Perlić's new popular science manuscript on AI misconceptions">
-        <span>New pop-sci manuscript</span>
-        <strong>Psst! Hey, you! Yes, you! 🫵 Come meet the future Taylor Swift of explaining why you shouldn't put a chatbot in charge of your mortgage. And hurry before the tickets get expensive!</strong>
-    </a>
+    <aside class="floating-manuscript-cta" data-floating-manuscript-cta aria-label="Popular science manuscript announcement">
+        <a class="floating-manuscript-cta-link" href="#popular-science" aria-label="Check out Vladana Perlić's new popular science manuscript on AI misconceptions">
+            <span>New pop-sci manuscript</span>
+            <strong>Psst! Hey, you! Yes, you! 🫵 Come meet the future Taylor Swift of explaining why you shouldn't put a chatbot in charge of your mortgage. And hurry before the tickets get expensive!</strong>
+        </a>
+        <button class="floating-manuscript-cta-close" type="button" data-floating-manuscript-close aria-label="Close manuscript announcement">
+            <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+    </aside>
 
     <div class="page-shell">
         <header class="site-header">
@@ -2503,6 +2635,7 @@
 
     <script>
         const protectedEmailCodes = [118, 108, 97, 100, 97, 110, 97, 46, 112, 101, 114, 108, 105, 99, 64, 116, 101, 108, 101, 99, 111, 109, 45, 112, 97, 114, 105, 115, 46, 102, 114];
+        const floatingManuscriptDismissedKey = "floatingManuscriptDismissed";
         let revealedEmail = "";
 
         function getProtectedEmail() {
@@ -3261,6 +3394,42 @@
             });
         }
 
+        function isFloatingManuscriptDismissed() {
+            try {
+                return window.sessionStorage.getItem(floatingManuscriptDismissedKey) === "true";
+            } catch (error) {
+                return false;
+            }
+        }
+
+        function dismissFloatingManuscript(card) {
+            card.hidden = true;
+            try {
+                window.sessionStorage.setItem(floatingManuscriptDismissedKey, "true");
+            } catch (error) {
+                // Ignore storage failures; the card still closes for the current page view.
+            }
+        }
+
+        function setupFloatingManuscriptCta() {
+            const card = document.querySelector("[data-floating-manuscript-cta]");
+            const closeButton = document.querySelector("[data-floating-manuscript-close]");
+            if (!card || !closeButton) {
+                return;
+            }
+
+            if (isFloatingManuscriptDismissed()) {
+                card.hidden = true;
+                return;
+            }
+
+            closeButton.addEventListener("click", (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                dismissFloatingManuscript(card);
+            });
+        }
+
         function setupMarginalia() {
             const note = document.getElementById("margin-note-text");
             const defaultText = note.textContent;
@@ -3300,6 +3469,7 @@
             setupRevealPanels();
             setupCompactToggles();
             setupReaderModes();
+            setupFloatingManuscriptCta();
             setupMarginalia();
             if (window.lucide) {
                 window.lucide.createIcons();
