@@ -205,6 +205,65 @@
             color: var(--red);
         }
 
+        .nav-dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-dropdown summary {
+            display: grid;
+            place-items: center;
+            width: 2rem;
+            min-height: 2.25rem;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            color: var(--soft-ink);
+            cursor: pointer;
+            list-style: none;
+        }
+
+        .nav-dropdown summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .nav-dropdown summary:hover,
+        .nav-dropdown summary:focus-visible,
+        .nav-dropdown details[open] summary {
+            border-color: var(--rule-strong);
+            background: rgba(255, 255, 255, 0.32);
+            color: var(--red);
+        }
+
+        .nav-dropdown summary::after {
+            content: "▾";
+        }
+
+        .nav-submenu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1;
+            width: min(20rem, calc(100vw - 2rem));
+            max-height: 60vh;
+            overflow-y: auto;
+            margin: 0;
+            padding: 0.4rem;
+            border: 1px solid var(--rule-strong);
+            border-radius: 4px;
+            background: var(--page);
+            box-shadow: var(--shadow);
+            list-style: none;
+        }
+
+        .nav-submenu a {
+            display: flex;
+        }
+
+        .archive-subsection[id] {
+            scroll-margin-top: 10rem;
+        }
+
         .section {
             --section-pad-left: 6.75rem;
             --section-pad-right: 2rem;
@@ -1767,7 +1826,20 @@
             }
 
             .nav-links {
+                position: relative;
                 justify-content: flex-start;
+            }
+
+            .nav-dropdown {
+                position: static;
+            }
+
+            .nav-submenu {
+                top: auto;
+            }
+
+            .archive-subsection[id] {
+                scroll-margin-top: 18rem;
             }
 
             .section,
@@ -1858,7 +1930,21 @@
                 <ul class="nav-links">
                     <li><a href="#news">News</a></li>
                     <li><a href="#research">Research</a></li>
-                    <li><a href="#literary-works">Literary works</a></li>
+                    <li class="nav-dropdown">
+                        <a href="#literary-works">Literary works</a>
+                        <details>
+                            <summary aria-label="Literary works subsections"></summary>
+                            <ul class="nav-submenu">
+                                <li><a href="#poetry-books">Two books of poetry</a></li>
+                                <li><a href="#book-translation">One book translated into French</a></li>
+                                <li><a href="#international-publications">In print abroad and on residency</a></li>
+                                <li><a href="#literary-awards">Literary awards</a></li>
+                                <li><a href="#awarded-poems">Prize-Winning Poems and Translations</a></li>
+                                <li><a href="#published-prose">Published prose</a></li>
+                                <li><a href="#recorded-readings">Recorded Poetry Readings</a></li>
+                            </ul>
+                        </details>
+                    </li>
                     <li><a href="#press">Press</a></li>
                     <li><a href="#beta-readers">Beta readers</a></li>
                     <li><a href="#bio">Author bio</a></li>
@@ -2017,7 +2103,7 @@
                         </aside>
                     </div>
 
-                    <div class="archive-subsection">
+                    <div class="archive-subsection" id="poetry-books">
                         <div class="subsection-heading">
                             <p class="eyebrow">Poetry books</p>
                             <h3>Two books of poetry</h3>
@@ -2055,7 +2141,7 @@
                         </div>
                     </div>
 
-                    <div class="archive-subsection">
+                    <div class="archive-subsection" id="book-translation">
                         <div class="subsection-heading">
                             <p class="eyebrow">Book translation</p>
                             <h3>One book translated into French</h3>
@@ -2072,7 +2158,7 @@
                         </article>
                     </div>
 
-                    <div class="archive-subsection">
+                    <div class="archive-subsection" id="international-publications">
                         <div class="subsection-heading">
                             <p class="eyebrow">Anthologies, journals, and residencies</p>
                             <h3>In print abroad and on residency</h3>
@@ -2142,7 +2228,7 @@
                         </div>
                     </div>
 
-                    <div class="archive-subsection">
+                    <div class="archive-subsection" id="literary-awards">
                         <div class="subsection-heading subsection-heading-with-note">
                             <div class="subsection-heading-copy">
                                 <p class="eyebrow">Prizes and honors</p>
@@ -2393,7 +2479,7 @@
                         </div>
                     </div>
 
-                    <div class="archive-subsection">
+                    <div class="archive-subsection" id="published-prose">
                         <div class="subsection-heading">
                             <p class="eyebrow">Short fiction</p>
                             <h3>Published prose</h3>
@@ -2408,7 +2494,7 @@
                         </article>
                     </div>
 
-                    <div class="archive-subsection" aria-labelledby="recorded-readings-title">
+                    <div class="archive-subsection" id="recorded-readings" aria-labelledby="recorded-readings-title">
                         <div class="subsection-heading">
                             <p class="eyebrow">Recorded poetry</p>
                             <h3 id="recorded-readings-title">Recorded Poetry Readings</h3>
@@ -3019,6 +3105,29 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
+            const literaryDropdown = document.querySelector(".nav-dropdown details");
+            const literaryNavItem = literaryDropdown.closest(".nav-dropdown");
+            literaryNavItem.addEventListener("pointerenter", (event) => {
+                if (event.pointerType === "mouse") {
+                    literaryDropdown.open = true;
+                }
+            });
+            literaryNavItem.addEventListener("pointerleave", (event) => {
+                if (event.pointerType === "mouse" && !literaryDropdown.contains(document.activeElement)) {
+                    literaryDropdown.open = false;
+                }
+            });
+            document.addEventListener("click", (event) => {
+                if (literaryDropdown.open && (!literaryDropdown.contains(event.target) || event.target.closest(".nav-submenu a"))) {
+                    literaryDropdown.open = false;
+                }
+            });
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape" && literaryDropdown.open) {
+                    literaryDropdown.open = false;
+                    literaryDropdown.querySelector("summary").focus();
+                }
+            });
             document.getElementById("year").textContent = new Date().getFullYear();
             document.querySelectorAll("[data-copy-target]").forEach((button) => {
                 button.addEventListener("click", async () => {
